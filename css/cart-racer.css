@@ -1,0 +1,414 @@
+.cart-racer-page {
+  background: #10131f;
+  color: #f8f5ec;
+  font-family: Raleway, Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+.cart-racer-page * {
+  box-sizing: border-box;
+}
+
+.cart-racer-hero {
+  align-items: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(237, 183, 19, 0.36), transparent 28rem),
+    linear-gradient(135deg, #10131f 0%, #1d2440 50%, #48243a 100%);
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  min-height: 34rem;
+  overflow: hidden;
+  padding: 8rem 8vw 5rem;
+  position: relative;
+}
+
+.cart-racer-hero:after {
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  bottom: -3rem;
+  content: "";
+  height: 16rem;
+  left: 0;
+  opacity: 0.45;
+  position: absolute;
+  right: 0;
+  transform: skewY(-4deg);
+}
+
+.cart-racer-hero__copy,
+.cart-racer-hero__card {
+  position: relative;
+  z-index: 1;
+}
+
+.cart-racer-kicker {
+  color: #edb713;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+}
+
+.cart-racer-hero h1 {
+  color: #fff;
+  font-size: clamp(2.4rem, 8vw, 5.6rem);
+  line-height: 0.95;
+  margin: 0 0 1.4rem;
+  max-width: 48rem;
+}
+
+.cart-racer-hero p {
+  color: rgba(248, 245, 236, 0.84);
+  font-size: 1.08rem;
+  line-height: 1.7;
+  max-width: 42rem;
+}
+
+.cart-racer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.cart-racer-button {
+  -webkit-appearance: none;
+  align-items: center;
+  background: #edb713;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 1rem 2rem rgba(237, 183, 19, 0.25);
+  color: #18110a;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0.12em;
+  min-height: 3rem;
+  padding: 0.9rem 1.35rem;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.cart-racer-button:hover,
+.cart-racer-button:focus {
+  background: #ffd84c;
+  color: #18110a;
+  transform: translateY(-2px);
+}
+
+.cart-racer-button--ghost {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: none;
+  color: #fff;
+}
+
+.cart-racer-button--ghost:hover,
+.cart-racer-button--ghost:focus {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.cart-racer-hero__card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.28);
+  min-height: 24rem;
+  overflow: hidden;
+  padding: 1.2rem;
+  transform: rotate(2deg);
+}
+
+.cart-racer-card-track {
+  background:
+    linear-gradient(90deg, #17311f 0 13%, transparent 13% 87%, #17311f 87%),
+    repeating-linear-gradient(0deg, transparent 0 3rem, rgba(255, 255, 255, 0.15) 3rem 3.18rem),
+    linear-gradient(180deg, #334054 0%, #586a78 100%);
+  border-radius: 1.5rem;
+  height: 100%;
+  min-height: 22rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.cart-racer-card-track:before,
+.cart-racer-card-track:after {
+  background: repeating-linear-gradient(0deg, #f6d85b 0 1.4rem, #314737 1.4rem 2.6rem);
+  content: "";
+  height: 120%;
+  position: absolute;
+  top: -10%;
+  width: 0.7rem;
+}
+
+.cart-racer-card-track:before {
+  left: 32%;
+}
+
+.cart-racer-card-track:after {
+  right: 32%;
+}
+
+.cart-racer-card-cart {
+  background: #edb713;
+  border: 0.22rem solid #241b12;
+  border-radius: 0.7rem 0.7rem 0.35rem 0.35rem;
+  box-shadow:
+    -0.65rem 0.9rem 0 -0.42rem #121212,
+    0.65rem 0.9rem 0 -0.42rem #121212;
+  height: 3.3rem;
+  position: absolute;
+  width: 2.5rem;
+}
+
+.cart-racer-card-cart:before {
+  border: 0.22rem solid #241b12;
+  border-bottom: 0;
+  border-radius: 0.8rem 0.8rem 0 0;
+  content: "";
+  height: 1.1rem;
+  left: 0.35rem;
+  position: absolute;
+  top: -0.95rem;
+  width: 1.35rem;
+}
+
+.cart-racer-card-cart--one {
+  background: #edb713;
+  bottom: 2rem;
+  left: 45%;
+}
+
+.cart-racer-card-cart--two {
+  background: #44d7b6;
+  bottom: 8rem;
+  left: 61%;
+  transform: scale(0.78);
+}
+
+.cart-racer-card-cart--three {
+  background: #ff6b86;
+  bottom: 13rem;
+  left: 29%;
+  transform: scale(0.62);
+}
+
+.cart-racer-shell {
+  margin: 0 auto;
+  max-width: 76rem;
+  padding: 4rem 1.25rem 3rem;
+}
+
+.cart-racer-hud {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: 0.8rem;
+}
+
+.cart-racer-hud div {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.cart-racer-hud span {
+  color: rgba(248, 245, 236, 0.64);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cart-racer-hud strong {
+  color: #fff;
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  min-height: 1.55rem;
+}
+
+.cart-racer-stage {
+  background: #060810;
+  border: 0.55rem solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  position: relative;
+}
+
+#cart-racer-canvas {
+  aspect-ratio: 16 / 9;
+  display: block;
+  max-height: 72vh;
+  width: 100%;
+}
+
+.cart-racer-overlay {
+  align-items: center;
+  background: rgba(8, 10, 20, 0.72);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 1.25rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.cart-racer-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.cart-racer-overlay__panel {
+  background: rgba(16, 19, 31, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.5rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+  max-width: 31rem;
+  padding: clamp(1.25rem, 4vw, 2.3rem);
+  text-align: center;
+}
+
+.cart-racer-overlay h2 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3.1rem);
+  line-height: 1;
+  margin: 0 0 0.75rem;
+}
+
+.cart-racer-overlay p {
+  color: rgba(248, 245, 236, 0.78);
+  line-height: 1.65;
+}
+
+.cart-racer-touch-controls {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: 1fr 1.25fr;
+  margin-top: 0.9rem;
+  touch-action: none;
+}
+
+.cart-racer-touch-row {
+  display: grid;
+  gap: 0.7rem;
+  grid-auto-flow: column;
+}
+
+.cart-racer-touch-controls button {
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1rem;
+  color: #fff;
+  font-weight: 800;
+  min-height: 3.4rem;
+  touch-action: manipulation;
+}
+
+.cart-racer-touch-controls button:active,
+.cart-racer-touch-controls button.is-active {
+  background: #edb713;
+  color: #18110a;
+}
+
+.cart-racer-guide {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 76rem;
+  padding: 0 1.25rem 5rem;
+}
+
+.cart-racer-guide article {
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  padding: 1.35rem;
+}
+
+.cart-racer-guide h3 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.cart-racer-guide p {
+  color: rgba(248, 245, 236, 0.74);
+  line-height: 1.65;
+}
+
+.cart-racer-keyboard-help {
+  color: rgba(248, 245, 236, 0.56);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 850px) {
+  .cart-racer-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 6.5rem;
+  }
+
+  .cart-racer-hero__card {
+    min-height: 17rem;
+  }
+
+  .cart-racer-card-track {
+    min-height: 16rem;
+  }
+
+  .cart-racer-hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cart-racer-touch-controls,
+  .cart-racer-guide {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .cart-racer-hero {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .cart-racer-shell {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .cart-racer-hud {
+    gap: 0.45rem;
+  }
+
+  .cart-racer-hud div {
+    border-radius: 0.75rem;
+    padding: 0.55rem 0.65rem;
+  }
+
+  .cart-racer-hud strong {
+    font-size: 0.98rem;
+  }
+
+  .cart-racer-stage {
+    border-width: 0.35rem;
+    border-radius: 1rem;
+  }
+}

@@ -1,0 +1,123 @@
+---
+layout: default
+title: Cart Rally
+section_id: game
+---
+
+<link rel="stylesheet" href="{{ "/css/cart-racer.css" | prepend: site.baseurl }}">
+
+<main class="cart-racer-page">
+  <section class="cart-racer-hero">
+    <div class="cart-racer-hero__copy">
+      <p class="cart-racer-kicker">iOS-friendly arcade prototype</p>
+      <h1>Cart Rally: After-Hours Aisle GP</h1>
+      <p>
+        Race scrappy shopping carts through a closed supermarket, grab donation
+        groceries, hit the coupon boosts, and avoid mop spills on the way to the
+        checkout finish line.
+      </p>
+      <div class="cart-racer-actions">
+        <a class="cart-racer-button" href="#cart-racer-game">Play now</a>
+        <a class="cart-racer-button cart-racer-button--ghost" href="#cart-racer-how">How to race</a>
+      </div>
+    </div>
+    <div class="cart-racer-hero__card" aria-hidden="true">
+      <div class="cart-racer-card-track">
+        <span class="cart-racer-card-cart cart-racer-card-cart--one"></span>
+        <span class="cart-racer-card-cart cart-racer-card-cart--two"></span>
+        <span class="cart-racer-card-cart cart-racer-card-cart--three"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-racer-shell" id="cart-racer-game" aria-label="Cart Rally game">
+    <div class="cart-racer-hud" aria-live="polite">
+      <div>
+        <span>Lap</span>
+        <strong id="cart-racer-lap">1/3</strong>
+      </div>
+      <div>
+        <span>Place</span>
+        <strong id="cart-racer-place">4th</strong>
+      </div>
+      <div>
+        <span>Speed</span>
+        <strong id="cart-racer-speed">0</strong>
+      </div>
+      <div>
+        <span>Item</span>
+        <strong id="cart-racer-item">None</strong>
+      </div>
+      <div>
+        <span>Groceries</span>
+        <strong id="cart-racer-score">0</strong>
+      </div>
+    </div>
+
+    <div class="cart-racer-stage">
+      <canvas
+        id="cart-racer-canvas"
+        width="960"
+        height="540"
+        aria-label="Top-down supermarket aisle racing game"
+        role="img"
+      ></canvas>
+
+      <div class="cart-racer-overlay" id="cart-racer-overlay">
+        <div class="cart-racer-overlay__panel">
+          <p class="cart-racer-kicker">After-hours race</p>
+          <h2 id="cart-racer-overlay-title">Ready to roll?</h2>
+          <p id="cart-racer-overlay-copy">
+            Steer through three laps of the supermarket. Pick up donation
+            groceries for points and use items to pass the rival carts.
+          </p>
+          <button class="cart-racer-button" id="cart-racer-start" type="button">Start race</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-racer-touch-controls" aria-label="Touch controls">
+      <div class="cart-racer-touch-row">
+        <button type="button" data-action="left" aria-label="Steer left">&larr;</button>
+        <button type="button" data-action="right" aria-label="Steer right">&rarr;</button>
+      </div>
+      <div class="cart-racer-touch-row">
+        <button type="button" data-action="brake" aria-label="Brake">Brake</button>
+        <button type="button" data-action="boost" aria-label="Push faster">Push</button>
+        <button type="button" data-action="item" aria-label="Use item">Item</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-racer-guide" id="cart-racer-how">
+    <article>
+      <h3>Controls</h3>
+      <p>
+        On iPhone or iPad, hold the on-screen arrows to steer. Tap Push for a
+        quick sprint, Brake for tight turns, and Item when you have a pickup.
+      </p>
+      <p class="cart-racer-keyboard-help">
+        Keyboard: arrow keys or A/D to steer, W to push, S to brake, and E or
+        Space to use an item.
+      </p>
+    </article>
+    <article>
+      <h3>Pickups</h3>
+      <p>
+        Coupon boosts launch your cart forward. Grocery boxes add to the
+        donation score. Mystery totes can become a shield, a sprint, or a small
+        burst that helps you overtake nearby carts.
+      </p>
+    </article>
+    <article>
+      <h3>Hazards</h3>
+      <p>
+        Mop spills and display stacks slow the cart down unless a shield is
+        active. Rival carts weave across the aisle, so time your push before
+        corners and pickup rows.
+      </p>
+    </article>
+  </section>
+</main>
+
+<script src="{{ "/js/cart-racer.js" | prepend: site.baseurl }}" type="text/javascript"></script>
