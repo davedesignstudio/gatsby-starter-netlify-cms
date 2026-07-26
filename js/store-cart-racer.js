@@ -41,8 +41,8 @@
     running: false,
     finished: false,
     finishHandled: false,
-    playerLaneTarget: 1.5,
-    playerLaneVisual: 1.5,
+    playerLaneTarget: 1,
+    playerLaneVisual: 1,
     playerSpeed: 280,
     slowdown: 0,
     boostMeter: 68,
@@ -127,8 +127,8 @@
     state.running = false;
     state.finished = false;
     state.finishHandled = false;
-    state.playerLaneTarget = 1.5;
-    state.playerLaneVisual = 1.5;
+    state.playerLaneTarget = 1;
+    state.playerLaneVisual = 1;
     state.playerSpeed = 280;
     state.slowdown = 0;
     state.boostMeter = 68;
@@ -210,11 +210,11 @@
 
   function updatePlayer(dt) {
     if (keys.left) {
-      moveLane(-0.085);
+      moveLane(-1);
       keys.left = false;
     }
     if (keys.right) {
-      moveLane(0.085);
+      moveLane(1);
       keys.right = false;
     }
 
