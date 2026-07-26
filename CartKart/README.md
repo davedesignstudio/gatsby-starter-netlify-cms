@@ -50,9 +50,10 @@ on the `CartKartCore` product.
 The package builds and tests anywhere Swift runs:
 
 ```bash
-swift test                              # 55 tests, about two seconds
+swift test                              # 56 tests, about two seconds
 swift run -c release cartkart-sim race --track frozen-foods
 swift run -c release cartkart-sim balance --races 20
+swift run -c release cartkart-sim map --track frozen-foods --trace
 swift run -c release cartkart-sim items
 swift run -c release cartkart-sim tracks
 ```
@@ -68,6 +69,10 @@ Wins and points by cart
   Chrome        18.8%   388 pts  #########
   ...
 ```
+
+`map` rasterises a course to a PPM, optionally overlaying the line the winning
+AI actually drove, which is how the courses were checked for kinks and for
+sections that double back too close to themselves.
 
 ## How it plays
 

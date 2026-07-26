@@ -119,8 +119,8 @@ final class EffectsLayer: SKNode {
         label.fontColor = color
         label.position = position.cgPoint
         label.zPosition = Layer.effect + 1
-        if let rotation = (scene as? RaceScene)?.cameraRotation {
-            label.zRotation = -rotation
+        if let cameraRotation = (scene as? RaceScene)?.cameraRotation {
+            label.zRotation = cameraRotation
         }
         addChild(label)
         label.run(.sequence([

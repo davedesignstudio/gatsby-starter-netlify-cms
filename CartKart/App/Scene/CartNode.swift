@@ -56,9 +56,10 @@ final class CartNode: SKNode {
         body.zRotation = kart.visualHeading
         shadow.position = CGPoint(x: -6, y: -8)
 
-        // Keep name tags upright regardless of how the camera is rotated.
-        if let sceneRotation = (scene as? RaceScene)?.cameraRotation {
-            nameTag.zRotation = -sceneRotation
+        // The camera rotates with the player, so counter-rotate the tag by the
+        // same amount to keep it upright on screen.
+        if let cameraRotation = (scene as? RaceScene)?.cameraRotation {
+            nameTag.zRotation = cameraRotation
         }
 
         if kart.isInvincible {

@@ -150,6 +150,44 @@ case "balance":
         print("  \(profile.name.padding(toLength: 12, withPad: " ", startingAt: 0)) \(String(format: "%5.1f%%", share)) \(String(format: "%5d", points[profile.id] ?? 0)) pts  \(bar)")
     }
 
+case "map":
+    let track = TrackLibrary.track(id: value("track") ?? "produce-plaza")
+    let output = value("out") ?? "\(track.id).ppm"
+    var trace: [Vec2] = []
+    if arguments.contains("--trace") {
+        // Record where the eventual winner actually drove.
+        let engine = RaceEngine(
+            configuration: RaceConfiguration(
+                track: track,
+                entries: entries(count: intValue("racers", default: 6), withPlayer: false),
+                difficulty: difficultyValue(),
+                lapCount: 1,
+                seed: UInt64(intValue("seed", default: 2026))
+            )
+        )
+        var samples: [Int: [Vec2]] = [:]
+        let step = engine.tuning.fixedTimeStep
+        var elapsed = 0.0
+        var sinceSample = 0.0
+        while !engine.isComplete && elapsed < 400 {
+            engine.advance(deltaTime: step)
+            elapsed += step
+            sinceSample += step
+            if sinceSample >= 0.08 {
+                sinceSample = 0
+                for kart in engine.karts { samples[kart.id, default: []].append(kart.position) }
+            }
+            _ = engine.drainEvents()
+        }
+        if let winner = engine.results.first {
+            trace = samples[winner.kartID] ?? []
+            print("Tracing \(winner.profile.name), \(TimeFormat.lap(winner.totalTime ?? 0))")
+        }
+    }
+    let image = TrackMap.render(track: track, width: intValue("width", default: 900), trace: trace)
+    try TrackMap.writePPM(image, to: output)
+    print("Wrote \(output) (\(image.width)x\(image.height)) for \(track.name)")
+
 case "items":
     print("Item draw chances by race position")
     print(String(repeating: "-", count: 78))
@@ -173,6 +211,7 @@ default:
 
       race     [--track id] [--racers n] [--laps n] [--difficulty d] [--seed n]
       balance  [--races n] [--racers n] [--difficulty d]
+      map      [--track id] [--out file.ppm] [--width n] [--trace]
       items
       tracks
 

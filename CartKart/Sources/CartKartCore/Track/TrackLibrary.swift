@@ -301,7 +301,9 @@ public enum TrackLibrary {
             TrackControlPoint(-1350, -950, halfWidth: 205),
             TrackControlPoint(-750, -1250, halfWidth: 215)
         ],
-        shoulderWidth: 110,
+        // Kept narrow enough that the two halves of the long loop-back never
+        // share a shoulder.
+        shoulderWidth: 88,
         plan: FeaturePlan(
             boostPads: [
                 .init(arc: 0.08, lane: -0.3, radius: 54),

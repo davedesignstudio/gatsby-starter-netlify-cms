@@ -32,6 +32,41 @@ final class TrackTests: XCTestCase {
         }
     }
 
+    /// Two parts of the same loop must never come close enough for their
+    /// driveable lanes to touch. Where they do, projecting a cart onto the
+    /// centreline becomes ambiguous and lap progress can jump between branches.
+    func testLanesNeverRunIntoEachOther() {
+        for track in TrackLibrary.all {
+            let samples = track.samples
+            let count = samples.count
+            let spacing = track.trackLength / Double(count)
+            var worstClearance = Double.greatestFiniteMagnitude
+            var worstPair = (0, 0)
+
+            for i in 0..<count {
+                for j in (i + 1)..<count {
+                    // Only compare places that are far apart along the lane.
+                    let stepsApart = min(abs(i - j), count - abs(i - j))
+                    guard Double(stepsApart) * spacing > 700 else { continue }
+                    let clearance = samples[i].position.distance(to: samples[j].position)
+                        - samples[i].halfWidth - samples[j].halfWidth
+                    if clearance < worstClearance {
+                        worstClearance = clearance
+                        worstPair = (i, j)
+                    }
+                }
+            }
+
+            // More than a cart width of clear floor between the two lanes, so a
+            // cart can never straddle both at once.
+            XCTAssertGreaterThan(
+                worstClearance,
+                120,
+                "\(track.id) doubles back to within \(Int(worstClearance))u of itself at samples \(worstPair)"
+            )
+        }
+    }
+
     func testProjectionOfCentrelinePoints() {
         for index in stride(from: 0, to: track.samples.count, by: 7) {
             let sample = track.samples[index]
