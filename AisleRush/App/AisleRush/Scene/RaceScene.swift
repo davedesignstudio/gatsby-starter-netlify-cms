@@ -7,14 +7,19 @@ import AisleRushCore
 /// SwiftUI does not need to know.
 final class RaceInput {
     var steer: Double = 0
-    var throttle: Double = 1
+    /// Only consulted when auto-accelerate is off, or during the countdown.
+    var throttle: Double = 0
     var brake = false
     var drift = false
     var fire = false
     var aimBackward = false
 
-    func control(autoAccelerate: Bool) -> ControlInput {
-        let forward = brake ? -1.0 : (autoAccelerate ? 1.0 : throttle)
+    func control(autoAccelerate: Bool, duringCountdown: Bool) -> ControlInput {
+        // Auto-accelerate must not apply before the lights change: holding the
+        // throttle for the whole countdown floods the wheels, and the player
+        // has not asked for anything yet.
+        let assisted = autoAccelerate && !duringCountdown
+        let forward = brake ? -1.0 : (assisted ? 1.0 : throttle)
         return ControlInput(
             steer: steer,
             throttle: forward,
@@ -179,7 +184,12 @@ final class RaceScene: SKScene {
 
     private func stepSimulation() {
         if let playerID = simulation.playerCartID {
-            simulation.setInput(input.control(autoAccelerate: settings.autoAccelerate), forCart: playerID)
+            var counting = false
+            if case .countdown = simulation.phase { counting = true }
+            simulation.setInput(
+                input.control(autoAccelerate: settings.autoAccelerate, duringCountdown: counting),
+                forCart: playerID
+            )
         }
         simulation.update(dt: stepSize)
         handle(events: simulation.drainEvents())

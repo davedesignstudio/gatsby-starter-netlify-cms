@@ -113,12 +113,18 @@ final class GameFlow: ObservableObject {
 
     func advanceCup() {
         guard var progress = cup, !progress.isFinalRace else {
-            cup = nil
-            return go(to: .menu)
+            return finishCup()
         }
         progress.raceIndex += 1
         cup = progress
         beginRace(trackID: progress.currentTrackID, entrants: progress.entrants, mode: .grandPrix)
+    }
+
+    /// Closes out a championship. Separate from `advanceCup` so the results
+    /// screen cannot replay the last race and award its points twice.
+    func finishCup() {
+        cup = nil
+        go(to: .menu)
     }
 
     func restartRace() {

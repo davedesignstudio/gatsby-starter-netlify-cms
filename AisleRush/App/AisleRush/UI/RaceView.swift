@@ -24,7 +24,8 @@ struct RaceView: View {
                 autoAccelerate: settings.autoAccelerate,
                 heldItem: session.hud.heldItem,
                 itemIsRolling: session.hud.itemIsRolling,
-                driftTier: session.hud.driftTier
+                driftTier: session.hud.driftTier,
+                isCountdown: session.hud.countdown != nil
             )
             .opacity(session.isPaused ? 0 : 1)
             .allowsHitTesting(!session.isPaused)

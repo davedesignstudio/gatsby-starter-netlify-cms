@@ -210,7 +210,7 @@ struct HowToPlayView: View {
                                     .font(Theme.heading(16))
                                 tip("Steer", "Slide your left thumb, or switch to tilt in settings.")
                                 tip("Drift", "Hold DRIFT through a corner. The longer you hold, the bigger the boost when you let go: blue, orange, then purple.")
-                                tip("Rocket start", "Hold the gas as the countdown hits two. Hold it from three and you will flood the wheels instead.")
+                                tip("Rocket start", "Hold REV as the countdown hits two. Hold it from three and you will flood the wheels instead.")
                                 tip("Surfaces", "Blue is wet, pale blue is freezer floor, brown is flattened cardboard. All of them will embarrass you.")
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)

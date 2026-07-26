@@ -165,9 +165,14 @@ struct ResultsView: View {
             Button("Menu") { flow.go(to: .menu) }
                 .buttonStyle(QuietButtonStyle())
             Spacer()
-            if outcome.mode == .grandPrix, !outcome.isFinalRaceOfCup {
-                Button("Next race") { flow.advanceCup() }
-                    .buttonStyle(PrimaryButtonStyle(tint: Theme.tomato))
+            if outcome.mode == .grandPrix {
+                if outcome.isFinalRaceOfCup {
+                    Button("Finish cup") { flow.finishCup() }
+                        .buttonStyle(PrimaryButtonStyle(tint: Theme.citrus))
+                } else {
+                    Button("Next race") { flow.advanceCup() }
+                        .buttonStyle(PrimaryButtonStyle(tint: Theme.tomato))
+                }
             } else {
                 Button("Race again") { flow.restartRace() }
                     .buttonStyle(PrimaryButtonStyle(tint: Theme.tomato))

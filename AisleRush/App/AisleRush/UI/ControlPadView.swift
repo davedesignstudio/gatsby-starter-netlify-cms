@@ -11,6 +11,8 @@ struct ControlPadView: View {
     let heldItem: ItemKind?
     let itemIsRolling: Bool
     let driftTier: Int
+    /// The lights are still on, so the gas button doubles as a rev button.
+    let isCountdown: Bool
 
     @State private var steerValue: Double = 0
     @State private var thumbOffset: CGSize = .zero
@@ -32,8 +34,12 @@ struct ControlPadView: View {
             HStack(alignment: .bottom, spacing: 14) {
                 VStack(spacing: 12) {
                     itemButton
-                    if !autoAccelerate {
-                        pedal("Gas", tint: Theme.lime, systemImage: "chevron.up") { pressed in
+                    if !autoAccelerate || isCountdown {
+                        pedal(
+                            isCountdown ? "Rev" : "Gas",
+                            tint: isCountdown ? Theme.citrus : Theme.lime,
+                            systemImage: "chevron.up"
+                        ) { pressed in
                             input.throttle = pressed ? 1 : 0
                         }
                     }
