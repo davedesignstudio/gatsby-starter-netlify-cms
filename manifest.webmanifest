@@ -1,0 +1,18 @@
+{
+  "name": "Cart Dash: After Hours",
+  "short_name": "Cart Dash",
+  "description": "An after-hours shopping cart racing game built for iPhone.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#080b12",
+  "theme_color": "#080b12",
+  "icons": [
+    {
+      "src": "images/cart-dash-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
