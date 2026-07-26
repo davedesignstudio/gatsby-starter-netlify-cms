@@ -1,412 +1,254 @@
----
-layout: default
-section_id: home
-slides:
-  - bg: images/@stock/slide-1.jpg
-    small_title:
-      klass: bottom-to-top
-      text: The perfect theme for
-    title:
-      klass: bottom-to-top
-      text: Many purposes
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-4.jpg
-    klass: centered-text
-    small_title:
-      klass: bottom-to-top
-      text: We make websites that are
-    title:
-      klass: bottom-to-top
-      text: Creative &amp; Powerful
-    buttons:
-      klass: bottom-to-top
-      items:
-        - klass: boxed
-          text: View Features
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-        - text: Purchase Now
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-5.jpg
-    small_title:
-      klass: bottom-to-top
-      text: This is a creative theme that you'll
-    title:
-      klass: bottom-to-top
-      text: definitely love...
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171713">
+    <meta name="description" content="DPH Studio creates memorable identities, posters, print media, and websites for ambitious people and brands.">
+    <title>DPH Studio — Independent Graphic Design</title>
+    <link rel="icon" href="siteicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/studio.css">
+    <script src="js/studio.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="DPH Studio home">
+        <span class="brand-mark">DPH<span>.</span></span>
+        <span class="brand-note">Independent<br>design studio</span>
+      </a>
 
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
 
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#studio">Studio</a>
+        <a class="nav-cta" href="mailto:hello@dphilhowerstudio.com">
+          Start a project <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </header>
 
-
-services:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-
-milestones:
-  - icon: folder-open
-    from: 0
-    to: 69
-    title: Projects Completed
-  - icon: coffee
-    from: 0
-    to: 726
-    title: Cups of coffee offered
-  - icon: thumbs-up
-    from: 0
-    to: 59
-    title: Happy clients
-  - icon: file-text
-    from: 0
-    to: 21
-    title: Articles Published
-
----
-
-
-<div class='mod modDefaultSlider'>
-  <div class='sequence' data-autostop='on' data-timeout='0'>
-    <a class='sequence-prev' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <a class='sequence-next' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <ul class='sequence-pagination'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign class = 'current' %}
-        {% else %}
-          {% assign class = '' %}
-        {% endif %}
-        <li class="{{class}}"></li>
-      {% endfor %}
-    </ul>
-    <ul class='sequence-canvas'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign style = 'static' %}
-        {% else %}
-          {% assign style = '' %}
-        {% endif %}
-
-        <li class='frame {{style}} {{ slide.klass }}'>
-          <div class='bg' style='background-image: url({{ slide.bg}});'></div>
-          <div class='small-title {{ slide.small_title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.small_title.text }}</h2>
-              </div>
-            </div>
+    <main id="main-content">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Graphic design · Brand systems · Digital</p>
+          <h1 id="hero-title">
+            <span class="title-line reveal">Big ideas.</span>
+            <span class="title-line reveal">Bold form.</span>
+            <span class="title-line title-accent reveal">Built to connect.</span>
+          </h1>
+          <div class="hero-bottom reveal">
+            <p>DPH Studio turns sharp thinking into identities, print, and digital experiences people remember.</p>
+            <a class="text-link" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
           </div>
-          <div class='title {{ slide.title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='buttons-wrapper {{ slide.buttons.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <div class='two spacing'></div>
-                {% for button in slide.buttons.items %}
-                  <a class='button {{ button.klass }}' href='{{ button.link_to }}'>{{ button.text }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<div class="four spacing"></div>
-
-<div class="row">
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-flask' delay='0' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-paper-plane-o' delay='200' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-tablet' delay='400' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-comments-o' delay='600' shape_class='icon-text-circle' %}
-  </div>
-</div>
-
-<div class="spacing"></div>
-
-<div class="full" style="background: #f5f5f5;">
-  <div class="row">
-    <div class="large-12 columns">
-      {% include section-header.html title="Our works" %}
-      <div class="spacing"></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class="three spacing"></div>
-    </div>
-  </div>
-
-  <div class="mod modGallery">
-    <ul class="gallery small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-      {% for work in page.works %}
-        <li class="{{ work.klass }}">
-          <a href='{{ work.link_to }}'>
-            <img alt="" src="{{ work.image }}" />
-            <div class='overlay'>
-              <div class='thumb-info'>
-                <h3>{{ work.title }}</h3>
-                <p>{{ work.desc }}</p>
-              </div>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='three spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <img class="fadeinleft" alt="" src="images/@stock/responsive.png" />
-      <div class='three spacing'></div>
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
         </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
 
-
-<div class='full parallax' style='background-image: url(images/@stock/milestone-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Parallax effect" color="#fff" %}
-      <div class='spacing'></div>
-      <p class='centered-text' style='color: #ccc;'>
-        Dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for milestone in page.milestones %}
-      <div class='medium-3 large-3 columns'>
-        <div class='mod modMilestone'>
-          <i class='fa fa-{{milestone.icon}}'></i>
-          <strong data-from='{{milestone.from}}' data-to='{{milestone.to}}'>&nbsp;</strong>
-          <span>{{milestone.title}}</span>
-          <div class='four spacing'></div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-  <div class='two spacing'></div>
-</div>
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our team" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
+        <div class="hero-art reveal" aria-label="An abstract graphic design composition">
+          <div class="zoom-label"><span>ZOOM</span><strong>125%</strong></div>
+          <div class="art-window" data-parallax>
+            <div class="window-bar">
+              <span>DPH_STUDIO / CANVAS_01</span>
+              <span>● ● ●</span>
+            </div>
+            <div class="art-grid">
+              <span class="art-orbit"></span>
+              <span class="art-disc"></span>
+              <span class="art-cross">+</span>
+              <p class="art-type">MAKE<br>IT<br><em>SEEN.</em></p>
+              <p class="art-index">DESIGN / 26</p>
+              <p class="art-coordinate">40.7128° N<br>74.0060° W</p>
             </div>
           </div>
-          <div class='two spacing'></div>
+          <span class="hero-sticker" aria-hidden="true">Ideas<br>in motion</span>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
+      </section>
 
-<div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our recent posts" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-
-  <div class='row'>
-    {% for post in site.posts %}
-      {% if forloop.index > 3 %}
-        {% break %}
-      {% endif %}
-
-      <div class='large-4 medium-4 columns'>
-        <div class='mod modBlogPost'>
-          {% for image in post.images %}
-            {% unless forloop.first %}
-              {% break %}
-            {% endunless %}
-            <a href="{{post.url}}"><img alt="" src="{{image}}" /></a>
-          {% endfor %}
-          <div class='content'>
-            <p class='date'>{{post.date | date: "%B %d, %Y" }}</p>
-            <h4><a href="#">{{post.title}}</a></h4>
-            <p>{{post.excerpt}}</p>
-            <!--
-              <div class="tags">
-                {% for cat in post.categories %}
-                  <a href="#">{{cat | capitalize}}</a>
-                  {% unless forloop.last %}
-                    ,
-                  {% endunless %}
-                {% endfor %}
-              </div>
-            -->
-          </div>
+      <div class="service-marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Logo Design</span><i>✦</i>
+          <span>Poster Design</span><i>✦</i>
+          <span>Print Media</span><i>✦</i>
+          <span>Website Design</span><i>✦</i>
+          <span>Logo Design</span><i>✦</i>
+          <span>Poster Design</span><i>✦</i>
+          <span>Print Media</span><i>✦</i>
+          <span>Website Design</span><i>✦</i>
         </div>
       </div>
 
-    {% endfor %}
+      <section class="work section-shell" id="work" aria-labelledby="work-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">01 / Selected work</p>
+          <h2 id="work-title">Different mediums.<br>One clear voice.</h2>
+          <p>A small selection spanning identity, campaign, print, and screen.</p>
+        </div>
 
-  </div>
+        <div class="project-grid">
+          <article class="project project-brand reveal">
+            <div class="project-visual brand-visual" role="img" aria-label="Northline brand identity concept in red and cream">
+              <span class="north-symbol">N</span>
+              <p class="north-name">northline<sup>®</sup></p>
+              <p class="north-detail">Built for the long way around.</p>
+              <span class="north-code">NL—01 / 2026</span>
+            </div>
+            <div class="project-meta">
+              <h3>Northline</h3>
+              <p>Brand identity · Logo design</p>
+              <span>01</span>
+            </div>
+          </article>
 
+          <article class="project project-poster reveal">
+            <div class="project-visual poster-visual">
+              <div class="poster-shadow" aria-hidden="true"></div>
+              <img src="images/freash-cofffee-cafe-poster.jpg" alt="Grand Funk Espresso café event poster">
+              <p class="poster-caption">Culture served fresh<br>Campaign series / 01–06</p>
+            </div>
+            <div class="project-meta">
+              <h3>Grand Funk</h3>
+              <p>Campaign · Poster design</p>
+              <span>02</span>
+            </div>
+          </article>
 
-  <div class='two spacing'></div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <a class='button' href='blog.html'>See more posts</a>
-      </p>
-    </div>
-  </div>
-  <div class='two spacing'></div>
+          <article class="project project-web reveal">
+            <div class="project-visual web-visual" role="img" aria-label="Field Notes travel website concept shown in a browser">
+              <div class="browser">
+                <div class="browser-top"><i></i><i></i><i></i><span>fieldnotes.co</span></div>
+                <div class="browser-page">
+                  <img src="images/blake-wisz-634300-unsplash_compressed-p-800.jpeg" alt="">
+                  <div class="browser-nav"><strong>FIELD / NOTES</strong><span>Journal &nbsp; Places &nbsp; About</span></div>
+                  <p>Go where<br>curiosity leads.</p>
+                  <button type="button" tabindex="-1">Open the journal ↗</button>
+                </div>
+              </div>
+              <span class="web-pill">Responsive / Editorial / Fast</span>
+            </div>
+            <div class="project-meta">
+              <h3>Field Notes</h3>
+              <p>Digital direction · Website design</p>
+              <span>03</span>
+            </div>
+          </article>
 
-</div>
+          <article class="project project-print reveal">
+            <div class="project-visual print-visual" role="img" aria-label="Colorful abstract annual report and stationery">
+              <div class="print-sheet sheet-back"><span>2026</span></div>
+              <div class="print-sheet sheet-front">
+                <span class="print-circle"></span>
+                <p>BRIGHT<br>FUTURES</p>
+                <small>ANNUAL REPORT<br>VOL. 04</small>
+              </div>
+              <div class="print-card"><strong>BF</strong><span>Think forward.</span></div>
+              <span class="print-note">Paper / ink / intention</span>
+            </div>
+            <div class="project-meta">
+              <h3>Bright Futures</h3>
+              <p>Editorial system · Print media</p>
+              <span>04</span>
+            </div>
+          </article>
+        </div>
+      </section>
 
+      <section class="services" id="services" aria-labelledby="services-title">
+        <div class="section-shell services-inner">
+          <div class="section-heading section-heading-light reveal">
+            <p class="eyebrow">02 / What I do</p>
+            <h2 id="services-title">From first mark<br>to full experience.</h2>
+          </div>
 
-{% include our-customers.html %}
+          <div class="service-list">
+            <article class="service-item reveal">
+              <span class="service-number">01</span>
+              <div>
+                <h3>Logo design</h3>
+                <p>Distinctive marks and flexible identity systems built to stay recognizable everywhere.</p>
+              </div>
+              <svg aria-hidden="true" viewBox="0 0 64 64"><path d="M11 32 32 11l21 21-21 21L11 32Z"/><circle cx="32" cy="32" r="8"/></svg>
+            </article>
+            <article class="service-item reveal">
+              <span class="service-number">02</span>
+              <div>
+                <h3>Poster design</h3>
+                <p>High-impact campaign visuals that stop the scroll, fill the wall, and move the audience.</p>
+              </div>
+              <svg aria-hidden="true" viewBox="0 0 64 64"><path d="M14 8h36v48H14z"/><path d="m20 44 8-14 6 8 5-9 7 15H20Z"/></svg>
+            </article>
+            <article class="service-item reveal">
+              <span class="service-number">03</span>
+              <div>
+                <h3>Print media</h3>
+                <p>Editorial, packaging, and marketing pieces with tactile details worth holding onto.</p>
+              </div>
+              <svg aria-hidden="true" viewBox="0 0 64 64"><path d="M13 17h38v31H13z"/><path d="M20 11h31v31M20 25h22M20 32h14M20 39h18"/></svg>
+            </article>
+            <article class="service-item reveal">
+              <span class="service-number">04</span>
+              <div>
+                <h3>Website design</h3>
+                <p>Responsive, accessible websites where clear strategy meets expressive digital design.</p>
+              </div>
+              <svg aria-hidden="true" viewBox="0 0 64 64"><path d="M7 12h50v40H7z"/><path d="M7 21h50M13 17h2M19 17h2M25 17h2M17 29h18M17 36h30M17 43h24"/></svg>
+            </article>
+          </div>
+        </div>
+      </section>
 
+      <section class="process section-shell" aria-labelledby="process-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">03 / The process</p>
+          <h2 id="process-title">Close collaboration.<br>No mystery.</h2>
+        </div>
+        <ol class="process-steps">
+          <li class="reveal"><span>01</span><h3>Discover</h3><p>We unpack your goals, audience, and what makes the project matter.</p></li>
+          <li class="reveal"><span>02</span><h3>Define</h3><p>A clear creative direction gives every decision a reason.</p></li>
+          <li class="reveal"><span>03</span><h3>Design</h3><p>Concepts become a focused visual system, refined together.</p></li>
+          <li class="reveal"><span>04</span><h3>Deliver</h3><p>Final files, practical guidance, and a launch-ready toolkit.</p></li>
+        </ol>
+      </section>
 
-<div class='full no-padding' style='background: #fff'>
-  <div class='two spacing'></div>
-  <div class='mod modCallToAction'>
-    <div class='row'>
-      <div class='medium-9 large-9 columns'>
-        <p>Like what you see here? Checkout this theme and start to build your site immediately.</p>
-      </div>
-      <div class='medium-3 large-3 columns'>
-        <a class='button' href='http://themeforest.net/user/honryou/portfolio?ref=honryou'>Learn more</a>
-      </div>
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+      <section class="studio" id="studio" aria-labelledby="studio-title">
+        <div class="studio-orbit" aria-hidden="true"><span>DPH / DPH / DPH / DPH /</span></div>
+        <div class="studio-copy reveal">
+          <p class="eyebrow">04 / The studio</p>
+          <h2 id="studio-title">Small by design.<br>Big on ideas.</h2>
+          <p>DPH Studio is an independent graphic design practice for founders, organizations, and culture-makers who value clarity, character, and thoughtful craft.</p>
+          <p>Every project gets direct creative attention—from the first conversation to the final file.</p>
+        </div>
+        <div class="studio-card reveal">
+          <span>Currently</span>
+          <strong>Booking select<br>new projects</strong>
+          <a href="mailto:hello@dphilhowerstudio.com">Tell me what you’re making <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="contact" aria-labelledby="contact-title">
+        <div class="contact-label">
+          <span>Have a project in mind?</span>
+          <span>Let’s make it matter.</span>
+        </div>
+        <h2 id="contact-title"><a href="mailto:hello@dphilhowerstudio.com">Let’s talk<span>.</span></a></h2>
+        <div class="contact-details">
+          <a href="mailto:hello@dphilhowerstudio.com">hello@dphilhowerstudio.com</a>
+          <span>Independent designer · Available worldwide</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand-mark" href="#top">DPH<span>.</span></a>
+      <p>Identity · Print · Digital</p>
+      <p>© <span data-year>2026</span> DPH Studio</p>
+    </footer>
+  </body>
+</html>
