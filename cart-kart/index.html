@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Cart Kart" />
+  <meta name="theme-color" content="#1a3a2a" />
+  <meta name="description" content="Mario Kart–style shopping cart racing through MegaMart aisles. Touch-ready for iPhone." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <title>Cart Kart — MegaMart Mayhem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- TITLE -->
+    <section id="screen-title" class="screen active">
+      <div class="title-bg" aria-hidden="true"></div>
+      <div class="title-content">
+        <p class="eyebrow">MEGAMART GRAND PRIX</p>
+        <h1 class="brand">CART<br />KART</h1>
+        <p class="tagline">Wild shopping carts. One store. Zero chill.</p>
+        <div class="cta-row">
+          <button type="button" class="btn btn-primary" id="btn-play">Race</button>
+          <button type="button" class="btn btn-ghost" id="btn-how">How to Play</button>
+        </div>
+      </div>
+      <canvas id="title-canvas" width="400" height="220" aria-hidden="true"></canvas>
+    </section>
+
+    <!-- HOW TO -->
+    <section id="screen-how" class="screen">
+      <div class="panel">
+        <h2>How to Play</h2>
+        <ul class="how-list">
+          <li><strong>Steer</strong> — drag left/right on the track, or use ← → / A D</li>
+          <li><strong>Gas</strong> — hold the pedal or ↑ / W (auto-gas on if you prefer)</li>
+          <li><strong>Brake</strong> — ↓ / S or the brake pad</li>
+          <li><strong>Items</strong> — drive through crates, tap FIRE or Space to use</li>
+          <li><strong>Win</strong> — finish 3 laps ahead of the aisle pack</li>
+        </ul>
+        <p class="hint">Banana peels slip rivals. Soda cans boost. Spilled milk is chaos.</p>
+        <button type="button" class="btn btn-primary" id="btn-how-back">Got it</button>
+      </div>
+    </section>
+
+    <!-- SELECT -->
+    <section id="screen-select" class="screen">
+      <div class="panel panel-wide">
+        <h2>Pick Your Cart</h2>
+        <div id="cart-grid" class="cart-grid"></div>
+        <div class="cta-row">
+          <button type="button" class="btn btn-ghost" id="btn-select-back">Back</button>
+          <button type="button" class="btn btn-primary" id="btn-start-race">Start Race</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RACE -->
+    <section id="screen-race" class="screen">
+      <canvas id="game" width="800" height="600"></canvas>
+      <div id="hud">
+        <div class="hud-left">
+          <div class="hud-pos"><span id="hud-place">1</span><span class="hud-suffix" id="hud-suffix">st</span></div>
+          <div class="hud-lap">LAP <span id="hud-lap">1</span>/3</div>
+        </div>
+        <div class="hud-center">
+          <div id="countdown" class="countdown hidden"></div>
+          <div id="race-banner" class="race-banner hidden"></div>
+        </div>
+        <div class="hud-right">
+          <div id="hud-item" class="hud-item empty" title="Item"></div>
+          <div id="minimap-wrap"><canvas id="minimap" width="96" height="96"></canvas></div>
+        </div>
+      </div>
+      <div id="touch-controls" class="touch-controls">
+        <div class="steer-zone" id="steer-zone">
+          <div class="steer-hint">STEER</div>
+        </div>
+        <div class="pedals">
+          <button type="button" class="pad brake" id="btn-brake" aria-label="Brake">BRAKE</button>
+          <button type="button" class="pad fire" id="btn-fire" aria-label="Use item">FIRE</button>
+          <button type="button" class="pad gas" id="btn-gas" aria-label="Gas">GAS</button>
+        </div>
+      </div>
+      <button type="button" class="btn-pause" id="btn-pause" aria-label="Pause">❚❚</button>
+    </section>
+
+    <!-- PAUSE -->
+    <section id="screen-pause" class="screen overlay">
+      <div class="panel">
+        <h2>Paused</h2>
+        <button type="button" class="btn btn-primary" id="btn-resume">Resume</button>
+        <button type="button" class="btn btn-ghost" id="btn-quit">Quit to Menu</button>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="screen-results" class="screen">
+      <div class="panel panel-wide">
+        <h2 id="results-title">Finish!</h2>
+        <ol id="results-list" class="results-list"></ol>
+        <div class="cta-row">
+          <button type="button" class="btn btn-ghost" id="btn-menu">Menu</button>
+          <button type="button" class="btn btn-primary" id="btn-retry">Race Again</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/carts.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/racer.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
