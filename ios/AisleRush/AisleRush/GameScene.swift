@@ -445,7 +445,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             }
 
             var target = StoreTrack.route[cart.routeTargetIndex]
-            if StoreTrack.distance(cart.position, target) < 115 {
+            let reachedTarget = StoreTrack.distance(cart.position, target) < 145
+                && (cart.routeTargetIndex != 0 || cart.position.x >= 0)
+            if reachedTarget {
                 if cart.routeTargetIndex == 0 {
                     cart.completedLaps += 1
                     if cart.completedLaps >= raceProgress.totalLaps {
@@ -480,7 +482,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private func checkPlayerCheckpoint() {
         let expected = raceProgress.nextCheckpoint
         let checkpoint = StoreTrack.checkpoints[expected]
-        guard StoreTrack.distance(player.position, checkpoint) < 145 else { return }
+        let isStartLine = expected == StoreTrack.checkpoints.count - 1
+        guard StoreTrack.distance(player.position, checkpoint) < 145,
+              !isStartLine || player.position.x >= 0 else { return }
 
         switch raceProgress.passCheckpoint(expected) {
         case .lapCompleted(let lap):
