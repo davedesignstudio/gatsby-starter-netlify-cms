@@ -1,0 +1,11 @@
+{
+  "name": "Aisle Drifters: Cart Rush",
+  "short_name": "Cart Rush",
+  "description": "A fast, playful shopping-cart racing game.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#171425",
+  "theme_color": "#171425",
+  "categories": ["games", "entertainment"]
+}
