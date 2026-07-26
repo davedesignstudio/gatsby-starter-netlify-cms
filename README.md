@@ -1,3 +1,11 @@
+# Cart Aisle Rally iOS Prototype
+
+This repository now includes a native iOS SpriteKit game prototype at [`ShoppingCartRacer/`](ShoppingCartRacer/).
+
+Open `ShoppingCartRacer/ShoppingCartRacer.xcodeproj` in Xcode 15 or newer to run **Cart Aisle Rally**, a top-down store-aisle shopping cart racer with AI opponents, pickups, lap tracking, touch controls, and tilt steering.
+
+The original static site starter content remains below.
+
 # Gatsby + Netlify CMS Starter
 
 **Note:** This starter uses the [Gatsby v2 Beta](https://www.gatsbyjs.org/blog/2018-06-16-announcing-gatsby-v2-beta-launch/).
