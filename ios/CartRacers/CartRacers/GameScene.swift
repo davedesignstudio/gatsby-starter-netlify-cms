@@ -288,8 +288,8 @@ final class StoreCartRaceScene: SKScene {
         cargo.lineWidth = 2
         cart.addChild(cargo)
 
-        for xOffset in [-25, 25] {
-            for yOffset in [-32, 29] {
+        for xOffset in [CGFloat(-25), CGFloat(25)] {
+            for yOffset in [CGFloat(-32), CGFloat(29)] {
                 let wheel = SKShapeNode(circleOfRadius: 6)
                 wheel.position = CGPoint(x: xOffset, y: yOffset)
                 wheel.fillColor = SKColor(white: 0.07, alpha: 1)
