@@ -1,0 +1,19 @@
+{
+  "name": "Cart After Dark",
+  "short_name": "Cart After Dark",
+  "description": "A fast, scrappy shopping-cart racer built for mobile.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#100820",
+  "theme_color": "#160d2d",
+  "icons": [
+    {
+      "src": "images/cart-after-dark-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
