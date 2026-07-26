@@ -1,0 +1,11 @@
+{
+  "name": "Aisle Rush: After Hours",
+  "short_name": "Aisle Rush",
+  "description": "Race runaway shopping carts through a supermarket after dark.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#111f19",
+  "theme_color": "#111f19",
+  "categories": ["games", "entertainment"]
+}
