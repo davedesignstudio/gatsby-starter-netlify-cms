@@ -1,127 +1,89 @@
----
-layout: default
-title: About
-section_id: about
-skills:
-  - title: Web Design
-    percentage: 84
-  - title: Web Development
-    percentage: 95
-  - title: Site Management
-    percentage: 70
-  - title: Branding
-    percentage: 61
-testimonials:
-  - quote: Reprehenderit eos et non et ut eum reprehenderit quis sequi quia vel repellendus id. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est.
-    author: David White, Designer at Huglab
-  - quote: Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-    author: David White, Designer at Huglab
-  - quote: Reprehenderit eos et non et ut eum reprehenderit quis sequi quia vel repellendus id. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est.
-    author: David White, Designer at Huglab
----
-
-<div class='full parallax' style='background-image: url(images/@stock/about-us.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='twelve columns'>
-      {% include section-header.html title="About us" color="#fff" tagline="Know something about our team" class="big" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — dphilhowerstudio</title>
+  <meta name="description" content="About dphilhowerstudio — graphic design for logos, posters, print, and websites.">
+  <link rel="icon" href="siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body class="page">
+  <header class="inner-hero">
+    <div class="top-nav">
+      <a class="brand-lockup" href="index.html">
+        <span class="brand-mark" aria-hidden="true">d</span>
+        <span class="brand-text">
+          <span class="brand-name">dphilhowerstudio</span>
+          <span class="brand-meta">About</span>
+        </span>
+      </a>
+      <nav class="zoom-nav" aria-label="Primary">
+        <a href="index.html">Studio</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Work</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Work</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <h1>Design is the meeting.</h1>
+    <p>dphilhowerstudio is a graphic design practice focused on logos, posters, print media, and websites that earn attention.</p>
+  </header>
 
-<div class='full'>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <h3>Our history</h3>
-      <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.</p>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.</p>
+  <main class="section">
+    <div class="section-head reveal">
+      <h2>How we work</h2>
+      <p>Every project starts like a focused call: clarify the brief, lock the visual direction, then ship work that holds up on screen and in print.</p>
     </div>
-    <div class='medium-6 columns'>
-      <h3>Our skills</h3>
-      <div class='mod modBarGraph'>
-        <ul class='bars'>
-          {% for skill in page.skills %}
-            <li>
-              <h4 style=''>
-                {{skill.title}}
-                <strong>{{skill.percentage}}%</strong>
-              </h4>
-              <p class='highlighted' data-percent='{{skill.percentage}}'></p>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+    <div class="services-detail">
+      <article class="service-block reveal">
+        <h3>Listen first</h3>
+        <p>We dig into audience, offer, and constraints before opening a layout file.</p>
+      </article>
+      <article class="service-block reveal">
+        <h3>Design with intent</h3>
+        <p>Color, type, and composition are chosen to solve a communication problem — not to decorate.</p>
+      </article>
+      <article class="service-block reveal">
+        <h3>Deliver for use</h3>
+        <p>You get files and formats ready for printers, platforms, and day-to-day brand use.</p>
+      </article>
+      <article class="service-block reveal">
+        <h3>Stay in the room</h3>
+        <p>Feedback stays clear and collaborative so revisions move the work forward, not sideways.</p>
+      </article>
     </div>
-  </div>
-</div>
+  </main>
 
-
-<div class='full'>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <p class='centered-text'>{{member.desc}}</p>
-          <div class='two spacing'></div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-
-
-<div class='full parallax' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <i class='fa fa-quote-left' style='color: #F9CE06; font-size: 36px;'></i>
-      </p>
+  <div class="cta-band reveal">
+    <div>
+      <h2>Let’s open a session</h2>
+      <p>Share your project goals and we’ll reply with next steps.</p>
     </div>
+    <a class="btn btn-primary" href="contact.html">Contact the studio</a>
   </div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="What our clients say" %}
-      <div class='spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <div class='mod modTestimonials'>
-        <div class='row'>
-          <div class='small-12 columns'>
-            <div class='items centered-text'>
-              {% for testimonial in page.testimonials %}
-                <div class='item'>
-                  <p class='quote'>"{{testimonial.quote}}"</p>
-                  <p class='author'>- {{testimonial.author}}</p>
-                  <div class='two spacing'></div>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class='spacing'></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-{% include our-customers.html %}
+  <footer class="site-footer">
+    <div>© <span id="year"></span> dphilhowerstudio.com</div>
+    <div class="footer-links">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+  <script src="js/studio.js"></script>
+</body>
+</html>

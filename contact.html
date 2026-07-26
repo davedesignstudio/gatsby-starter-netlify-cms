@@ -1,54 +1,92 @@
----
-layout: default
-title: Contact
-section_id: contact
----
-
-<div class='full parallax' style='background-image: url(images/@stock/contact-header-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Contact Us" tagline="Drop by or send an email to us" color="#fff" class="big" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — dphilhowerstudio</title>
+  <meta name="description" content="Contact dphilhowerstudio for logo, poster, print, and website design.">
+  <link rel="icon" href="siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body class="page">
+  <header class="inner-hero">
+    <div class="top-nav">
+      <a class="brand-lockup" href="index.html">
+        <span class="brand-mark" aria-hidden="true">d</span>
+        <span class="brand-text">
+          <span class="brand-name">dphilhowerstudio</span>
+          <span class="brand-meta">Contact</span>
+        </span>
+      </a>
+      <nav class="zoom-nav" aria-label="Primary">
+        <a href="index.html">Studio</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+    <h1>Join the studio</h1>
+    <p>Tell us what you need — logo, poster, print, web, or a mix. We’ll get back to you soon.</p>
+  </header>
 
-  <div class='full'>
-    <div class='row'>
-      <div class='medium-8 columns'>
-        <div class='form'>
-          <div class='row'>
-            <form id='contact_form' method='POST'>
-              <div class='large-12 columns'>
-                <p id='thanks' style='display: none;'>
-                  Thanks for contacting us, we'll be in touch soon!
-                </p>
-              </div>
-              <div class='medium-12 columns'>
-                <input class='required' name='name' placeholder='NAME' type='text'>
-                <input class='required email' name='email' placeholder='EMAIL' type='text'>
-                <input class='required' name='subject' placeholder='SUBJECT' type='text'>
-                <textarea class='required' name='message' placeholder='MESSAGE'></textarea>
-                <input class='button white' type='submit'>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class='two spacing'></div>
-      </div>
-      <div class='medium-4 columns'>
-        <div class='contact-details'>
-          <h4>Our location:</h4>
-          <p>41 Dean Street, London, UK</p>
-          <h4>Our Phone:</h4>
-          <p>+86 (03) 9810 4612</p>
-          <h4>Fax:</h4>
-          <p>+6102 236338 5456</p>
-          <h4>Our Email:</h4>
-          <p>info@devoll-team.com</p>
-        </div>
-      </div>
+  <main class="section">
+    <form class="form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contact.html">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="sr-only">
+        <label>Don’t fill this out: <input name="bot-field"></label>
+      </p>
+      <label>
+        Name
+        <input type="text" name="name" required autocomplete="name">
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>
+        Service
+        <select name="service" required>
+          <option value="">Select one</option>
+          <option>Logo Design</option>
+          <option>Poster Design</option>
+          <option>Print Media</option>
+          <option>Website Design</option>
+          <option>Multiple / Other</option>
+        </select>
+      </label>
+      <label>
+        Project notes
+        <textarea name="message" required placeholder="Goals, timeline, and anything we should know…"></textarea>
+      </label>
+      <button class="btn btn-primary" type="submit">Send message</button>
+    </form>
+    <p class="reveal" style="margin-top:1.5rem;color:var(--muted)">
+      Or email <a href="mailto:dphilhowerstudio@gmail.com" style="color:var(--accent)">dphilhowerstudio@gmail.com</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div>© <span id="year"></span> dphilhowerstudio.com</div>
+    <div class="footer-links">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Work</a>
     </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+  </footer>
+  <script src="js/studio.js"></script>
+</body>
+</html>

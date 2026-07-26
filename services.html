@@ -1,71 +1,83 @@
----
-layout: default
-title: Services
-section_id: services
-services_left:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-services_right:
-  - icon: compass
-    title: Art Direction
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: image
-    title: Photography
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: database
-    title: Data
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: film
-    title: Video
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
----
-
-<div class='full parallax' style='background-image: url(images/@stock/service-page-header.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" tagline="Get to know what we do" color="#fff" class="big" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services — dphilhowerstudio</title>
+  <meta name="description" content="Logo design, poster design, print media, and website design from dphilhowerstudio.">
+  <link rel="icon" href="siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body class="page">
+  <header class="inner-hero">
+    <div class="top-nav">
+      <a class="brand-lockup" href="index.html">
+        <span class="brand-mark" aria-hidden="true">d</span>
+        <span class="brand-text">
+          <span class="brand-name">dphilhowerstudio</span>
+          <span class="brand-meta">Services</span>
+        </span>
+      </a>
+      <nav class="zoom-nav" aria-label="Primary">
+        <a href="index.html">Studio</a>
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="portfolio.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span aria-hidden="true"></span>
+      </button>
     </div>
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile">
+      <a href="index.html">Studio</a>
+      <a href="services.html" aria-current="page">Services</a>
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <h1>Services on the grid</h1>
+    <p>Four focused offerings — each one a tile in the dphilhowerstudio room.</p>
+  </header>
+
+  <main class="section">
+    <article class="service-block reveal" id="logo">
+      <h3>Logo Design</h3>
+      <p>Identity marks, wordmarks, and simple brand systems. We refine concepts until the mark works small, large, mono, and in full color.</p>
+    </article>
+    <article class="service-block reveal" id="poster">
+      <h3>Poster Design</h3>
+      <p>Single-sheet impact for events, restaurants, products, and launches. Strong type, clear hierarchy, and print-ready files.</p>
+    </article>
+    <article class="service-block reveal" id="print">
+      <h3>Print Media</h3>
+      <p>Menus, packaging, flyers, business systems, and collateral. Designed for presses, paper stocks, and real-world use.</p>
+    </article>
+    <article class="service-block reveal" id="website">
+      <h3>Website Design</h3>
+      <p>Layout and visual design for marketing sites that put the brand first — responsive, fast to understand, easy to act on.</p>
+    </article>
+  </main>
+
+  <div class="cta-band reveal">
+    <div>
+      <h2>Need a custom mix?</h2>
+      <p>Many projects blend logo, print, and web. We’ll scope the room that fits.</p>
+    </div>
+    <a class="btn btn-primary" href="contact.html">Request a quote</a>
   </div>
-  <div class='four spacing'></div>
-</div>
 
-
-<div class='full'>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      {% for service in page.services_left %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+  <footer class="site-footer">
+    <div>© <span id="year"></span> dphilhowerstudio.com</div>
+    <div class="footer-links">
+      <a href="index.html">Studio</a>
+      <a href="portfolio.html">Work</a>
+      <a href="contact.html">Contact</a>
     </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services_right %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+  </footer>
+  <script src="js/studio.js"></script>
+</body>
+</html>

@@ -1,147 +1,95 @@
----
-layout: default
-title: Portfolio
-section_id: portfolio
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphic-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: web-design print
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: brand
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: development
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: print brand
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: web-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: web-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphic-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: development print
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: brand
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: web-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: print
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphic-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: development
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: print
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphic-design
-    desc: Design &amp; Development
----
-
-
-<div class='full parallax' style='background-image: url(images/@stock/portfolio-header-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our portfolio" tagline="Have a look at our works" color="#fff" class="big" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work — dphilhowerstudio</title>
+  <meta name="description" content="Selected graphic design work from dphilhowerstudio — logos, posters, print, and web.">
+  <link rel="icon" href="siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body class="page">
+  <header class="inner-hero">
+    <div class="top-nav">
+      <a class="brand-lockup" href="index.html">
+        <span class="brand-mark" aria-hidden="true">d</span>
+        <span class="brand-text">
+          <span class="brand-name">dphilhowerstudio</span>
+          <span class="brand-meta">Work</span>
+        </span>
+      </a>
+      <nav class="zoom-nav" aria-label="Primary">
+        <a href="index.html">Studio</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html" aria-current="page">Work</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html" aria-current="page">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <h1>Selected work</h1>
+    <p>Frames from recent and signature projects across logo, poster, print, and web.</p>
+  </header>
 
-
-<div class='full'>
-  <div class='row'>
-    <div class='mod modGallery'>
-      <div class='gallery-nav'>
-        <ul>
-          <li class='current'>
-            <a data-cat='all' href='#'>All</a>
-          </li>
-          <li>
-            <a data-cat='graphic-design' href='#'>Graphic Design</a>
-          </li>
-          <li>
-            <a data-cat='web-design' href='#'>Web Design</a>
-          </li>
-          <li>
-            <a data-cat='brand' href='#'>Brand</a>
-          </li>
-          <li>
-            <a data-cat='development' href='#'>Development</a>
-          </li>
-          <li>
-            <a data-cat='print' href='#'>Print</a>
-          </li>
-        </ul>
-      </div>
-
-      <ul class='gallery large-block-grid-4 medium-block-grid-3 small-block-grid-2'>
-
-        {% for work in page.works %}
-          <li class="{{ work.klass }}">
-            <a href='{{ work.link_to }}'>
-              <img alt="" src="{{ work.image }}" />
-              <div class='overlay'>
-                <div class='thumb-info'>
-                  <h3>{{ work.title }}</h3>
-                  <p>{{ work.desc }}</p>
-                </div>
-              </div>
-            </a>
-          </li>
-        {% endfor %}
-
-      </ul>
-
+  <main class="section">
+    <div class="work-strip">
+      <figure class="work-item reveal">
+        <img src="images/freash-cofffee-cafe-poster.jpg" alt="Fresh Coffee Cafe poster" width="595" height="842" loading="lazy">
+        <figcaption>Poster Design</figcaption>
+      </figure>
+      <figure class="work-item reveal">
+        <img src="images/Warped-Minds-Designs-Logo-2-copy.png" alt="Studio logo mark" width="443" height="319" loading="lazy" style="object-fit:contain;background:#1a222c;padding:2rem">
+        <figcaption>Logo Design</figcaption>
+      </figure>
+      <figure class="work-item reveal">
+        <img src="images/blake-wisz-634300-unsplash_compressed.jpg" alt="Print media mood" width="1200" height="800" loading="lazy">
+        <figcaption>Print Media</figcaption>
+      </figure>
     </div>
+    <div class="work-strip" style="margin-top:0.85rem">
+      <figure class="work-item reveal">
+        <img src="images/Hero-Image-001_compressed.jpg" alt="Website design atmosphere" width="1203" height="803" loading="lazy">
+        <figcaption>Website Design</figcaption>
+      </figure>
+      <figure class="work-item reveal">
+        <img src="images/warpedminds-design-lets-talk-design.jpg" alt="Let's talk design" width="1200" height="800" loading="lazy">
+        <figcaption>Campaign Visual</figcaption>
+      </figure>
+      <figure class="work-item reveal">
+        <img src="images/Graphic-Design.jpg" alt="Graphic design mark" width="225" height="225" loading="lazy" style="object-fit:cover">
+        <figcaption>Identity Detail</figcaption>
+      </figure>
+    </div>
+  </main>
+
+  <div class="cta-band reveal">
+    <div>
+      <h2>Want your work in the next gallery?</h2>
+      <p>Start a project with dphilhowerstudio.</p>
+    </div>
+    <a class="btn btn-primary" href="contact.html">Start a project</a>
   </div>
 
-  <div class='four spacing'></div>
-</div>
+  <footer class="site-footer">
+    <div>© <span id="year"></span> dphilhowerstudio.com</div>
+    <div class="footer-links">
+      <a href="index.html">Studio</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+  <script src="js/studio.js"></script>
+</body>
+</html>
