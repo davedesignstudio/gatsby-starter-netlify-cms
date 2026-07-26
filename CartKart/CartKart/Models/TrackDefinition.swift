@@ -18,6 +18,7 @@ struct TrackDefinition: Identifiable, Equatable {
     let itemBoxPositions: [CGPoint]
     let shelfObstacles: [CGRect]
     let startGrid: [(CGPoint, CGFloat)]
+    let isDarkStore: Bool
 
     var startPosition: CGPoint { startGrid[0].0 }
 
@@ -102,7 +103,8 @@ extension TrackDefinition {
             (CGPoint(x: 40, y: -360), .pi / 2),
             (CGPoint(x: -40, y: -400), .pi / 2),
             (CGPoint(x: 40, y: -400), .pi / 2)
-        ]
+        ],
+        isDarkStore: false
     )
 
     static let frozen = TrackDefinition(
@@ -151,7 +153,8 @@ extension TrackDefinition {
             (CGPoint(x: 50, y: -380), .pi / 2),
             (CGPoint(x: -50, y: -420), .pi / 2),
             (CGPoint(x: 50, y: -420), .pi / 2)
-        ]
+        ],
+        isDarkStore: false
     )
 
     static let produce = TrackDefinition(
@@ -200,10 +203,161 @@ extension TrackDefinition {
             (CGPoint(x: 35, y: -400), .pi / 2),
             (CGPoint(x: -35, y: -440), .pi / 2),
             (CGPoint(x: 35, y: -440), .pi / 2)
-        ]
+        ],
+        isDarkStore: false
     )
 
-    static let all: [TrackDefinition] = [.grocery, .frozen, .produce]
+    static let bakery = TrackDefinition(
+        id: "bakery",
+        name: "Bakery Blitz",
+        subtitle: "Flour-dusted sprint",
+        emoji: "🥐",
+        floorColor: SKColor(red: 0.88, green: 0.82, blue: 0.72, alpha: 1),
+        islandColor: SKColor(red: 0.78, green: 0.68, blue: 0.52, alpha: 1),
+        shelfColor: SKColor(red: 0.62, green: 0.42, blue: 0.28, alpha: 1),
+        decorColors: [
+            SKColor(red: 0.95, green: 0.75, blue: 0.45, alpha: 1),
+            SKColor(red: 0.85, green: 0.55, blue: 0.3, alpha: 1),
+            SKColor(red: 0.7, green: 0.45, blue: 0.25, alpha: 1),
+            SKColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1)
+        ],
+        islandLabel: "OVEN",
+        shelfLabels: ["BREAD", "BAGELS", "MUFFIN", "DONUT", "ROLLS", "CAKE"],
+        outerRect: CGRect(x: -620, y: -460, width: 1240, height: 920),
+        innerRect: CGRect(x: -240, y: -160, width: 480, height: 320),
+        checkpoints: [
+            CGPoint(x: 0, y: -340),
+            CGPoint(x: 500, y: 80),
+            CGPoint(x: 0, y: 340),
+            CGPoint(x: -500, y: -80)
+        ],
+        itemBoxPositions: [
+            CGPoint(x: -480, y: -180),
+            CGPoint(x: 480, y: -180),
+            CGPoint(x: 480, y: 180),
+            CGPoint(x: -480, y: 180),
+            CGPoint(x: 0, y: 0),
+            CGPoint(x: 250, y: 280),
+            CGPoint(x: -250, y: -280)
+        ],
+        shelfObstacles: [
+            CGRect(x: -560, y: 80, width: 160, height: 75),
+            CGRect(x: 400, y: 80, width: 160, height: 75),
+            CGRect(x: -560, y: -155, width: 160, height: 75),
+            CGRect(x: 400, y: -155, width: 160, height: 75),
+            CGRect(x: -100, y: 250, width: 200, height: 55),
+            CGRect(x: -100, y: -280, width: 200, height: 55)
+        ],
+        startGrid: [
+            (CGPoint(x: -40, y: -340), .pi / 2),
+            (CGPoint(x: 40, y: -340), .pi / 2),
+            (CGPoint(x: -40, y: -380), .pi / 2),
+            (CGPoint(x: 40, y: -380), .pi / 2)
+        ],
+        isDarkStore: false
+    )
+
+    static let liquor = TrackDefinition(
+        id: "liquor",
+        name: "Liquor Lane",
+        subtitle: "Bottle-lined bends",
+        emoji: "🍷",
+        floorColor: SKColor(red: 0.55, green: 0.48, blue: 0.42, alpha: 1),
+        islandColor: SKColor(red: 0.42, green: 0.32, blue: 0.28, alpha: 1),
+        shelfColor: SKColor(red: 0.35, green: 0.22, blue: 0.18, alpha: 1),
+        decorColors: [
+            SKColor(red: 0.6, green: 0.15, blue: 0.2, alpha: 1),
+            SKColor(red: 0.45, green: 0.25, blue: 0.35, alpha: 1),
+            SKColor(red: 0.75, green: 0.55, blue: 0.2, alpha: 1),
+            SKColor(red: 0.3, green: 0.2, blue: 0.15, alpha: 1)
+        ],
+        islandLabel: "VINTAGE",
+        shelfLabels: ["WINE", "BEER", "VODKA", "WHISKY", "GIN", "CIDER"],
+        outerRect: CGRect(x: -660, y: -490, width: 1320, height: 980),
+        innerRect: CGRect(x: -300, y: -200, width: 600, height: 400),
+        checkpoints: [
+            CGPoint(x: 0, y: -370),
+            CGPoint(x: 580, y: 0),
+            CGPoint(x: 0, y: 370),
+            CGPoint(x: -580, y: 0)
+        ],
+        itemBoxPositions: [
+            CGPoint(x: -540, y: -210),
+            CGPoint(x: 540, y: -210),
+            CGPoint(x: 540, y: 210),
+            CGPoint(x: -540, y: 210),
+            CGPoint(x: 0, y: 0),
+            CGPoint(x: -220, y: 300),
+            CGPoint(x: 220, y: -300)
+        ],
+        shelfObstacles: [
+            CGRect(x: -620, y: 70, width: 170, height: 85),
+            CGRect(x: 450, y: 70, width: 170, height: 85),
+            CGRect(x: -620, y: -155, width: 170, height: 85),
+            CGRect(x: 450, y: -155, width: 170, height: 85),
+            CGRect(x: -130, y: 260, width: 260, height: 60),
+            CGRect(x: -130, y: -320, width: 260, height: 60)
+        ],
+        startGrid: [
+            (CGPoint(x: -45, y: -370), .pi / 2),
+            (CGPoint(x: 45, y: -370), .pi / 2),
+            (CGPoint(x: -45, y: -410), .pi / 2),
+            (CGPoint(x: 45, y: -410), .pi / 2)
+        ],
+        isDarkStore: false
+    )
+
+    static let midnight = TrackDefinition(
+        id: "midnight",
+        name: "Midnight Shift",
+        subtitle: "Dark store dash",
+        emoji: "🌙",
+        floorColor: SKColor(red: 0.18, green: 0.2, blue: 0.25, alpha: 1),
+        islandColor: SKColor(red: 0.12, green: 0.14, blue: 0.18, alpha: 1),
+        shelfColor: SKColor(red: 0.25, green: 0.28, blue: 0.35, alpha: 1),
+        decorColors: [
+            SKColor(red: 0.2, green: 0.5, blue: 0.8, alpha: 1),
+            SKColor(red: 0.9, green: 0.3, blue: 0.2, alpha: 1),
+            SKColor(red: 0.3, green: 0.8, blue: 0.5, alpha: 1),
+            SKColor(red: 0.6, green: 0.4, blue: 0.9, alpha: 1)
+        ],
+        islandLabel: "CLOSED",
+        shelfLabels: ["SNACKS", "SODA", "RAMEN", "CANDY", "CHIPS", "ENERGY"],
+        outerRect: CGRect(x: -640, y: -480, width: 1280, height: 960),
+        innerRect: CGRect(x: -260, y: -170, width: 520, height: 340),
+        checkpoints: [
+            CGPoint(x: 0, y: -360),
+            CGPoint(x: 550, y: 50),
+            CGPoint(x: 0, y: 360),
+            CGPoint(x: -550, y: -50)
+        ],
+        itemBoxPositions: [
+            CGPoint(x: -500, y: -200),
+            CGPoint(x: 500, y: -200),
+            CGPoint(x: 500, y: 200),
+            CGPoint(x: -500, y: 200),
+            CGPoint(x: 0, y: 0),
+            CGPoint(x: 180, y: 300),
+            CGPoint(x: -180, y: -300)
+        ],
+        shelfObstacles: [
+            CGRect(x: -580, y: 65, width: 175, height: 80),
+            CGRect(x: 405, y: 65, width: 175, height: 80),
+            CGRect(x: -580, y: -145, width: 175, height: 80),
+            CGRect(x: 405, y: -145, width: 175, height: 80),
+            CGRect(x: -110, y: 235, width: 220, height: 58),
+            CGRect(x: -110, y: -295, width: 220, height: 58)
+        ],
+        startGrid: [
+            (CGPoint(x: -40, y: -360), .pi / 2),
+            (CGPoint(x: 40, y: -360), .pi / 2),
+            (CGPoint(x: -40, y: -400), .pi / 2),
+            (CGPoint(x: 40, y: -400), .pi / 2)
+        ],
+        isDarkStore: true
+    )
+
+    static let all: [TrackDefinition] = [.grocery, .frozen, .produce, .bakery, .liquor, .midnight]
 }
 
 // Backward-compatible alias used by existing code paths.

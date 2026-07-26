@@ -5,10 +5,12 @@ final class ResultsScene: SKScene {
     var raceTime: TimeInterval = 0
     private let track: TrackDefinition
     private let multiplayer: Bool
+    var cupInterim: CupSession?
 
-    init(size: CGSize, track: TrackDefinition = GameSettings.shared.selectedTrack, multiplayer: Bool = GameSettings.shared.playerMode == .localMultiplayer) {
+    init(size: CGSize, track: TrackDefinition = GameSettings.shared.selectedTrack, multiplayer: Bool = GameSettings.shared.playerMode == .localMultiplayer, cupInterim: CupSession? = nil) {
         self.track = track
         self.multiplayer = multiplayer
+        self.cupInterim = cupInterim
         super.init(size: size)
     }
 
@@ -24,7 +26,7 @@ final class ResultsScene: SKScene {
     }
 
     private func buildResults() {
-        let title = SKLabelNode(text: "RACE RESULTS")
+        let title = SKLabelNode(text: cupInterim != nil ? "CUP RACE \(cupInterim!.currentRaceIndex)/\(cupInterim!.cup.raceCount)" : "RACE RESULTS")
         title.fontName = "AvenirNext-Heavy"
         title.fontSize = 36
         title.fontColor = SKColor(red: 1.0, green: 0.82, blue: 0.2, alpha: 1)
@@ -71,9 +73,19 @@ final class ResultsScene: SKScene {
         menuButton.position = CGPoint(x: 0, y: -size.height * 0.28)
         addChild(menuButton)
 
-        let retryButton = makeButton(text: "RACE AGAIN", name: "retry")
+        let retryButton = makeButton(text: cupInterim != nil ? "NEXT RACE" : "RACE AGAIN", name: "retry")
         retryButton.position = CGPoint(x: 0, y: -size.height * 0.28 - 70)
         addChild(retryButton)
+
+        if let session = cupInterim {
+            let standings = session.sortedStandings.prefix(4).map { "\($0.name): \($0.points)" }.joined(separator: "  ")
+            let cupLabel = SKLabelNode(text: "Cup pts — \(standings)")
+            cupLabel.fontName = "AvenirNext-Medium"
+            cupLabel.fontSize = 11
+            cupLabel.fontColor = SKColor(white: 1, alpha: 0.55)
+            cupLabel.position = CGPoint(x: 0, y: -size.height * 0.22)
+            addChild(cupLabel)
+        }
     }
 
     private func makeStandingRow(position: Int, racer: CartRacer) -> SKNode {
@@ -163,7 +175,16 @@ final class ResultsScene: SKScene {
             menu.scaleMode = .resizeFill
             view?.presentScene(menu, transition: SKTransition.crossFade(withDuration: 0.5))
         } else if nodes.contains(where: { $0.name == "retry" }) {
-            if GameSettings.shared.renderMode == .sceneKit3D {
+            if let session = cupInterim, GameSettings.shared.advanceCupOrFinish() {
+                let nextTrack = session.currentTrack
+                if GameSettings.shared.renderMode == .sceneKit3D {
+                    NotificationCenter.default.post(name: .cartKartRenderModeChanged, object: nil)
+                } else {
+                    let game = GameScene(size: size, track: nextTrack, multiplayer: multiplayer)
+                    game.scaleMode = .resizeFill
+                    view?.presentScene(game, transition: SKTransition.doorsOpenVertical(withDuration: 0.5))
+                }
+            } else if GameSettings.shared.renderMode == .sceneKit3D {
                 NotificationCenter.default.post(name: .cartKartRenderModeChanged, object: nil)
             } else {
                 let game = GameScene(size: size, track: track, multiplayer: multiplayer)

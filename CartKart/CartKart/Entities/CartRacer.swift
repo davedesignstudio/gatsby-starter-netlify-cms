@@ -22,10 +22,35 @@ final class CartRacer: SKNode {
     var racePosition = 1
     var finished = false
     var finishTime: TimeInterval = 0
+    var weight: CGFloat = 1.0
+    var characterID: String = "will"
 
     private let cartNode = SKNode()
     private let shadowNode = SKShapeNode(ellipseOf: CGSize(width: 54, height: 28))
     private let wheels: [SKShapeNode]
+
+    init(character: CharacterDefinition, isPlayer: Bool, playerSlot: Int = 0) {
+        self.racerName = character.name
+        self.isPlayer = isPlayer
+        self.playerSlot = playerSlot
+        self.bodyColor = character.bodyColor
+        self.cartColor = character.cartColor
+        self.characterID = character.id
+
+        wheels = (0..<4).map { _ in
+            let wheel = SKShapeNode(circleOfRadius: 7)
+            wheel.fillColor = .darkGray
+            wheel.strokeColor = .black
+            wheel.lineWidth = 1
+            return wheel
+        }
+
+        super.init()
+        self.name = character.name
+        character.apply(to: self)
+        buildVisuals()
+        setupPhysics()
+    }
 
     init(name: String, isPlayer: Bool, playerSlot: Int = 0, bodyColor: SKColor, cartColor: SKColor) {
         self.racerName = name

@@ -1,83 +1,77 @@
 # Cart Kart: Grocery Gauntlet
 
-A Mario Kart-style arcade racer for iOS where you pilot wobbly shopping carts through chaotic grocery store aisles.
+A Mario Kart-style arcade racer for iOS — race wobbly shopping carts through grocery store aisles.
 
-![Cart Kart](docs/preview.svg)
+## Features
 
-## Gameplay
+### Racing
+- Top-down 2D (SpriteKit) or 3D chase-camera (SceneKit) modes
+- 6 tracks, 5 playable characters, 4 power-ups, 3-lap races
+- Local 1–2 player and Game Center online multiplayer
 
-Race against AI cart riders on store-floor tracks lined with shelves, item boxes, and tight corners. Complete **3 laps** by hitting each checkpoint around the aisles.
-
-### Tracks
-
+### Tracks (6)
 | Track | Theme |
 |-------|-------|
-| **Grocery Gauntlet** | Classic dairy-loop aisles |
-| **Frozen Fury** | Icy freezer section with wider corners |
-| **Produce Pit** | Organic section with a tighter inner island |
+| Grocery Gauntlet | Classic dairy loop |
+| Frozen Fury | Icy freezer section |
+| Produce Pit | Organic wet-floor sprint |
+| Bakery Blitz | Flour-dusted aisles |
+| Liquor Lane | Bottle-lined bends |
+| Midnight Shift | Dark after-hours store |
 
-### Modes
+### Characters (5)
+Each rider has unique speed, acceleration, handling, and weight stats:
+- Wobbly Will (balanced), Speedy Sal (fast), Drift King (cornering), Tank Tanya (heavy), Coupon Carla (accel)
 
-- **1 Player** — You vs 3 AI carts
-- **2 Players** — Local multiplayer on one device (P1 left controls, P2 right controls)
-- **2D Classic** — Top-down SpriteKit racing
-- **3D Aisles** — SceneKit camera behind the carts
+### Cup Mode
+- **Store Championship** — Grocery, Frozen, Produce
+- **Night Shift Cup** — Bakery, Liquor, Midnight
+- **Grand Aisle Prix** — all 6 tracks
 
-### Controls
+### Audio
+Bundled WAV assets: cart squeaks, collisions, boosts, countdown, race theme loop, and aisle ambience.
 
-| Input | Action |
-|-------|--------|
-| Virtual joystick | Steer |
-| **GO** button | Accelerate |
-| **DRIFT** button | Slide around corners |
-| **ITEM** button | Use collected power-up |
+### Online
+Game Center authentication + matchmaking with live position sync between players.
 
-In **2-player mode**, Player 1 uses the left stick + right buttons; Player 2 uses the right stick + left buttons.
-
-### Power-ups
-
-- **Banana Peel** — Drop a hazard behind you
-- **Coupon Boost** — Short speed burst
-- **Spilled Milk** — Leave a slippery puddle
-- **Can Pyramid** — Stun nearby rivals
-
-### Sound
-
-Procedural sound effects (no external audio files) for countdown, boosts, items, collisions, lap complete, and race finish.
+### 3D Enhancements
+Detailed cart models (chassis, basket, handle, wheels), dust/spark particles, dynamic track lighting, and spotlights on the midnight track.
 
 ## Requirements
-
-- Xcode 15+
-- iOS 16.0+
-- iPhone (portrait)
+- Xcode 15+, iOS 16+, iPhone (portrait)
+- Game Center enabled on device/simulator for online play
+- Apple Developer account with Game Center capability for device testing
 
 ## Getting Started
+1. Open `CartKart/CartKart.xcodeproj` in Xcode on macOS
+2. Enable Game Center capability in Signing & Capabilities if testing online
+3. Select iPhone simulator or device, press Run (⌘R)
+4. On the menu, configure mode, characters, cup/track, players, and graphics
 
-1. Open `CartKart.xcodeproj` in Xcode on macOS.
-2. Select an iPhone simulator or connected device.
-3. On the main menu, tap options to cycle **track**, **players**, and **graphics** mode.
-4. Press **START RACE** (⌘R).
+## Menu Options
+| Row | Cycles through |
+|-----|----------------|
+| Mode | Quick Race / Cup Mode |
+| P1 / P2 | Character select |
+| Cup | Championship cup (Cup Mode only) |
+| Track | Individual track (Quick Race only) |
+| Players | 1P / 2P / Online |
+| Graphics | 2D Classic / 3D Aisles |
+
+**START RACE** — begin local or cup race  
+**FIND ONLINE MATCH** — Game Center matchmaking
 
 ## Project Structure
-
 ```
 CartKart/
-├── App/                 # SwiftUI entry + mode switching
-├── Scenes/              # Menu, 2D race, and results scenes
-├── SceneKit/            # 3D race renderer + controller
-├── Entities/            # Cart racer physics + visuals
-├── Models/              # Tracks, settings, power-ups
-├── Systems/             # Touch input, AI, procedural audio
-└── Assets.xcassets/     # App icon and launch color
+├── App/           SwiftUI entry + mode switching
+├── Scenes/        Menu, race, results, cup results
+├── SceneKit/      3D renderer, cart models, lighting
+├── Entities/      Cart physics + visuals
+├── Models/        Tracks, characters, cups, settings
+├── Systems/       Input, AI, audio, Game Center
+└── Sounds/        WAV audio assets
 ```
 
-## Built With
-
-- **SpriteKit** — 2D rendering, physics, and HUD
-- **SceneKit** — 3D aisle racing mode
-- **SwiftUI** — App lifecycle and view composition
-- **AVAudioEngine** — Procedural sound effects
-
 ## License
-
 MIT — see repository root `LICENSE`.

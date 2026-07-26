@@ -37,7 +37,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func didMove(to view: SKView) {
-        backgroundColor = SKColor(red: 0.12, green: 0.13, blue: 0.16, alpha: 1)
+        backgroundColor = track.isDarkStore
+            ? SKColor(red: 0.06, green: 0.07, blue: 0.1, alpha: 1)
+            : SKColor(red: 0.12, green: 0.13, blue: 0.16, alpha: 1)
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
 
@@ -47,6 +49,15 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         setupHUD()
         setupInput()
         startCountdown()
+        SoundManager.shared.startRaceMusic()
+
+        if GameSettings.shared.playerMode == .onlineMultiplayer {
+            setupNetworkObservers()
+        }
+    }
+
+    deinit {
+        SoundManager.shared.stopRaceMusic()
     }
 
     private func buildTrack() {
@@ -72,6 +83,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
         addWalls()
         addDecor()
+        if track.isDarkStore { addDarkStoreOverlay() }
         addItemBoxes()
         addStartLine()
     }
@@ -170,6 +182,24 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
+    private func addDarkStoreOverlay() {
+        let glow = SKShapeNode(rect: track.outerRect, cornerRadius: 12)
+        glow.fillColor = SKColor(red: 0.05, green: 0.08, blue: 0.15, alpha: 0.35)
+        glow.strokeColor = .clear
+        glow.zPosition = -6
+        addChild(glow)
+
+        for index in 0..<8 {
+            let light = SKShapeNode(circleOfRadius: 60)
+            light.fillColor = SKColor(red: 1, green: 0.95, blue: 0.7, alpha: 0.06)
+            light.strokeColor = .clear
+            let point = track.itemBoxPositions[index % track.itemBoxPositions.count]
+            light.position = point
+            light.zPosition = -5
+            addChild(light)
+        }
+    }
+
     private func addItemBoxes() {
         for point in track.itemBoxPositions {
             let box = SKShapeNode(rectOf: CGSize(width: 36, height: 36), cornerRadius: 6)
@@ -224,25 +254,64 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func buildRacers() {
-        let configs: [(String, Bool, Int, SKColor, SKColor)] = [
-            ("You", true, 0, SKColor(red: 0.2, green: 0.55, blue: 0.95, alpha: 1), .lightGray),
-            ("Player 2", true, 1, SKColor(red: 0.95, green: 0.55, blue: 0.15, alpha: 1), .gray),
-            ("Rusty Ron", false, -1, SKColor(red: 0.85, green: 0.25, blue: 0.2, alpha: 1), SKColor(red: 0.45, green: 0.45, blue: 0.48, alpha: 1)),
-            ("Cart Carl", false, -1, SKColor(red: 0.25, green: 0.7, blue: 0.35, alpha: 1), .gray)
-        ]
+    private var remoteRacers: [String: CartRacer] = [:]
 
+    private func setupNetworkObservers() {
+        NotificationCenter.default.addObserver(forName: .cartKartNetworkStateReceived, object: nil, queue: .main) { [weak self] note in
+            guard let self, let data = note.userInfo?["data"] as? Data,
+                  let state = try? JSONDecoder().decode(NetworkRacerState.self, from: data) else { return }
+            self.applyRemoteState(state)
+        }
+    }
+
+    private func applyRemoteState(_ state: NetworkRacerState) {
+        let racer: CartRacer
+        if let existing = remoteRacers[state.name] {
+            racer = existing
+        } else if let aiRacer = racers.first(where: { !$0.isPlayer && $0.racerName == state.name }) {
+            racer = aiRacer
+            remoteRacers[state.name] = aiRacer
+        } else {
+            return
+        }
+        racer.position = CGPoint(x: state.x, y: state.y)
+        racer.zRotation = state.rotation
+        racer.speed = state.speed
+        racer.lap = state.lap
+        racer.checkpointIndex = state.checkpoint
+    }
+
+    private func broadcastLocalState() {
+        guard GameSettings.shared.playerMode == .onlineMultiplayer,
+              let player = humanPlayers.first else { return }
+        let state = NetworkRacerState(
+            name: player.racerName,
+            x: player.position.x,
+            y: player.position.y,
+            rotation: player.zRotation,
+            speed: player.speed,
+            lap: player.lap,
+            checkpoint: player.checkpointIndex
+        )
+        GameCenterManager.shared.sendRacerState(state)
+    }
+
+    private func buildRacers() {
+        let settings = GameSettings.shared
+        let aiCharacters: [CharacterDefinition] = [.speedySal, .driftKing, .tankTanya, .couponCarla]
         let humanCount = multiplayer ? 2 : 1
 
-        for (index, config) in configs.enumerated() {
+        for index in 0..<4 {
             let isHuman = index < humanCount
-            let racer = CartRacer(
-                name: isHuman ? (index == 0 ? "You" : "Player 2") : config.0,
-                isPlayer: isHuman,
-                playerSlot: isHuman ? config.2 : 0,
-                bodyColor: config.3,
-                cartColor: config.4
-            )
+            let racer: CartRacer
+            if isHuman {
+                let character = index == 0 ? settings.selectedCharacter : settings.selectedCharacterP2
+                racer = CartRacer(character: character, isPlayer: true, playerSlot: index)
+            } else {
+                let aiChar = aiCharacters[(index - humanCount) % aiCharacters.count]
+                racer = CartRacer(character: aiChar, isPlayer: false, playerSlot: 0)
+            }
+
             let grid = track.startGrid[index]
             racer.position = grid.0
             racer.zRotation = grid.1
@@ -362,6 +431,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         updatePositions()
         updateHUD()
         updateCamera()
+        broadcastLocalState()
     }
 
     private func updateCamera() {
@@ -658,6 +728,24 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
     private func presentResults() {
         guard let view else { return }
+        SoundManager.shared.stopRaceMusic()
+
+        if let session = GameSettings.shared.cupSession {
+            session.recordRace(finishOrder: finishOrder)
+            if session.isComplete {
+                let cupResults = CupResultsScene(size: size, session: session)
+                cupResults.scaleMode = .resizeFill
+                view.presentScene(cupResults, transition: SKTransition.fade(withDuration: 0.8))
+                return
+            }
+            let interim = ResultsScene(size: size, track: track, multiplayer: multiplayer, cupInterim: session)
+            interim.scaleMode = .resizeFill
+            interim.finishOrder = finishOrder
+            interim.raceTime = raceTime
+            view.presentScene(interim, transition: SKTransition.fade(withDuration: 0.8))
+            return
+        }
+
         let results = ResultsScene(size: size, track: track, multiplayer: multiplayer)
         results.scaleMode = .resizeFill
         results.finishOrder = finishOrder

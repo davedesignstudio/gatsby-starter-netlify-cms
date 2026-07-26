@@ -53,6 +53,7 @@ final class RaceScene3DController: ObservableObject {
         phase = .countdown
         startCountdown()
         startLoop()
+        SoundManager.shared.startRaceMusic()
     }
 
     private func resetRace() {
@@ -65,8 +66,8 @@ final class RaceScene3DController: ObservableObject {
         raceTime = 0
         countdown = 3
         raceStarted = false
-        setupLighting()
         setupCamera()
+        CartModelBuilder.setupTrackLighting(in: scene, track: track)
     }
 
     private func setupCamera() {
@@ -78,31 +79,15 @@ final class RaceScene3DController: ObservableObject {
         scene.rootNode.addChildNode(cameraNode)
     }
 
-    private func setupLighting() {
-        let ambient = SCNNode()
-        ambient.light = SCNLight()
-        ambient.light?.type = .ambient
-        ambient.light?.intensity = 500
-        ambient.light?.color = UIColor(white: 0.85, alpha: 1)
-        scene.rootNode.addChildNode(ambient)
-
-        let sun = SCNNode()
-        sun.light = SCNLight()
-        sun.light?.type = .directional
-        sun.light?.intensity = 900
-        sun.eulerAngles = SCNVector3(-1.1, 0.6, 0)
-        scene.rootNode.addChildNode(sun)
-    }
-
     private func buildTrack() {
         let floor = SCNBox(width: CGFloat(track.outerRect.width), height: 2, length: CGFloat(track.outerRect.height), chamferRadius: 4)
-        floor.firstMaterial?.diffuse.contents = uiColor(from: track.floorColor)
+        floor.firstMaterial?.diffuse.contents = CartModelBuilder.uiColor(from: track.floorColor)
         let floorNode = SCNNode(geometry: floor)
         floorNode.position = SCNVector3(track.outerRect.midX, -1, -track.outerRect.midY)
         scene.rootNode.addChildNode(floorNode)
 
         let island = SCNBox(width: CGFloat(track.innerRect.width), height: 12, length: CGFloat(track.innerRect.height), chamferRadius: 3)
-        island.firstMaterial?.diffuse.contents = uiColor(from: track.islandColor)
+        island.firstMaterial?.diffuse.contents = CartModelBuilder.uiColor(from: track.islandColor)
         let islandNode = SCNNode(geometry: island)
         islandNode.position = SCNVector3(track.innerRect.midX, 6, -track.innerRect.midY)
         scene.rootNode.addChildNode(islandNode)
@@ -111,7 +96,7 @@ final class RaceScene3DController: ObservableObject {
 
         for (index, shelf) in track.shelfObstacles.enumerated() {
             let box = SCNBox(width: shelf.width, height: 18, length: shelf.height, chamferRadius: 2)
-            box.firstMaterial?.diffuse.contents = uiColor(from: track.shelfColor)
+            box.firstMaterial?.diffuse.contents = CartModelBuilder.uiColor(from: track.shelfColor)
             let node = SCNNode(geometry: box)
             node.position = SCNVector3(shelf.midX, 9, -shelf.midY)
             scene.rootNode.addChildNode(node)
@@ -142,32 +127,32 @@ final class RaceScene3DController: ObservableObject {
     }
 
     private func buildRacers() {
-        let names = ["You", "Player 2", "Rusty Ron", "Cart Carl"]
-        let colors: [(SKColor, SKColor)] = [
-            (SKColor(red: 0.2, green: 0.55, blue: 0.95, alpha: 1), .lightGray),
-            (SKColor(red: 0.95, green: 0.55, blue: 0.15, alpha: 1), .gray),
-            (SKColor(red: 0.85, green: 0.25, blue: 0.2, alpha: 1), SKColor(red: 0.45, green: 0.45, blue: 0.48, alpha: 1)),
-            (SKColor(red: 0.25, green: 0.7, blue: 0.35, alpha: 1), .gray)
-        ]
-
+        let settings = GameSettings.shared
+        let aiCharacters: [CharacterDefinition] = [.speedySal, .driftKing, .tankTanya, .couponCarla]
         let humanCount = multiplayer ? 2 : 1
 
         for index in 0..<4 {
             let isHuman = index < humanCount
-            let racer = CartRacer(
-                name: isHuman ? (index == 0 ? "You" : "Player 2") : names[index],
-                isPlayer: isHuman,
-                playerSlot: index,
-                bodyColor: colors[index].0,
-                cartColor: colors[index].1
-            )
+            let racer: CartRacer
+            let character: CharacterDefinition
+            if isHuman {
+                character = index == 0 ? settings.selectedCharacter : settings.selectedCharacterP2
+                racer = CartRacer(character: character, isPlayer: true, playerSlot: index)
+            } else {
+                character = aiCharacters[(index - humanCount) % aiCharacters.count]
+                racer = CartRacer(character: character, isPlayer: false, playerSlot: 0)
+            }
+
             let grid = track.startGrid[index]
             racer.position = grid.0
             racer.zRotation = grid.1
             racers.append(racer)
             if isHuman { humanPlayers.append(racer) }
 
-            let node = makeCartNode(color: uiColor(from: colors[index].0))
+            let node = CartModelBuilder.makeDetailedCart(
+                bodyColor: CartModelBuilder.uiColor(from: character.bodyColor),
+                cartColor: CartModelBuilder.uiColor(from: character.cartColor)
+            )
             scene.rootNode.addChildNode(node)
             racerNodes.append(node)
 
@@ -175,24 +160,6 @@ final class RaceScene3DController: ObservableObject {
                 aiControllers.append(AIController(racer: racer, track: track, skill: 0.55 + CGFloat(index) * 0.1))
             }
         }
-    }
-
-    private func makeCartNode(color: UIColor) -> SCNNode {
-        let root = SCNNode()
-
-        let cart = SCNBox(width: 28, height: 20, length: 36, chamferRadius: 3)
-        cart.firstMaterial?.diffuse.contents = UIColor.lightGray
-        let cartNode = SCNNode(geometry: cart)
-        cartNode.position = SCNVector3(0, 10, 0)
-        root.addChildNode(cartNode)
-
-        let body = SCNCylinder(radius: 8, height: 16)
-        body.firstMaterial?.diffuse.contents = color
-        let bodyNode = SCNNode(geometry: body)
-        bodyNode.position = SCNVector3(0, 24, -4)
-        root.addChildNode(bodyNode)
-
-        return root
     }
 
     private func setupOverlay() {
@@ -283,6 +250,7 @@ final class RaceScene3DController: ObservableObject {
         let node = racerNodes[index]
         node.position = SCNVector3(racer.position.x, 0, -racer.position.y)
         node.eulerAngles = SCNVector3(0, -racer.zRotation + .pi / 2, 0)
+        CartModelBuilder.updateParticles(on: node, speed: racer.speed, drifting: racer.driftFactor > 0.1)
     }
 
     private func keepOnTrack(_ racer: CartRacer) {
@@ -321,6 +289,7 @@ final class RaceScene3DController: ObservableObject {
         let humansDone = humanPlayers.allSatisfy(\.finished)
         if humansDone || finishOrder.count == racers.count {
             phase = .finished
+            SoundManager.shared.stopRaceMusic()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
                 self?.requestMenu = true
             }
@@ -392,10 +361,9 @@ final class RaceScene3DController: ObservableObject {
         input.handleTouches(touches, in: overlayScene, phase: phase)
     }
 
-    private func uiColor(from skColor: SKColor) -> UIColor {
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        skColor.getRed(&r, green: &g, blue: &b, alpha: &a)
-        return UIColor(red: r, green: g, blue: b, alpha: a)
+    deinit {
+        displayLink?.invalidate()
+        SoundManager.shared.stopRaceMusic()
     }
 
     private func ordinal(_ value: Int) -> String {
@@ -412,9 +380,5 @@ final class RaceScene3DController: ObservableObject {
         let seconds = Int(time) % 60
         let tenths = Int((time * 10).truncatingRemainder(dividingBy: 10))
         return String(format: "%d:%02d.%d", minutes, seconds, tenths)
-    }
-
-    deinit {
-        displayLink?.invalidate()
     }
 }
