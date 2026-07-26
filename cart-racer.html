@@ -1,0 +1,85 @@
+---
+layout: default
+title: Cart Racer
+section_id: cart-racer
+---
+
+<link rel="stylesheet" href="css/cart-racer.css">
+
+<main class="cart-racer-page" aria-labelledby="cart-racer-title">
+  <section class="cart-racer-hero">
+    <div class="cart-racer-copy">
+      <p class="eyebrow">After-hours aisle racing</p>
+      <h1 id="cart-racer-title">Cart Racer: Store Dash</h1>
+      <p>
+        Race an abandoned shopping cart through neon grocery aisles, scoop up
+        care packages, dodge spills, and out-roll rival carts before closing time.
+      </p>
+      <ul class="feature-list">
+        <li>Touch, mouse, and keyboard steering</li>
+        <li>Rival carts, boost pickups, hazards, and lap goals</li>
+        <li>Designed for iPhone-sized screens and desktop browsers</li>
+      </ul>
+    </div>
+
+    <div class="cart-racer-shell" id="cart-racer-game">
+      <div class="game-hud" aria-live="polite">
+        <div>
+          <span class="hud-label">Lap</span>
+          <strong id="hud-lap">1/3</strong>
+        </div>
+        <div>
+          <span class="hud-label">Place</span>
+          <strong id="hud-place">4th</strong>
+        </div>
+        <div>
+          <span class="hud-label">Care kits</span>
+          <strong id="hud-score">0</strong>
+        </div>
+        <div>
+          <span class="hud-label">Speed</span>
+          <strong id="hud-speed">0</strong>
+        </div>
+      </div>
+
+      <canvas id="cart-racer-canvas" width="420" height="720" aria-label="Cart Racer game canvas"></canvas>
+
+      <div class="game-overlay is-visible" id="game-overlay">
+        <div class="overlay-card">
+          <p class="eyebrow">Ready to roll?</p>
+          <h2 id="overlay-title">Store Dash Grand Prix</h2>
+          <p id="overlay-text">
+            Steer through the aisles, collect care kits, bump through boost pads,
+            and finish three laps ahead of the rival carts.
+          </p>
+          <button class="button start-button" id="start-game" type="button">Start race</button>
+        </div>
+      </div>
+
+      <div class="touch-controls" aria-label="Touch controls">
+        <button type="button" id="steer-left" aria-label="Steer left">Left</button>
+        <button type="button" id="boost-button" aria-label="Use boost">Boost</button>
+        <button type="button" id="steer-right" aria-label="Steer right">Right</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-to-play">
+    <div class="row">
+      <div class="large-4 columns">
+        <h3>Controls</h3>
+        <p>Use arrow keys or A/D on desktop. On iOS, hold the left and right buttons or drag across the canvas.</p>
+      </div>
+      <div class="large-4 columns">
+        <h3>Pickups</h3>
+        <p>Care kits add points, boost pads give a burst of speed, and aisle arrows help you recover after a hit.</p>
+      </div>
+      <div class="large-4 columns">
+        <h3>Hazards</h3>
+        <p>Avoid mop puddles, cereal spills, loose crates, and roaming rival carts while the store timer ticks down.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/cart-racer.js"></script>

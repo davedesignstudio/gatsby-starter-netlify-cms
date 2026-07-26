@@ -1,0 +1,269 @@
+.cart-racer-page {
+  background: #0b1020;
+  color: #f7f8ff;
+  font-family: "Raleway", Arial, sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.cart-racer-hero {
+  align-items: center;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 214, 102, 0.24), transparent 28rem),
+    radial-gradient(circle at 82% 18%, rgba(61, 220, 255, 0.22), transparent 30rem),
+    linear-gradient(135deg, #080b18 0%, #162043 54%, #291135 100%);
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: minmax(17rem, 0.82fr) minmax(18rem, 1fr);
+  min-height: calc(100vh - 5rem);
+  padding: 7rem 5vw 4rem;
+}
+
+.cart-racer-copy {
+  max-width: 38rem;
+}
+
+.cart-racer-copy h1 {
+  color: #ffffff;
+  font-size: clamp(2.45rem, 7vw, 5.8rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.92;
+  margin: 0 0 1.2rem;
+  text-transform: uppercase;
+}
+
+.cart-racer-copy p,
+.how-to-play p,
+.feature-list {
+  color: rgba(247, 248, 255, 0.82);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  color: #ffd666;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.feature-list li {
+  margin: 0.55rem 0;
+  padding-left: 1.7rem;
+  position: relative;
+}
+
+.feature-list li:before {
+  background: #42f5b3;
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(66, 245, 179, 0.75);
+  content: "";
+  height: 0.65rem;
+  left: 0;
+  position: absolute;
+  top: 0.58rem;
+  width: 0.65rem;
+}
+
+.cart-racer-shell {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2rem;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  margin: 0 auto;
+  max-width: min(92vw, 30rem);
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+}
+
+.game-hud {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 0.75rem;
+}
+
+.game-hud > div {
+  background: rgba(8, 11, 24, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.9rem;
+  padding: 0.55rem 0.35rem;
+  text-align: center;
+}
+
+.hud-label {
+  color: rgba(247, 248, 255, 0.62);
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.game-hud strong {
+  color: #ffffff;
+  display: block;
+  font-size: clamp(0.85rem, 3vw, 1.2rem);
+  line-height: 1.1;
+  margin-top: 0.2rem;
+}
+
+#cart-racer-canvas {
+  background: #11182e;
+  border-radius: 1.45rem;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  display: block;
+  height: auto;
+  max-height: 72vh;
+  touch-action: none;
+  width: 100%;
+}
+
+.game-overlay {
+  align-items: center;
+  background: rgba(5, 8, 18, 0.74);
+  border-radius: 1.45rem;
+  bottom: 1rem;
+  display: none;
+  justify-content: center;
+  left: 1rem;
+  padding: 1.2rem;
+  position: absolute;
+  right: 1rem;
+  top: 5.1rem;
+  z-index: 2;
+}
+
+.game-overlay.is-visible {
+  display: flex;
+}
+
+.overlay-card {
+  background: rgba(13, 19, 39, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.4rem;
+  box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.45);
+  max-width: 22rem;
+  padding: 1.6rem;
+  text-align: center;
+}
+
+.overlay-card h2 {
+  color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.8rem;
+}
+
+.overlay-card p {
+  color: rgba(247, 248, 255, 0.78);
+  line-height: 1.55;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #ffd666, #ff7c5c);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 0.8rem 2.2rem rgba(255, 124, 92, 0.32);
+  color: #15100a;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-top: 0.7rem;
+  padding: 0.9rem 1.35rem;
+  text-transform: uppercase;
+}
+
+.touch-controls {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 0.85rem;
+}
+
+.touch-controls button {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.75rem 0.5rem;
+  text-transform: uppercase;
+}
+
+.touch-controls button:active,
+.touch-controls button.is-pressed {
+  background: #42f5b3;
+  color: #071019;
+}
+
+.how-to-play {
+  background: #0b1020;
+  padding: 3.5rem 0 4rem;
+}
+
+.how-to-play h3 {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .cart-racer-hero {
+    grid-template-columns: 1fr;
+    padding-top: 6rem;
+  }
+
+  .cart-racer-copy {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .feature-list {
+    display: inline-block;
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .cart-racer-hero {
+    gap: 1.4rem;
+    padding: 5.5rem 0.85rem 2rem;
+  }
+
+  .cart-racer-shell {
+    border-radius: 1.35rem;
+    padding: 0.7rem;
+  }
+
+  .game-hud {
+    gap: 0.35rem;
+  }
+
+  .game-hud > div {
+    border-radius: 0.75rem;
+    padding: 0.45rem 0.2rem;
+  }
+
+  .game-overlay {
+    bottom: 0.7rem;
+    left: 0.7rem;
+    right: 0.7rem;
+    top: 4.8rem;
+  }
+
+  .overlay-card {
+    padding: 1.2rem;
+  }
+}
