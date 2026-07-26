@@ -889,6 +889,94 @@ noscript {
   }
 }
 
+@media (max-height: 450px) {
+  .topbar {
+    padding-top: calc(8px + env(safe-area-inset-top));
+    padding-bottom: 7px;
+  }
+
+  .brand-cart {
+    width: 35px;
+    height: 30px;
+  }
+
+  .brand-cart svg {
+    width: 28px;
+  }
+
+  .brand-wordmark {
+    font-size: 18px;
+  }
+
+  .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .start-screen {
+    justify-content: center;
+    padding-top: 56px;
+    padding-bottom: 8px;
+  }
+
+  .eyebrow {
+    gap: 8px;
+    margin-bottom: 0;
+    font-size: 8px;
+  }
+
+  .eyebrow i {
+    width: 18px;
+  }
+
+  .hero-title {
+    font-size: clamp(54px, 19vh, 72px);
+    line-height: 0.73;
+  }
+
+  .tagline {
+    margin: 9px 0 11px;
+    font-size: 9px;
+  }
+
+  .start-card {
+    width: min(360px, 70vw);
+  }
+
+  .track-preview {
+    display: none;
+  }
+
+  .start-card .primary-button {
+    min-height: 48px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+
+  .start-screen .control-hint,
+  .start-screen .swipe-hint {
+    display: none;
+  }
+
+  .pause-screen h2,
+  .finish-screen h2 {
+    margin: 5px 0 15px;
+    font-size: 56px;
+  }
+
+  .result-panel {
+    margin-bottom: 12px;
+  }
+
+  .result-panel div {
+    padding: 9px 8px;
+  }
+
+  .primary-button.compact {
+    min-height: 46px;
+  }
+}
+
 @media (max-width: 620px) {
   .topbar {
     padding-right: calc(15px + env(safe-area-inset-right));
