@@ -6,9 +6,9 @@
   --bg-elevated: #0a0a0a;
   --text-primary: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.65);
-  --accent: #3b8bff;
-  --accent-bright: #6bb5ff;
-  --accent-glow: rgba(59, 139, 255, 0.25);
+  --accent: #1a4d8f;
+  --accent-bright: #2a6cb8;
+  --accent-glow: rgba(26, 77, 143, 0.25);
   --sub-color: #722f37;
   --stroke: rgba(114, 47, 55, 0.2);
   --border: rgba(114, 47, 55, 0.2);
@@ -151,7 +151,7 @@ body.zoom-body {
 
 .zoom-hero {
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(59, 139, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26, 77, 143, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse 50% 50% at 20% 80%, rgba(114, 47, 55, 0.06) 0%, transparent 50%),
     var(--bg-deep);
 }
@@ -409,7 +409,7 @@ body.zoom-body {
 
 .zoom-about {
   background:
-    radial-gradient(ellipse 60% 50% at 30% 50%, rgba(59, 139, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 30% 50%, rgba(26, 77, 143, 0.05) 0%, transparent 60%),
     var(--bg-deep);
 }
 
@@ -534,7 +534,7 @@ body.zoom-body {
 
 .zoom-contact {
   background:
-    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(59, 139, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(26, 77, 143, 0.08) 0%, transparent 60%),
     var(--bg-deep);
   text-align: center;
 }
