@@ -1,0 +1,93 @@
+---
+layout: default
+title: Cart Dash
+section_id: cart-racer
+---
+
+<div class='cart-racer-page'>
+  <section class='cart-racer-hero'>
+    <div class='cart-racer-hero__copy'>
+      <p class='cart-racer-eyebrow'>iOS-friendly browser game</p>
+      <h1>Cart Dash: Aisle Racers</h1>
+      <p>
+        Race a crew of lost shopping carts through a neon grocery store. Drift
+        around aisle displays, grab coupon boosts, and beat the rival carts to
+        checkout before the final lap ends.
+      </p>
+      <a class='cart-racer-cta' href='#cart-racer-game'>Start racing</a>
+    </div>
+    <div class='cart-racer-hero__card' aria-hidden='true'>
+      <span class='cart-racer-hero__wheel cart-racer-hero__wheel--one'></span>
+      <span class='cart-racer-hero__wheel cart-racer-hero__wheel--two'></span>
+      <span class='cart-racer-hero__cart'>CART</span>
+      <span class='cart-racer-hero__speedline'></span>
+      <span class='cart-racer-hero__speedline cart-racer-hero__speedline--short'></span>
+    </div>
+  </section>
+
+  <section class='cart-racer-shell' id='cart-racer-game' aria-label='Cart Dash game'>
+    <div class='cart-racer-hud' aria-live='polite'>
+      <div>
+        <span>Lap</span>
+        <strong id='cart-racer-lap'>1 / 3</strong>
+      </div>
+      <div>
+        <span>Place</span>
+        <strong id='cart-racer-place'>4th</strong>
+      </div>
+      <div>
+        <span>Score</span>
+        <strong id='cart-racer-score'>0</strong>
+      </div>
+      <div>
+        <span>Item</span>
+        <strong id='cart-racer-item'>None</strong>
+      </div>
+    </div>
+
+    <div class='cart-racer-stage'>
+      <canvas
+        id='cart-racer-canvas'
+        width='960'
+        height='600'
+        aria-label='Top-down shopping cart racing game'
+      ></canvas>
+      <div class='cart-racer-overlay is-visible' id='cart-racer-overlay'>
+        <div class='cart-racer-panel'>
+          <p class='cart-racer-eyebrow'>Three laps. One checkout crown.</p>
+          <h2 id='cart-racer-overlay-title'>Ready to roll?</h2>
+          <p id='cart-racer-overlay-copy'>
+            Steer the cart between grocery aisles, collect coupons for boosts,
+            and avoid spills, cereal towers, and rival carts.
+          </p>
+          <button class='cart-racer-button' id='cart-racer-start' type='button'>
+            Start race
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class='cart-racer-controls' aria-label='Game controls'>
+      <button class='cart-racer-control' id='cart-racer-left' type='button' aria-label='Steer left'>&larr;</button>
+      <button class='cart-racer-control cart-racer-control--boost' id='cart-racer-boost' type='button' aria-label='Use boost'>Boost</button>
+      <button class='cart-racer-control' id='cart-racer-right' type='button' aria-label='Steer right'>&rarr;</button>
+    </div>
+
+    <div class='cart-racer-instructions'>
+      <div>
+        <h3>Touch controls</h3>
+        <p>Tap the arrows, swipe left or right on the track, and press Boost when a coupon is loaded.</p>
+      </div>
+      <div>
+        <h3>Keyboard controls</h3>
+        <p>Use arrow keys or A/D to steer. Press Space to spend a coupon boost.</p>
+      </div>
+      <div>
+        <h3>Goal</h3>
+        <p>Finish three laps with the highest score and the best place at checkout.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src='{{ "/js/cart-racer.js" | prepend: site.baseurl }}'></script>

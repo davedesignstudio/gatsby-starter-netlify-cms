@@ -5,11 +5,19 @@
 
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  {% if page.section_id == "cart-racer" %}
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Cart Dash">
+  <meta name="theme-color" content="#10131d">
+  {% endif %}
 
   <link rel="stylesheet" href="{{ "/css/foundation.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/css/fontello.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/css/font-awesome.css" | prepend: site.baseurl }}">
+  {% if page.section_id == "cart-racer" %}
+  <link rel="stylesheet" href="{{ "/css/cart-racer.css" | prepend: site.baseurl }}">
+  {% endif %}
   <script src="{{ "/javascripts/libs.js" | prepend: site.baseurl }}" type="text/javascript"></script>
   <script>
     // terrificjs bootstrap

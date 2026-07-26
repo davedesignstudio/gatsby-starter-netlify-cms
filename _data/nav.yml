@@ -7,6 +7,9 @@
 - name: Services
   path: services.html
   section_id: services
+- name: Cart Dash
+  path: cart-racer.html
+  section_id: cart-racer
 - name: Portfolio
   path: portfolio.html
   section_id: portfolio
