@@ -1,0 +1,494 @@
+:root {
+  --bg: #08111f;
+  --panel: rgba(7, 14, 28, 0.78);
+  --panel-border: rgba(125, 196, 255, 0.22);
+  --text: #e9f4ff;
+  --muted: #93a9c4;
+  --accent: #ff9f1c;
+  --accent-2: #4dd8ff;
+  --accent-3: #9eff6c;
+  --danger: #ff5b7a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.store-cart-racer-page {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(77, 216, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, #0c1d35 0%, #08111f 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.game-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.game-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(16px);
+  background: rgba(8, 17, 31, 0.82);
+  border-bottom: 1px solid rgba(125, 196, 255, 0.16);
+}
+
+.game-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.game-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+}
+
+.game-brand__badge {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, var(--accent), #ffce61);
+  color: #101010;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.game-brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.game-brand__text strong {
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.game-brand__text small {
+  color: var(--muted);
+}
+
+.game-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.game-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.game-nav a:hover,
+.game-nav a:focus {
+  color: var(--text);
+}
+
+.hero {
+  padding: 3.5rem 0 2rem;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.hero__copy,
+.hero__aside,
+.play-area,
+.section-card,
+.controls-panel,
+.feature-card {
+  padding: 1.5rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(77, 216, 255, 0.08);
+  color: var(--accent-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.hero p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.15rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.button-link--primary {
+  background: linear-gradient(135deg, var(--accent), #ffd36f);
+  color: #111;
+}
+
+.button-link--secondary {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+}
+
+.hero__aside {
+  display: grid;
+  gap: 1rem;
+}
+
+.stat-block {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.stat-block strong {
+  font-size: 2.2rem;
+}
+
+.stat-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0.95rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-row span:first-child {
+  color: var(--muted);
+}
+
+.play-area {
+  margin-bottom: 1.5rem;
+}
+
+.play-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.7fr);
+  gap: 1.5rem;
+}
+
+.canvas-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.canvas-frame {
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b1322;
+}
+
+.helper-text {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.hud-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.hud-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(77, 216, 255, 0.1);
+  color: var(--accent-2);
+  font-weight: 800;
+}
+
+.meter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.meter {
+  padding: 0.9rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.meter span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.meter strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.55rem;
+}
+
+.item-readout {
+  color: var(--accent-3);
+}
+
+.leaderboard {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.leaderboard li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.75rem 0.85rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.leaderboard__place {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.leaderboard__name {
+  font-weight: 700;
+}
+
+.leaderboard__item {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.hud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hud-actions button,
+.touch-button {
+  appearance: none;
+  border: 0;
+  border-radius: 1rem;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hud-actions button {
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.hud-actions button:hover,
+.touch-button:hover {
+  filter: brightness(1.06);
+}
+
+.controls-wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.touch-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.touch-button {
+  min-height: 3.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.touch-button--accent {
+  background: linear-gradient(135deg, var(--danger), #ffa1b3);
+  color: #1b1020;
+}
+
+.touch-button--boost {
+  background: linear-gradient(135deg, var(--accent), #ffd36f);
+  color: #111;
+}
+
+.touch-button.is-active {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55);
+  transform: translateY(1px);
+}
+
+.section {
+  padding-bottom: 2rem;
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.section-copy {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.feature-card h3,
+.controls-panel h3,
+.section-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p,
+.controls-panel p,
+.section-card p,
+.section-card li {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.section-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 1rem;
+}
+
+.game-footer {
+  padding: 1.4rem 0 2.5rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .hero__grid,
+  .play-grid,
+  .how-grid,
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .game-header__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero {
+    padding-top: 2.2rem;
+  }
+
+  .play-area,
+  .hero__copy,
+  .hero__aside,
+  .section-card,
+  .controls-panel,
+  .feature-card {
+    padding: 1.1rem;
+  }
+
+  .meter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .touch-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

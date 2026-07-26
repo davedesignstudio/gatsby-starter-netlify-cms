@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <link rel="stylesheet" href="{{ "/css/store-cart-racer.css" | prepend: site.baseurl }}">
+    {% if page.extra_css %}
+      {% for stylesheet in page.extra_css %}
+        <link rel="stylesheet" href="{{ stylesheet | prepend: site.baseurl }}">
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body class="{% if page.body_class %}{{ page.body_class }}{% else %}store-cart-racer-page{% endif %}">
+    <header class="game-header">
+      <div class="game-shell game-header__inner">
+        <a class="game-brand" href="#top">
+          <span class="game-brand__badge">MMC</span>
+          <span class="game-brand__text">
+            <strong>Midnight Mart Cartel</strong>
+            <small>iOS-ready cart racer prototype</small>
+          </span>
+        </a>
+        <nav class="game-nav" aria-label="Primary">
+          <a href="#play">Play</a>
+          <a href="#how-to-play">Controls</a>
+          <a href="#features">Features</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      {{ content }}
+    </main>
+
+    <footer class="game-footer">
+      <div class="game-shell">
+        <p>Midnight Mart Cartel is a playable supermarket shopping cart racer prototype built for touch screens and keyboards.</p>
+      </div>
+    </footer>
+
+    {% if page.extra_js %}
+      {% for script in page.extra_js %}
+        <script src="{{ script | prepend: site.baseurl }}"></script>
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>

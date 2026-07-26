@@ -1,412 +1,187 @@
 ---
-layout: default
+layout: game
+title: Midnight Mart Cartel
 section_id: home
-slides:
-  - bg: images/@stock/slide-1.jpg
-    small_title:
-      klass: bottom-to-top
-      text: The perfect theme for
-    title:
-      klass: bottom-to-top
-      text: Many purposes
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-4.jpg
-    klass: centered-text
-    small_title:
-      klass: bottom-to-top
-      text: We make websites that are
-    title:
-      klass: bottom-to-top
-      text: Creative &amp; Powerful
-    buttons:
-      klass: bottom-to-top
-      items:
-        - klass: boxed
-          text: View Features
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-        - text: Purchase Now
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-5.jpg
-    small_title:
-      klass: bottom-to-top
-      text: This is a creative theme that you'll
-    title:
-      klass: bottom-to-top
-      text: definitely love...
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-
-
-
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-
-
-services:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-
-milestones:
-  - icon: folder-open
-    from: 0
-    to: 69
-    title: Projects Completed
-  - icon: coffee
-    from: 0
-    to: 726
-    title: Cups of coffee offered
-  - icon: thumbs-up
-    from: 0
-    to: 59
-    title: Happy clients
-  - icon: file-text
-    from: 0
-    to: 21
-    title: Articles Published
-
+body_class: store-cart-racer-page
+excerpt: A touch-friendly arcade racing prototype with shopping carts blasting through a supermarket after dark.
+extra_js:
+  - /js/store-cart-racer.js
 ---
 
-
-<div class='mod modDefaultSlider'>
-  <div class='sequence' data-autostop='on' data-timeout='0'>
-    <a class='sequence-prev' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <a class='sequence-next' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <ul class='sequence-pagination'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign class = 'current' %}
-        {% else %}
-          {% assign class = '' %}
-        {% endif %}
-        <li class="{{class}}"></li>
-      {% endfor %}
-    </ul>
-    <ul class='sequence-canvas'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign style = 'static' %}
-        {% else %}
-          {% assign style = '' %}
-        {% endif %}
-
-        <li class='frame {{style}} {{ slide.klass }}'>
-          <div class='bg' style='background-image: url({{ slide.bg}});'></div>
-          <div class='small-title {{ slide.small_title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.small_title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='title {{ slide.title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='buttons-wrapper {{ slide.buttons.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <div class='two spacing'></div>
-                {% for button in slide.buttons.items %}
-                  <a class='button {{ button.klass }}' href='{{ button.link_to }}'>{{ button.text }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<div class="four spacing"></div>
-
-<div class="row">
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-flask' delay='0' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-paper-plane-o' delay='200' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-tablet' delay='400' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-comments-o' delay='600' shape_class='icon-text-circle' %}
-  </div>
-</div>
-
-<div class="spacing"></div>
-
-<div class="full" style="background: #f5f5f5;">
-  <div class="row">
-    <div class="large-12 columns">
-      {% include section-header.html title="Our works" %}
-      <div class="spacing"></div>
+<section class="hero">
+  <div class="game-shell hero__grid">
+    <article class="card hero__copy">
+      <div class="eyebrow">Arcade prototype</div>
+      <h1>Mario Kart energy, shopping carts, and one reckless store after closing.</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
+        Midnight Mart Cartel turns the supermarket into a neon race circuit. A scrappy crew of streetwise cart racers
+        drift through produce corners, dodge freezer spills, and slam turbo coffee to survive checkout lane chaos.
       </p>
-      <div class="three spacing"></div>
-    </div>
-  </div>
-
-  <div class="mod modGallery">
-    <ul class="gallery small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-      {% for work in page.works %}
-        <li class="{{ work.klass }}">
-          <a href='{{ work.link_to }}'>
-            <img alt="" src="{{ work.image }}" />
-            <div class='overlay'>
-              <div class='thumb-info'>
-                <h3>{{ work.title }}</h3>
-                <p>{{ work.desc }}</p>
-              </div>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" %}
-      <div class='spacing'></div>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
+        The build below is touch-friendly for iPhone and iPad, but also plays with a keyboard. Hit the gas, use items,
+        and finish three laps before the rest of the cart crew closes the gap.
       </p>
-      <div class='three spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <img class="fadeinleft" alt="" src="images/@stock/responsive.png" />
-      <div class='three spacing'></div>
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
+      <div class="hero__actions">
+        <a class="button-link button-link--primary" href="#play">Play now</a>
+        <a class="button-link button-link--secondary" href="#how-to-play">See controls</a>
+      </div>
+    </article>
+
+    <aside class="card hero__aside">
+      <div class="stat-block">
+        <span class="eyebrow">Race pitch</span>
+        <strong>Midnight Mart Cartel</strong>
+        <span class="section-copy">A playable iOS-ready supermarket kart racer prototype built in a single page.</span>
+      </div>
+      <div class="stat-list">
+        <div class="stat-row">
+          <span>Race format</span>
+          <strong>3 laps</strong>
         </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
-
-
-<div class='full parallax' style='background-image: url(images/@stock/milestone-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Parallax effect" color="#fff" %}
-      <div class='spacing'></div>
-      <p class='centered-text' style='color: #ccc;'>
-        Dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for milestone in page.milestones %}
-      <div class='medium-3 large-3 columns'>
-        <div class='mod modMilestone'>
-          <i class='fa fa-{{milestone.icon}}'></i>
-          <strong data-from='{{milestone.from}}' data-to='{{milestone.to}}'>&nbsp;</strong>
-          <span>{{milestone.title}}</span>
-          <div class='four spacing'></div>
+        <div class="stat-row">
+          <span>Play styles</span>
+          <strong>Touch + Keyboard</strong>
+        </div>
+        <div class="stat-row">
+          <span>Power-ups</span>
+          <strong>Boost, shield, spill</strong>
+        </div>
+        <div class="stat-row">
+          <span>Theme</span>
+          <strong>Store aisle kart combat</strong>
         </div>
       </div>
-    {% endfor %}
+    </aside>
   </div>
-  <div class='two spacing'></div>
-</div>
+</section>
 
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our team" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+<section class="section" id="play">
+  <div class="game-shell">
+    <div class="card play-area">
+      <div class="helper-text">
+        <span>Race through Produce Plaza, Freezer Drift, and the Checkout Chicane.</span>
+        <span>Use WASD or arrows on desktop, or the touch buttons on mobile.</span>
+      </div>
+      <div class="play-grid">
+        <div class="canvas-shell">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="1000" height="620" aria-label="Playable supermarket shopping cart racer"></canvas>
+          </div>
+          <div class="controls-wrap">
+            <div class="touch-controls" aria-label="Touch controls">
+              <button class="touch-button" data-control="left" type="button">Left</button>
+              <button class="touch-button" data-control="right" type="button">Right</button>
+              <button class="touch-button touch-button--accent" data-control="brake" type="button">Brake</button>
+              <button class="touch-button touch-button--boost" data-control="use" type="button">Use Item</button>
+              <button class="touch-button" data-control="accel" type="button">Gas</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hud-panel">
+          <div class="card">
+            <div class="hero__copy">
+              <p class="hud-title">Race HUD</p>
+              <div class="status-pill" id="race-status">Grid up: waiting for the green light.</div>
+              <div class="meter-grid">
+                <div class="meter">
+                  <span>Lap</span>
+                  <strong id="lap-readout">1 / 3</strong>
+                </div>
+                <div class="meter">
+                  <span>Place</span>
+                  <strong id="place-readout">1st</strong>
+                </div>
+                <div class="meter">
+                  <span>Speed</span>
+                  <strong id="speed-readout">0 mph</strong>
+                </div>
+                <div class="meter">
+                  <span>Item</span>
+                  <strong class="item-readout" id="item-readout">None</strong>
+                </div>
+                <div class="meter">
+                  <span>Boost</span>
+                  <strong id="boost-readout">Cold</strong>
+                </div>
+                <div class="meter">
+                  <span>Countdown</span>
+                  <strong id="countdown-readout">3</strong>
+                </div>
               </div>
             </div>
           </div>
-          <div class='two spacing'></div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
 
-<div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our recent posts" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-
-  <div class='row'>
-    {% for post in site.posts %}
-      {% if forloop.index > 3 %}
-        {% break %}
-      {% endif %}
-
-      <div class='large-4 medium-4 columns'>
-        <div class='mod modBlogPost'>
-          {% for image in post.images %}
-            {% unless forloop.first %}
-              {% break %}
-            {% endunless %}
-            <a href="{{post.url}}"><img alt="" src="{{image}}" /></a>
-          {% endfor %}
-          <div class='content'>
-            <p class='date'>{{post.date | date: "%B %d, %Y" }}</p>
-            <h4><a href="#">{{post.title}}</a></h4>
-            <p>{{post.excerpt}}</p>
-            <!--
-              <div class="tags">
-                {% for cat in post.categories %}
-                  <a href="#">{{cat | capitalize}}</a>
-                  {% unless forloop.last %}
-                    ,
-                  {% endunless %}
-                {% endfor %}
-              </div>
-            -->
+          <div class="card section-card">
+            <h3>Current order</h3>
+            <ol class="leaderboard" id="leaderboard-list">
+              <li>
+                <span class="leaderboard__place">1</span>
+                <span class="leaderboard__name">Loading racers...</span>
+                <span class="leaderboard__item">--</span>
+              </li>
+            </ol>
           </div>
-        </div>
+
+          <div class="hud-actions">
+            <button id="restart-race" type="button">Restart race</button>
+          </div>
+        </aside>
       </div>
-
-    {% endfor %}
-
+    </div>
   </div>
+</section>
 
-
-  <div class='two spacing'></div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <a class='button' href='blog.html'>See more posts</a>
+<section class="section" id="how-to-play">
+  <div class="game-shell how-grid">
+    <article class="card controls-panel">
+      <h3>How the prototype plays</h3>
+      <p>
+        The karts follow a supermarket loop, but lane control still matters. Swing wide into the frozen aisle, cut back
+        through the produce corner, and hit pickup crates to arm a new item.
       </p>
+      <ul>
+        <li><strong>Gas:</strong> hold W or Up Arrow, or press the Gas button.</li>
+        <li><strong>Steer:</strong> use A/D or Left/Right Arrow to shift your lane and line.</li>
+        <li><strong>Brake:</strong> use S or Down Arrow to tighten up your turn.</li>
+        <li><strong>Use item:</strong> press Space, Enter, or the Use Item button.</li>
+      </ul>
+    </article>
+
+    <article class="card section-card">
+      <h3>Item set</h3>
+      <ul>
+        <li><strong>Turbo Coffee:</strong> a burst of straight-line speed.</li>
+        <li><strong>Soup Lid Shield:</strong> blocks one hazard hit.</li>
+        <li><strong>Soda Spill:</strong> leaves a slick trap behind your cart.</li>
+      </ul>
+      <p>
+        AI rivals will chase pickups too, so the race changes every lap instead of feeling scripted.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="game-shell">
+    <h2 class="section-title">Why this feels like a compact iOS game prototype</h2>
+    <p class="section-copy">
+      The page is built around a single focused loop: accelerate, steer for clean lines, grab items, and finish first.
+      It is structured like a mobile arcade pitch instead of a generic website landing page.
+    </p>
+    <div class="feature-grid">
+      <article class="card feature-card">
+        <h3>Touch-first controls</h3>
+        <p>The on-screen buttons make the game immediately playable on phones and tablets without extra setup.</p>
+      </article>
+      <article class="card feature-card">
+        <h3>Readable combat items</h3>
+        <p>Boosts, shields, and spills give the race a Mario Kart-style rhythm without overwhelming the player.</p>
+      </article>
+      <article class="card feature-card">
+        <h3>Theme built into the track</h3>
+        <p>Produce shelves, freezer lanes, and checkout hazards sell the cart-racing-in-store fantasy from the first lap.</p>
+      </article>
     </div>
   </div>
-  <div class='two spacing'></div>
-
-</div>
-
-
-{% include our-customers.html %}
-
-
-<div class='full no-padding' style='background: #fff'>
-  <div class='two spacing'></div>
-  <div class='mod modCallToAction'>
-    <div class='row'>
-      <div class='medium-9 large-9 columns'>
-        <p>Like what you see here? Checkout this theme and start to build your site immediately.</p>
-      </div>
-      <div class='medium-3 large-3 columns'>
-        <a class='button' href='http://themeforest.net/user/honryou/portfolio?ref=honryou'>Learn more</a>
-      </div>
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+</section>
