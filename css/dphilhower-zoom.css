@@ -1,15 +1,17 @@
 /* D Philhower Studio — Zoom Format Layout */
 
 :root {
-  --bg-deep: #0a0a0b;
-  --bg-panel: #141416;
-  --bg-elevated: #1c1c1f;
-  --text-primary: #f5f0eb;
-  --text-muted: #9a9590;
-  --accent: #c9a87c;
-  --accent-bright: #e8c99a;
-  --accent-glow: rgba(201, 168, 124, 0.25);
-  --border: rgba(255, 255, 255, 0.08);
+  --bg-deep: #000000;
+  --bg-panel: #000000;
+  --bg-elevated: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.65);
+  --accent: #3b8bff;
+  --accent-bright: #6bb5ff;
+  --accent-glow: rgba(59, 139, 255, 0.25);
+  --sub-color: #722f37;
+  --stroke: rgba(114, 47, 55, 0.2);
+  --border: rgba(114, 47, 55, 0.2);
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --nav-width: 72px;
@@ -49,7 +51,7 @@ body.zoom-body {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 0;
-  background: rgba(10, 10, 11, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(12px);
   border-right: 1px solid var(--border);
 }
@@ -69,12 +71,13 @@ body.zoom-body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--stroke);
   border-radius: 8px;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--accent);
+  background: #000000;
 }
 
 .zoom-nav__brand-text {
@@ -96,7 +99,7 @@ body.zoom-body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1.5px solid var(--text-muted);
+  border: 1.5px solid var(--stroke);
   background: transparent;
   transition: all var(--transition-fast);
   text-decoration: none;
@@ -148,8 +151,8 @@ body.zoom-body {
 
 .zoom-hero {
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201, 168, 124, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201, 168, 124, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(59, 139, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(114, 47, 55, 0.06) 0%, transparent 50%),
     var(--bg-deep);
 }
 
@@ -177,7 +180,7 @@ body.zoom-body {
 
 .zoom-hero__title em {
   font-style: italic;
-  color: var(--accent-bright);
+  color: var(--accent);
 }
 
 .zoom-hero__subtitle {
@@ -205,7 +208,7 @@ body.zoom-body {
   align-items: center;
   gap: 0.75rem;
   background: var(--accent);
-  color: var(--bg-deep);
+  color: #ffffff;
   text-decoration: none;
   padding: 1rem 2.25rem;
   border-radius: 100px;
@@ -304,7 +307,7 @@ body.zoom-body {
 .zoom-tile:hover,
 .zoom-tile.is-focused {
   transform: scale(1.04);
-  border-color: rgba(201, 168, 124, 0.3);
+  border-color: rgba(114, 47, 55, 0.4);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
   z-index: 2;
 }
@@ -323,19 +326,19 @@ body.zoom-body {
 }
 
 .zoom-tile__bg--logo {
-  background: linear-gradient(135deg, #2a1f3d 0%, #1a1528 100%);
+  background: linear-gradient(135deg, #0d1a2e 0%, #000000 100%);
 }
 
 .zoom-tile__bg--poster {
-  background: linear-gradient(135deg, #3d1f2a 0%, #28151a 100%);
+  background: linear-gradient(135deg, #1a0d14 0%, #000000 100%);
 }
 
 .zoom-tile__bg--print {
-  background: linear-gradient(135deg, #1f3d2a 0%, #152818 100%);
+  background: linear-gradient(135deg, #0d141a 0%, #000000 100%);
 }
 
 .zoom-tile__bg--web {
-  background: linear-gradient(135deg, #1f2a3d 0%, #151a28 100%);
+  background: linear-gradient(135deg, #0d1220 0%, #000000 100%);
 }
 
 .zoom-tile__icon {
@@ -348,8 +351,8 @@ body.zoom-body {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke);
   font-size: 1.25rem;
   transition: background var(--transition-fast), transform var(--transition-fast);
 }
@@ -357,6 +360,7 @@ body.zoom-body {
 .zoom-tile:hover .zoom-tile__icon,
 .zoom-tile.is-focused .zoom-tile__icon {
   background: var(--accent);
+  color: #ffffff;
   transform: scale(1.1);
 }
 
@@ -366,7 +370,7 @@ body.zoom-body {
   left: 0;
   right: 0;
   padding: 1.75rem;
-  background: linear-gradient(to top, rgba(10, 10, 11, 0.95) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, transparent 100%);
 }
 
 .zoom-tile__number {
@@ -405,7 +409,7 @@ body.zoom-body {
 
 .zoom-about {
   background:
-    radial-gradient(ellipse 60% 50% at 30% 50%, rgba(201, 168, 124, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 30% 50%, rgba(59, 139, 255, 0.05) 0%, transparent 60%),
     var(--bg-deep);
 }
 
@@ -440,13 +444,13 @@ body.zoom-body {
 
 .zoom-stat:hover {
   transform: scale(1.03);
-  border-color: rgba(201, 168, 124, 0.2);
+  border-color: var(--stroke);
 }
 
 .zoom-stat__value {
   font-family: var(--font-display);
   font-size: 2.5rem;
-  color: var(--accent-bright);
+  color: var(--accent);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
@@ -500,7 +504,7 @@ body.zoom-body {
 .zoom-work-item__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10, 10, 11, 0.9) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 50%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -530,7 +534,7 @@ body.zoom-body {
 
 .zoom-contact {
   background:
-    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201, 168, 124, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(59, 139, 255, 0.08) 0%, transparent 60%),
     var(--bg-deep);
   text-align: center;
 }
@@ -565,7 +569,7 @@ body.zoom-body {
 
 .zoom-btn--primary {
   background: var(--accent);
-  color: var(--bg-deep);
+  color: #ffffff;
 }
 
 .zoom-btn--primary:hover {
@@ -581,6 +585,7 @@ body.zoom-body {
 
 .zoom-btn--outline:hover {
   border-color: var(--accent);
+  color: var(--accent);
   transform: scale(1.05);
 }
 
@@ -591,7 +596,7 @@ body.zoom-body {
 }
 
 .zoom-contact__email a {
-  color: var(--accent-bright);
+  color: var(--accent);
   text-decoration: none;
 }
 
