@@ -113,6 +113,7 @@
 
 #cart-racer-canvas {
   display: block;
+  height: 72vh;
   height: min(72vh, 760px);
   max-height: 760px;
   min-height: 440px;

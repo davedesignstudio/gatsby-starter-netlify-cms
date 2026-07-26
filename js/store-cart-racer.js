@@ -26,7 +26,7 @@
   var startButton = root.querySelector("[data-start]");
   var buttons = root.querySelectorAll("[data-control]");
 
-  var bestScore = Number(window.localStorage && window.localStorage.getItem("cartRacerBest")) || 0;
+  var bestScore = getBestScore();
   var keys = {};
   var touchSteer = 0;
   var lastTime = 0;
@@ -84,9 +84,7 @@
 
     if (state.score > bestScore) {
       bestScore = state.score;
-      if (window.localStorage) {
-        window.localStorage.setItem("cartRacerBest", String(bestScore));
-      }
+      saveBestScore(bestScore);
     }
 
     updateHud();
@@ -582,6 +580,24 @@
     return min + Math.random() * (max - min);
   }
 
+  function getBestScore() {
+    try {
+      return Number(window.localStorage && window.localStorage.getItem("cartRacerBest")) || 0;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  function saveBestScore(score) {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem("cartRacerBest", String(score));
+      }
+    } catch (error) {
+      // Private browsing modes can disable localStorage writes.
+    }
+  }
+
   function pointerToSteer(event) {
     var rect = canvas.getBoundingClientRect();
     var x = ((event.clientX - rect.left) / rect.width) * WIDTH;
@@ -593,7 +609,7 @@
 
   window.addEventListener("keydown", function(event) {
     keys[event.key] = true;
-    if (event.key === " " || event.key === "Spacebar") {
+    if (event.key === " " || event.key === "Space" || event.key === "Spacebar") {
       event.preventDefault();
       useBoost();
     }
@@ -607,7 +623,9 @@
     if (!state.running) {
       return;
     }
-    canvas.setPointerCapture(event.pointerId);
+    if (canvas.setPointerCapture) {
+      canvas.setPointerCapture(event.pointerId);
+    }
     pointerToSteer(event);
   });
 
@@ -620,7 +638,9 @@
   canvas.addEventListener("pointerup", function(event) {
     touchSteer = 0;
     try {
-      canvas.releasePointerCapture(event.pointerId);
+      if (canvas.releasePointerCapture) {
+        canvas.releasePointerCapture(event.pointerId);
+      }
     } catch (error) {
       // Safari can release pointer capture automatically when touch ends.
     }
@@ -630,7 +650,7 @@
     touchSteer = 0;
   });
 
-  buttons.forEach(function(button) {
+  Array.prototype.forEach.call(buttons, function(button) {
     var control = button.getAttribute("data-control");
 
     button.addEventListener("pointerdown", function(event) {
