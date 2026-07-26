@@ -124,26 +124,31 @@ enum TrackNodeBuilder {
 
     // MARK: - Pieces
 
-    /// A closed band between two lateral offsets, as a single even-odd free
-    /// path: down one edge and back along the other.
+    /// Distance between outline points, in metres. The centreline is sampled
+    /// every metre, which would give a shape node over a thousand points long;
+    /// at this spacing the chord error is under a centimetre and SpriteKit has
+    /// a great deal less to rasterise.
+    private static let outlineSpacing: Double = 2.5
+
+    /// A closed band between two lateral offsets: down one edge and back along
+    /// the other.
     static func ribbon(
         track: Track,
         lower: (Double) -> Double,
         upper: (Double) -> Double
     ) -> CGPath {
         let path = CGMutablePath()
-        let count = track.sampleCount
-        for index in 0...count {
-            let i = index % count
-            let distance = Double(i) * track.sampleSpacing
+        let steps = max(24, Int(track.length / outlineSpacing))
+        let step = track.length / Double(steps)
+
+        for index in 0...steps {
+            let distance = Double(index % steps) * step
             let point = track.position(distance: distance, lateral: upper(distance))
             if index == 0 { path.move(to: point.point) } else { path.addLine(to: point.point) }
         }
-        for index in 0...count {
-            let i = (count - index) % count
-            let distance = Double(i) * track.sampleSpacing
-            let point = track.position(distance: distance, lateral: lower(distance))
-            path.addLine(to: point.point)
+        for index in 0...steps {
+            let distance = Double((steps - index) % steps) * step
+            path.addLine(to: track.position(distance: distance, lateral: lower(distance)).point)
         }
         path.closeSubpath()
         return path
@@ -172,10 +177,10 @@ enum TrackNodeBuilder {
 
     private static func edgeLine(track: Track, side: Double) -> SKShapeNode {
         let path = CGMutablePath()
-        let count = track.sampleCount
-        for index in 0...count {
-            let i = index % count
-            let distance = Double(i) * track.sampleSpacing
+        let steps = max(24, Int(track.length / outlineSpacing))
+        let step = track.length / Double(steps)
+        for index in 0...steps {
+            let distance = Double(index % steps) * step
             let point = track.position(distance: distance, lateral: side * track.halfWidth(atDistance: distance))
             if index == 0 { path.move(to: point.point) } else { path.addLine(to: point.point) }
         }

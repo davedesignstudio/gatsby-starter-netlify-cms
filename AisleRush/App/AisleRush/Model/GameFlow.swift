@@ -151,20 +151,22 @@ final class GameFlow: ObservableObject {
         withCleanup(.race)
     }
 
-    /// Eight racers: the player plus a spread of characters and parts.
+    /// Eight racers: the player plus a spread of characters and parts. Grid
+    /// slots follow this order, so the player starts mid-pack rather than on
+    /// pole; there is nothing to come back from at the front.
     private func makeField(playerSetup: CartSetup) -> [Entrant] {
-        var entrants = [Entrant(setup: playerSetup, isPlayer: true)]
         let others = Roster.characters.filter { $0.id != playerSetup.character.id }
-        for (index, character) in others.prefix(7).enumerated() {
-            entrants.append(Entrant(
+        var entrants = others.prefix(7).enumerated().map { index, character in
+            Entrant(
                 setup: CartSetup(
                     character: character,
                     frame: Roster.frames[(index + 1) % Roster.frames.count],
                     wheels: Roster.wheels[(index + 2) % Roster.wheels.count]
                 ),
                 isPlayer: false
-            ))
+            )
         }
+        entrants.insert(Entrant(setup: playerSetup, isPlayer: true), at: min(4, entrants.count))
         return entrants
     }
 
