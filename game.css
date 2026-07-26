@@ -45,7 +45,6 @@ button:focus-visible {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 480px;
   isolation: isolate;
   overflow: hidden;
   background: #24382e;
