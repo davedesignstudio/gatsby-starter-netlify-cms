@@ -139,9 +139,9 @@ button {
 
 .brand-name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  letter-spacing: -0.035em;
   line-height: 1.1;
   white-space: nowrap;
   overflow: hidden;
@@ -296,6 +296,8 @@ button {
   gap: 1rem;
   padding: 1rem clamp(0.85rem, 2vw, 1.5rem);
   align-content: center;
+  overflow: auto;
+  min-height: 0;
 }
 
 @media (min-width: 960px) {
