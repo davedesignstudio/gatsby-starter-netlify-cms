@@ -1,0 +1,24 @@
+name: CartMayhem
+options:
+  bundleIdPrefix: com.cartmayhem
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    PRODUCT_NAME: CartMayhem
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    GENERATE_INFOPLIST_FILE: NO
+    INFOPLIST_FILE: CartMayhem/CartMayhem/Info.plist
+    PRODUCT_BUNDLE_IDENTIFIER: com.cartmayhem.app
+targets:
+  CartMayhem:
+    type: application
+    platform: iOS
+    sources:
+      - path: CartMayhem/CartMayhem
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: "1.0"

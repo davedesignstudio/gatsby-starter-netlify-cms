@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1a2e1f" />
+  <meta name="description" content="Cart Mayhem — Mario Kart–style racing with shopping carts through a supermarket." />
+  <title>Cart Mayhem — Aisle Racers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-pill" id="lapInfo">LAP 1/3</div>
+        <div class="hud-pill place" id="placeInfo">1st</div>
+        <div class="hud-pill" id="timeInfo">0:00.0</div>
+      </div>
+      <div class="item-slot" id="itemSlot">
+        <span id="itemIcon">?</span>
+      </div>
+      <canvas id="minimap" width="120" height="120"></canvas>
+    </div>
+
+    <div id="touchControls" class="hidden">
+      <div class="steer-pad" id="steerPad">
+        <button type="button" id="btnLeft" aria-label="Steer left">◀</button>
+        <button type="button" id="btnRight" aria-label="Steer right">▶</button>
+      </div>
+      <div class="action-pad">
+        <button type="button" id="btnDrift" aria-label="Drift">DRIFT</button>
+        <button type="button" id="btnItem" aria-label="Use item">ITEM</button>
+      </div>
+    </div>
+
+    <div id="screens">
+      <section id="titleScreen" class="screen active">
+        <div class="title-bg"></div>
+        <div class="title-content">
+          <p class="eyebrow">AFTER HOURS AT MEGASAVE</p>
+          <h1>CART<br />MAYHEM</h1>
+          <p class="tagline">Abandoned carts. Empty aisles. No rules.</p>
+          <button type="button" class="cta" id="btnPlay">RACE</button>
+          <button type="button" class="cta ghost" id="btnHow">HOW TO PLAY</button>
+        </div>
+      </section>
+
+      <section id="selectScreen" class="screen">
+        <div class="panel">
+          <h2>PICK YOUR CART</h2>
+          <div class="racer-grid" id="racerGrid"></div>
+          <button type="button" class="cta" id="btnStartRace">START RACE</button>
+          <button type="button" class="cta ghost" id="btnBackSelect">BACK</button>
+        </div>
+      </section>
+
+      <section id="howScreen" class="screen">
+        <div class="panel narrow">
+          <h2>HOW TO PLAY</h2>
+          <ul class="how-list">
+            <li><strong>Steer</strong> with ◀ ▶ or A / D</li>
+            <li><strong>Drift</strong> hold SPACE or DRIFT for tight turns + boost</li>
+            <li><strong>Items</strong> grab glowing crates, tap ITEM or F to fire</li>
+            <li><strong>Win</strong> finish 3 laps ahead of the other carts</li>
+          </ul>
+          <p class="hint">Power-ups: soda boost, banana peel, soup can, sticky gum</p>
+          <button type="button" class="cta" id="btnBackHow">GOT IT</button>
+        </div>
+      </section>
+
+      <section id="countdownScreen" class="screen">
+        <div class="countdown" id="countdownNum">3</div>
+      </section>
+
+      <section id="resultScreen" class="screen">
+        <div class="panel">
+          <h2 id="resultTitle">FINISH!</h2>
+          <p id="resultPlace" class="result-place">1st</p>
+          <p id="resultTime" class="result-time"></p>
+          <ol id="resultStandings" class="standings"></ol>
+          <button type="button" class="cta" id="btnRetry">RACE AGAIN</button>
+          <button type="button" class="cta ghost" id="btnMenu">MENU</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
