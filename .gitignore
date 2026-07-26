@@ -4,6 +4,10 @@ node_modules
 .cache/
 # Build directory
 public/
+# Jekyll build output
+_site/
+.jekyll-cache/
+.jekyll-metadata
 static/admin/*.bundle.*
 .DS_Store
 yarn-error.log
