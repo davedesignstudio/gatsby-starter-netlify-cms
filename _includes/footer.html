@@ -4,23 +4,23 @@
     <div class='large-3 medium-3 columns'>
       <h1>
         <a href='index.html'>
-          <img alt="" src="{{site.url}}/images/logo-grey.png" />
+          dphilhowerstudio.com
         </a>
       </h1>
-      <p>©2014 Devoll. All rights reserved.</p>
+      <p>©2026 dphilhowerstudio.com. All rights reserved.</p>
       <div class='spacing'></div>
       <div class='spacing'></div>
     </div>
     <div class='large-3 medium-3 columns'>
       <div class='spacing'></div>
       <div class='links'>
-        <h4>Some pages</h4>
+        <h4>Studio</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="portfolio.html">View some works here</a></li>
-          <li><a href="blog.html">Follow our blog</a></li>
-          <li><a href="contact.html">Contact us</a></li>
-          <li><a href="services.html">Our services</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#work">Layout samples</a></li>
+          <li><a href="index.html#process">Process</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </div>
       <div class='spacing'></div>
@@ -28,11 +28,12 @@
     <div class='large-3 medium-3 columns'>
       <div class='spacing'></div>
       <div class='links'>
-        <h4>Recent posts</h4>
+        <h4>Services</h4>
         <ul>
-          {% for post in site.posts %}
-            <li><a href="{{post.url}}">{{post.title}}</a></li>
-          {% endfor %}
+          <li><a href="index.html#services">Logo design</a></li>
+          <li><a href="index.html#services">Poster design</a></li>
+          <li><a href="index.html#services">Print media</a></li>
+          <li><a href="index.html#services">Website design</a></li>
         </ul>
       </div>
       <div class='spacing'></div>
@@ -41,41 +42,15 @@
       <div class='spacing'></div>
       <h4>Contact us</h4>
       <ul>
-        <li>Phone: +86 (03) 9810 4612</li>
-        <li>Emial: info@devoll-team.com</li>
-        <li>Location: 41 Dean Street, London, UK</li>
+        <li>Email: hello@dphilhowerstudio.com</li>
+        <li>Logo, poster, print, and website design</li>
+        <li>Available for remote design projects</li>
       </ul>
       <div class='spacing'></div>
-      <ul class='socials'>
-        <li>
-          <a href='http://facebook.com'>
-            <i class='fa fa-facebook'></i>
-          </a>
-        </li>
-        <li>
-          <a href='http://twitter.com'>
-            <i class='fa fa-twitter'></i>
-          </a>
-        </li>
-        <li>
-          <a href='http://dribbble.com'>
-            <i class='fa fa-dribbble'></i>
-          </a>
-        </li>
-        <li>
-          <a href='http://tumblr.com'>
-            <i class='fa fa-tumblr'></i>
-          </a>
-        </li>
-      </ul>
       <div class='spacing'></div>
     </div>
   </div>
   <div class='two spacing'></div>
 </div>
-<script src="{{ "/javascripts/jquery.countTo.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-<script src="{{ "/javascripts/jquery.appear.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-<script src="{{ "/javascripts/jquery.validate.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-<script src="{{ "/javascripts/jquery.sequence-min.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-<script src="{{ "/javascripts/jquery.easing.1.3.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-<script src="{{ "/javascripts/app.js" | prepend: site.baseurl }}" type="text/javascript"></script>
+<script src="{{ "/js/jquery.sequence-min.js" | prepend: site.baseurl }}" type="text/javascript"></script>
+<script src="{{ "/js/app.js" | prepend: site.baseurl }}" type="text/javascript"></script>
