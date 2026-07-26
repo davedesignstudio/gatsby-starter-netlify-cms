@@ -1,412 +1,308 @@
 ---
 layout: default
+title: dphilhowerstudio.com | Graphic Design Studio
 section_id: home
-slides:
-  - bg: images/@stock/slide-1.jpg
-    small_title:
-      klass: bottom-to-top
-      text: The perfect theme for
-    title:
-      klass: bottom-to-top
-      text: Many purposes
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-4.jpg
-    klass: centered-text
-    small_title:
-      klass: bottom-to-top
-      text: We make websites that are
-    title:
-      klass: bottom-to-top
-      text: Creative &amp; Powerful
-    buttons:
-      klass: bottom-to-top
-      items:
-        - klass: boxed
-          text: View Features
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-        - text: Purchase Now
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-5.jpg
-    small_title:
-      klass: bottom-to-top
-      text: This is a creative theme that you'll
-    title:
-      klass: bottom-to-top
-      text: definitely love...
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-
-
-
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-
-
-services:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-
-milestones:
-  - icon: folder-open
-    from: 0
-    to: 69
-    title: Projects Completed
-  - icon: coffee
-    from: 0
-    to: 726
-    title: Cups of coffee offered
-  - icon: thumbs-up
-    from: 0
-    to: 59
-    title: Happy clients
-  - icon: file-text
-    from: 0
-    to: 21
-    title: Articles Published
-
 ---
 
+<style>
+  .dphi-hero {
+    background: linear-gradient(125deg, #111827 0%, #1f2937 55%, #312e81 100%);
+    color: #fff;
+    padding: 140px 0 110px;
+  }
 
-<div class='mod modDefaultSlider'>
-  <div class='sequence' data-autostop='on' data-timeout='0'>
-    <a class='sequence-prev' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <a class='sequence-next' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <ul class='sequence-pagination'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign class = 'current' %}
-        {% else %}
-          {% assign class = '' %}
-        {% endif %}
-        <li class="{{class}}"></li>
-      {% endfor %}
-    </ul>
-    <ul class='sequence-canvas'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign style = 'static' %}
-        {% else %}
-          {% assign style = '' %}
-        {% endif %}
+  .dphi-kicker {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 22px;
+  }
 
-        <li class='frame {{style}} {{ slide.klass }}'>
-          <div class='bg' style='background-image: url({{ slide.bg}});'></div>
-          <div class='small-title {{ slide.small_title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.small_title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='title {{ slide.title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='buttons-wrapper {{ slide.buttons.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <div class='two spacing'></div>
-                {% for button in slide.buttons.items %}
-                  <a class='button {{ button.klass }}' href='{{ button.link_to }}'>{{ button.text }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+  .dphi-hero h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 14px;
+    line-height: 1.1;
+  }
+
+  .dphi-hero p {
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+  }
+
+  .dphi-hero-cta {
+    margin-top: 32px;
+  }
+
+  .dphi-hero-cta .button {
+    background: #f59e0b;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .dphi-hero-cta .button:hover {
+    background: #fbbf24;
+    color: #111827;
+  }
+
+  .dphi-panel {
+    background: #fff;
+    margin-top: -56px;
+    border-radius: 24px;
+    box-shadow: 0 28px 65px rgba(15, 23, 42, 0.18);
+    padding: 56px 44px;
+  }
+
+  .dphi-section-title {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .dphi-section-title h2 {
+    margin-bottom: 10px;
+  }
+
+  .dphi-section-title p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: #4b5563;
+  }
+
+  .dphi-zoom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 36px;
+  }
+
+  .dphi-zoom-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f4f7ff 100%);
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transform: scale(1);
+    transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+  }
+
+  .dphi-zoom-card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.12) 0%, rgba(79, 70, 229, 0) 48%);
+    pointer-events: none;
+  }
+
+  .dphi-zoom-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 20px 35px rgba(79, 70, 229, 0.22);
+    border-color: #c7d2fe;
+  }
+
+  .dphi-zoom-number {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 42px;
+    background: #111827;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .dphi-zoom-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.35rem;
+  }
+
+  .dphi-zoom-card p {
+    margin-bottom: 0;
+    color: #4b5563;
+    font-size: 0.98rem;
+  }
+
+  .dphi-process {
+    margin-top: 54px;
+  }
+
+  .dphi-process .columns {
+    margin-bottom: 24px;
+  }
+
+  .dphi-step {
+    border-left: 3px solid #111827;
+    padding-left: 16px;
+  }
+
+  .dphi-step h4 {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+  }
+
+  .dphi-step p {
+    color: #4b5563;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .dphi-cta-band {
+    margin-top: 56px;
+    background: #111827;
+    border-radius: 18px;
+    color: #fff;
+    padding: 34px 28px;
+  }
+
+  .dphi-cta-band h3 {
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .dphi-cta-band p {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+  }
+
+  .dphi-cta-band .button {
+    background: #f59e0b;
+    border-radius: 999px;
+    margin-top: 12px;
+  }
+
+  .dphi-cta-band .button:hover {
+    background: #fbbf24;
+    color: #111827;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .dphi-zoom-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dphi-panel {
+      padding: 42px 24px;
+    }
+
+    .dphi-hero h1 {
+      font-size: 2.2rem;
+    }
+  }
+</style>
+
+<section class="dphi-hero">
+  <div class="row">
+    <div class="large-12 columns centered-text">
+      <span class="dphi-kicker">Graphic Design Studio</span>
+      <h1>dphilhowerstudio.com</h1>
+      <p>
+        Bold visual storytelling for brands that want to stand out. We design clear,
+        memorable creative that scales from first impression to full campaign rollout.
+      </p>
+      <div class="dphi-hero-cta">
+        <a class="button" href="contact.html">Start Your Project</a>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="four spacing"></div>
-
-<div class="row">
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-flask' delay='0' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-paper-plane-o' delay='200' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-tablet' delay='400' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-comments-o' delay='600' shape_class='icon-text-circle' %}
-  </div>
-</div>
-
-<div class="spacing"></div>
-
-<div class="full" style="background: #f5f5f5;">
+<section class="full no-padding">
   <div class="row">
     <div class="large-12 columns">
-      {% include section-header.html title="Our works" %}
-      <div class="spacing"></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class="three spacing"></div>
-    </div>
-  </div>
+      <div class="dphi-panel">
+        <div class="dphi-section-title">
+          <h2>Zoom-Style Service Layout</h2>
+          <p>
+            Every service card is designed to expand visually on hover, creating an engaging
+            "zoom" interaction that mirrors the studio's high-impact design approach.
+          </p>
+        </div>
 
-  <div class="mod modGallery">
-    <ul class="gallery small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-      {% for work in page.works %}
-        <li class="{{ work.klass }}">
-          <a href='{{ work.link_to }}'>
-            <img alt="" src="{{ work.image }}" />
-            <div class='overlay'>
-              <div class='thumb-info'>
-                <h3>{{ work.title }}</h3>
-                <p>{{ work.desc }}</p>
+        <div class="dphi-zoom-grid">
+          <article class="dphi-zoom-card">
+            <span class="dphi-zoom-number">01</span>
+            <h3>Logo Design</h3>
+            <p>
+              Strategic logo systems built for clarity, flexibility, and lasting brand recognition
+              across digital and print touchpoints.
+            </p>
+          </article>
+
+          <article class="dphi-zoom-card">
+            <span class="dphi-zoom-number">02</span>
+            <h3>Poster Design</h3>
+            <p>
+              Event, campaign, and promotional posters that combine striking composition with
+              typography that commands attention.
+            </p>
+          </article>
+
+          <article class="dphi-zoom-card">
+            <span class="dphi-zoom-number">03</span>
+            <h3>Print Media</h3>
+            <p>
+              Brochures, flyers, and marketing collateral prepared with print-ready precision,
+              color consistency, and brand cohesion.
+            </p>
+          </article>
+
+          <article class="dphi-zoom-card">
+            <span class="dphi-zoom-number">04</span>
+            <h3>Website Design</h3>
+            <p>
+              Conversion-focused website design that blends modern UI direction with a visual
+              identity consistent with your core brand.
+            </p>
+          </article>
+        </div>
+
+        <div class="dphi-process">
+          <div class="row">
+            <div class="medium-4 columns">
+              <div class="dphi-step">
+                <h4>Discovery & Direction</h4>
+                <p>We align on goals, audience, and visual references before design begins.</p>
               </div>
             </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='three spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <img class="fadeinleft" alt="" src="images/@stock/responsive.png" />
-      <div class='three spacing'></div>
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
-
-
-<div class='full parallax' style='background-image: url(images/@stock/milestone-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Parallax effect" color="#fff" %}
-      <div class='spacing'></div>
-      <p class='centered-text' style='color: #ccc;'>
-        Dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for milestone in page.milestones %}
-      <div class='medium-3 large-3 columns'>
-        <div class='mod modMilestone'>
-          <i class='fa fa-{{milestone.icon}}'></i>
-          <strong data-from='{{milestone.from}}' data-to='{{milestone.to}}'>&nbsp;</strong>
-          <span>{{milestone.title}}</span>
-          <div class='four spacing'></div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-  <div class='two spacing'></div>
-</div>
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our team" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+            <div class="medium-4 columns">
+              <div class="dphi-step">
+                <h4>Concept Development</h4>
+                <p>Multiple high-quality design concepts are refined into a clear final direction.</p>
+              </div>
+            </div>
+            <div class="medium-4 columns">
+              <div class="dphi-step">
+                <h4>Delivery & Launch</h4>
+                <p>Final files are delivered in production-ready formats for immediate use.</p>
               </div>
             </div>
           </div>
-          <div class='two spacing'></div>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
 
-<div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our recent posts" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-
-  <div class='row'>
-    {% for post in site.posts %}
-      {% if forloop.index > 3 %}
-        {% break %}
-      {% endif %}
-
-      <div class='large-4 medium-4 columns'>
-        <div class='mod modBlogPost'>
-          {% for image in post.images %}
-            {% unless forloop.first %}
-              {% break %}
-            {% endunless %}
-            <a href="{{post.url}}"><img alt="" src="{{image}}" /></a>
-          {% endfor %}
-          <div class='content'>
-            <p class='date'>{{post.date | date: "%B %d, %Y" }}</p>
-            <h4><a href="#">{{post.title}}</a></h4>
-            <p>{{post.excerpt}}</p>
-            <!--
-              <div class="tags">
-                {% for cat in post.categories %}
-                  <a href="#">{{cat | capitalize}}</a>
-                  {% unless forloop.last %}
-                    ,
-                  {% endunless %}
-                {% endfor %}
-              </div>
-            -->
+        <div class="dphi-cta-band">
+          <div class="row">
+            <div class="medium-8 columns">
+              <h3>Need a complete brand refresh?</h3>
+              <p>
+                dphilhowerstudio.com combines visual strategy and execution so your business
+                presents as confidently as it performs.
+              </p>
+            </div>
+            <div class="medium-4 columns centered-text">
+              <a class="button" href="contact.html">Book a Consultation</a>
+            </div>
           </div>
         </div>
       </div>
-
-    {% endfor %}
-
-  </div>
-
-
-  <div class='two spacing'></div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <a class='button' href='blog.html'>See more posts</a>
-      </p>
     </div>
   </div>
-  <div class='two spacing'></div>
-
-</div>
-
-
-{% include our-customers.html %}
-
-
-<div class='full no-padding' style='background: #fff'>
-  <div class='two spacing'></div>
-  <div class='mod modCallToAction'>
-    <div class='row'>
-      <div class='medium-9 large-9 columns'>
-        <p>Like what you see here? Checkout this theme and start to build your site immediately.</p>
-      </div>
-      <div class='medium-3 large-3 columns'>
-        <a class='button' href='http://themeforest.net/user/honryou/portfolio?ref=honryou'>Learn more</a>
-      </div>
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+</section>
