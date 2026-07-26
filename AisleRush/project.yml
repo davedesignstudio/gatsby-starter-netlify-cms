@@ -1,0 +1,39 @@
+# XcodeGen spec. The checked-in AisleRush.xcodeproj is generated from this and
+# kept in the repo so the game opens without extra tooling; regenerate with
+# `xcodegen generate` from this directory if you change the target layout.
+name: AisleRush
+options:
+  bundleIdPrefix: com.aislerush
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "17.0"
+  minimumXcodeGenVersion: "2.38.0"
+
+packages:
+  AisleRushCore:
+    path: Core
+
+targets:
+  AisleRush:
+    type: application
+    platform: iOS
+    sources:
+      - path: App/AisleRush
+    dependencies:
+      - package: AisleRushCore
+        product: AisleRushCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aislerush.game
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ENABLE_PREVIEWS: YES
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIStatusBarHidden: YES
+        INFOPLIST_KEY_UIRequiresFullScreen: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight

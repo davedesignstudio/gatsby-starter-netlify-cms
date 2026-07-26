@@ -101,6 +101,13 @@ public struct WheelSet: Sendable, Identifiable {
     public var modifier: StatModifier
 }
 
+/// One labelled bar on the select screens.
+public struct StatDisplay: Sendable, Identifiable, Equatable {
+    public var label: String
+    public var value: Int
+    public var id: String { label }
+}
+
 /// A character plus the two parts they picked.
 public struct CartSetup: Sendable {
     public var character: CharacterProfile
@@ -136,18 +143,18 @@ public struct CartSetup: Sendable {
         return stats
     }
 
-    /// 0...5 bars for the select screen.
-    public var displayBars: [(label: String, value: Int)] {
+    /// 1...5 bars for the select screen.
+    public var displayBars: [StatDisplay] {
         let s = stats
         func bar(_ value: Double, _ low: Double, _ high: Double) -> Int {
             Int((clamp((value - low) / (high - low), 0, 1) * 4).rounded()) + 1
         }
         return [
-            ("Speed", bar(s.topSpeed, 19, 29)),
-            ("Boost", bar(s.acceleration, 8, 17)),
-            ("Grip", bar(s.grip, 5.5, 12)),
-            ("Turn", bar(s.turnRate, 1.9, 3.4)),
-            ("Weight", bar(s.mass, 75, 145))
+            StatDisplay(label: "Speed", value: bar(s.topSpeed, 19, 29)),
+            StatDisplay(label: "Boost", value: bar(s.acceleration, 8, 17)),
+            StatDisplay(label: "Grip", value: bar(s.grip, 5.5, 12)),
+            StatDisplay(label: "Turn", value: bar(s.turnRate, 1.9, 3.4)),
+            StatDisplay(label: "Weight", value: bar(s.mass, 75, 145))
         ]
     }
 }

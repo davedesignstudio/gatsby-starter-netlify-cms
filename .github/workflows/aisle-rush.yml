@@ -1,0 +1,43 @@
+name: Aisle Rush
+
+on:
+  push:
+    paths:
+      - "AisleRush/**"
+      - ".github/workflows/aisle-rush.yml"
+  pull_request:
+    paths:
+      - "AisleRush/**"
+      - ".github/workflows/aisle-rush.yml"
+  workflow_dispatch:
+
+jobs:
+  core:
+    name: Simulation core (Linux)
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: swift build --package-path AisleRush/Core
+      - name: Test
+        # The suite races every course to the flag, so give it room.
+        run: swift test --package-path AisleRush/Core
+      - name: Pacing report
+        run: RACE_REPORT=1 swift test --package-path AisleRush/Core --filter RacePacingReport/testPrintPacing
+
+  app:
+    name: iOS app
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show toolchain
+        run: xcodebuild -version
+      - name: Build for simulator
+        working-directory: AisleRush
+        run: |
+          xcodebuild build \
+            -project AisleRush.xcodeproj \
+            -scheme AisleRush \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO
