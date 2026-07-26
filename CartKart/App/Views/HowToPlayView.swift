@@ -36,6 +36,8 @@ struct HowToPlayView: View {
                              detail: "You keep your speed but lose your steering. Plan ahead.")
                         Rule(icon: "leaf.fill", title: "Off the tiles you crawl",
                              detail: "Matting and spilled cereal slow you down, unless your cart is built for it.")
+                        Rule(icon: "figure.wave", title: "Staff will untangle you",
+                             detail: "Wedged against a pallet? A member of staff lifts you back onto the aisle after a few seconds.")
                     }
 
                     Panel(title: "Items") {

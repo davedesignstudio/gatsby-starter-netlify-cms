@@ -58,6 +58,12 @@ public struct RaceTuning: Sendable {
     public var bulkBuyDuration: Double = 6.0
     public var bulkBuySpeedMultiplier: Double = 1.28
 
+    // Getting unstuck
+    /// Seconds of going nowhere before an AI cart backs up to free itself.
+    public var aiReverseDelay: Double = 0.7
+    /// Seconds of going nowhere before staff lift the cart back onto the lane.
+    public var rescueDelay: Double = 3.0
+
     // Race flow
     public var countdownDuration: Double = 3.6
     /// Window around "GO" in which holding throttle grants a rocket start.

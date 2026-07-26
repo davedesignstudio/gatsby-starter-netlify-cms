@@ -8,8 +8,8 @@ options:
 
 packages:
   CartKartCore:
-    # The simulation lives in the SwiftPM package alongside this spec.
-    path: .
+    # The simulation lives in the SwiftPM package next to this spec.
+    path: Core
 
 targets:
   CartKart:

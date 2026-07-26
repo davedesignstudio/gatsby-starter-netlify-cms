@@ -182,15 +182,71 @@ final class RaceEngineTests: XCTestCase {
         }
     }
 
-    func testHarderDifficultyIsActuallyHarder() {
-        func winningTime(_ difficulty: RaceConfiguration.Difficulty) -> Double {
+    /// A cart wedged against a pallet or grinding along the shelving for the
+    /// rest of the race is the worst kind of bug: the race still "works", it is
+    /// just no fun. Watch for anyone crawling for an implausibly long time.
+    func testNobodyGetsPermanentlyStuck() {
+        for track in TrackLibrary.all {
             let engine = RaceEngine(
-                configuration: configuration(racers: 6, playerIndex: nil, laps: 2, difficulty: difficulty, seed: 21)
+                configuration: configuration(track: track, racers: 8, playerIndex: nil, laps: 2, seed: 31)
             )
-            let results = engine.runToCompletion(maxSimulatedSeconds: 500)
-            return results.first?.totalTime ?? .greatestFiniteMagnitude
+            var crawlingFor: [Int: Double] = [:]
+            var worstCrawl: [Int: Double] = [:]
+            var rescues = 0
+            let step = engine.tuning.fixedTimeStep
+            var elapsed = 0.0
+            while !engine.isComplete && elapsed < 400 {
+                engine.advance(deltaTime: step)
+                elapsed += step
+                for case .rescued in engine.drainEvents() { rescues += 1 }
+                for kart in engine.karts where !kart.isFinished {
+                    // Spin-outs and melon hits are meant to stop you; only count
+                    // time spent slow while nominally in control.
+                    if kart.speed < 80, kart.disruption == nil, engine.phase == .racing {
+                        crawlingFor[kart.id, default: 0] += step
+                        worstCrawl[kart.id] = max(worstCrawl[kart.id] ?? 0, crawlingFor[kart.id] ?? 0)
+                    } else {
+                        crawlingFor[kart.id] = 0
+                    }
+                }
+            }
+            for kart in engine.karts {
+                // Reversing frees most jams; anything worse is caught by the
+                // staff rescue after `rescueDelay`.
+                XCTAssertLessThan(
+                    worstCrawl[kart.id] ?? 0,
+                    engine.tuning.rescueDelay + 1.2,
+                    "\(kart.profile.name) crawled for ages on \(track.name)"
+                )
+            }
+            // Rescues are a safety net, not a normal part of a lap.
+            XCTAssertLessThanOrEqual(rescues, 4, "too many carts needed rescuing on \(track.name)")
         }
-        XCTAssertLessThan(winningTime(.blackFriday), winningTime(.trolleyDash))
+    }
+
+    func testHarderDifficultyIsActuallyHarder() {
+        // A single race is noisy: one soup can decides it. Average a few.
+        func averageWinningTime(_ difficulty: RaceConfiguration.Difficulty) -> Double {
+            let seeds: [UInt64] = [21, 404, 777, 9001]
+            let times = seeds.map { seed -> Double in
+                let engine = RaceEngine(
+                    configuration: configuration(
+                        racers: 6,
+                        playerIndex: nil,
+                        laps: 2,
+                        difficulty: difficulty,
+                        seed: seed
+                    )
+                )
+                return engine.runToCompletion(maxSimulatedSeconds: 500).first?.totalTime
+                    ?? .greatestFiniteMagnitude
+            }
+            return times.reduce(0, +) / Double(times.count)
+        }
+        let hard = averageWinningTime(.blackFriday)
+        let easy = averageWinningTime(.trolleyDash)
+        XCTAssertLessThan(hard, easy, "Black Friday rivals should beat Trolley Dash rivals round a lap")
+        XCTAssertLessThan(averageWinningTime(.weeklyShop), easy)
     }
 
     func testSameSeedProducesTheSameRace() {

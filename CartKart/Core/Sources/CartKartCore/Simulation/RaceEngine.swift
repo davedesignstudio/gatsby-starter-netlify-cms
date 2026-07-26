@@ -250,6 +250,8 @@ public final class RaceEngine {
         }
 
         let racing = phase == .racing
+        if racing { updateStuckRecovery(dt: dt) }
+
         var inputs: [Int: RaceInput] = [:]
         for kart in karts {
             if kart.isPlayerControlled {
@@ -356,11 +358,86 @@ public final class RaceEngine {
         }
     }
 
+    /// Notices carts that have stopped making progress and does something
+    /// about it: the AI backs out of whatever it is wedged against, and anyone
+    /// still stranded after a few seconds gets lifted back onto the lane.
+    private func updateStuckRecovery(dt: Double) {
+        for index in karts.indices {
+            var kart = karts[index]
+            defer { karts[index] = kart }
+            guard !kart.isFinished else { continue }
+
+            kart.aiReverseTimer = max(0, kart.aiReverseTimer - dt)
+
+            // Being spun out or squashed is meant to stop you; that is not stuck.
+            if kart.speed < 70 && kart.disruption == nil {
+                kart.stuckTimer += dt
+            } else if kart.speed > 150 {
+                // Only real progress winds the timer back, so a shove backwards
+                // cannot hide a cart that is still jammed against a pallet.
+                kart.stuckTimer = max(0, kart.stuckTimer - dt * 2)
+            }
+
+            if kart.stuckTimer > tuning.rescueDelay {
+                rescue(&kart)
+            } else if !kart.isPlayerControlled,
+                      kart.aiReverseTimer <= 0,
+                      kart.stuckTimer > tuning.aiReverseDelay {
+                kart.aiReverseTimer = 0.8
+                // Come back on a different line rather than repeating the mistake.
+                kart.aiLaneBias = kart.aiLaneBias == 0 ? 0.5 : clamp(-kart.aiLaneBias * 1.3, -0.85, 0.85)
+            }
+        }
+    }
+
+    /// Lifts a cart back onto the centreline facing the right way, the way a
+    /// member of staff would untangle a trolley from a display.
+    private func rescue(_ kart: inout KartState) {
+        let index = track.sampleIndex(atArcLength: kart.arcLength)
+        let sample = track.sample(at: index)
+        // Put the cart down on clear floor: the centreline itself sometimes has
+        // a pallet stack on it, which would stick the cart straight back.
+        var placement = sample.position
+        for lane in [0.0, 0.45, -0.45, 0.8, -0.8] {
+            let candidate = sample.position + sample.tangent.perpendicular * (lane * sample.halfWidth)
+            if isClearForRescue(candidate, ignoring: kart.id) {
+                placement = candidate
+                break
+            }
+        }
+        kart.position = placement
+        kart.heading = sample.tangent.angle
+        // A push to get going, rather than being dumped at a dead stop.
+        kart.velocity = sample.tangent * 140
+        kart.isDrifting = false
+        kart.driftCharge = 0
+        kart.driftTier = .none
+        kart.disruption = nil
+        kart.disruptionTimer = 0
+        kart.spinVisual = 0
+        kart.invulnerabilityTimer = max(kart.invulnerabilityTimer, 1.5)
+        kart.stuckTimer = 0
+        kart.aiReverseTimer = 0
+        events.append(.rescued(kartID: kart.id))
+    }
+
+    private func isClearForRescue(_ position: Vec2, ignoring kartID: Int) -> Bool {
+        for obstacle in obstacles
+        where obstacle.position.distance(to: position) < obstacle.radius + tuning.cartRadius * 1.6 {
+            return false
+        }
+        for other in karts
+        where other.id != kartID && other.position.distance(to: position) < tuning.cartRadius * 2.4 {
+            return false
+        }
+        return true
+    }
+
     /// Combined pace modifier: a flat handicap by difficulty plus catch-up assist.
     private func speedBonus(for kart: KartState) -> Double {
         // Weaker fields simply do not have the legs; this is what makes
         // Trolley Dash beatable and Black Friday not.
-        var bonus = kart.isPlayerControlled ? 1.0 : 1 + (kart.aiSkill - 1.0) * 0.12
+        var bonus = kart.isPlayerControlled ? 1.0 : 1 + (kart.aiSkill - 1.0) * 0.16
 
         guard configuration.mode != .timeTrial, karts.count > 1 else { return bonus }
         let leader = karts.map(\.totalProgress).max() ?? kart.totalProgress
@@ -701,8 +778,18 @@ public final class RaceEngine {
                     kart.position = obstacle.position + normal * minimum
                     let into = kart.velocity.dot(normal)
                     if into < 0 {
-                        kart.velocity -= normal * into * (1 + 0.25)
-                        kart.velocity *= (1 - tuning.obstacleSpeedLoss * 0.5)
+                        // Slide around the obstacle rather than stopping dead
+                        // against it: a cart parked on a pallet stack for the
+                        // rest of the lap is no fun for anybody.
+                        let tangent = normal.perpendicular
+                        var alongside = kart.velocity.dot(tangent)
+                        if abs(alongside) < 70 {
+                            // Dead-on hit: pick the side with more track on it.
+                            alongside = 70 * deflectionSide(for: obstacle, tangent: tangent)
+                        }
+                        let bounce = -into * 0.25
+                        kart.velocity = normal * bounce
+                            + tangent * (alongside * (1 - tuning.obstacleSpeedLoss * 0.35))
                         if kart.speed > 260 {
                             events.append(.wallScrape(kartID: kart.id, impact: kart.speed))
                         }
@@ -718,6 +805,15 @@ public final class RaceEngine {
             let unique = Set(smashed)
             obstacles = obstacles.enumerated().filter { !unique.contains($0.offset) }.map(\.element)
         }
+    }
+
+    /// Which way along `tangent` points back towards the middle of the aisle.
+    private func deflectionSide(for obstacle: TrackObstacle, tangent: Vec2) -> Double {
+        let projection = track.project(obstacle.position)
+        // Positive lateral offset means the prop sits left of the centreline,
+        // so the roomier side is to its right.
+        let towardsCentre = projection.tangent.perpendicular * (projection.lateralOffset > 0 ? -1 : 1)
+        return tangent.dot(towardsCentre) >= 0 ? 1 : -1
     }
 
     private func resolveKartCollisions() {

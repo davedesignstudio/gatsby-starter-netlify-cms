@@ -149,6 +149,12 @@ public struct KartState: Sendable, Identifiable {
     /// Per-cart lane preference so the field does not drive in single file.
     public var aiLaneBias: Double = 0
     public var aiItemTimer: Double = 0
+    /// While positive the AI backs up to free itself from whatever it is against.
+    public var aiReverseTimer: Double = 0
+
+    /// Seconds spent going nowhere while nominally in control. Feeds both the
+    /// AI's reversing recovery and the staff rescue.
+    public var stuckTimer: Double = 0
 
     public init(
         id: Int,

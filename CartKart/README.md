@@ -14,12 +14,12 @@ way warning, a grand prix scored on points, and time trials with saved records.
 
 ```
 CartKart/
-  Package.swift            Swift package: the simulation and the CLI
-  Sources/CartKartCore/    All game rules. No UIKit, no SpriteKit, no platform code.
-  Sources/CartKartSim/     Headless simulator used for balancing
-  Tests/CartKartCoreTests/ 55 tests covering physics, items, laps and race flow
-  App/                     The iOS app: SwiftUI menus, SpriteKit race scene
-  project.yml              XcodeGen spec that turns App/ into an Xcode project
+  Core/                         Swift package with the simulation and the CLI
+    Sources/CartKartCore/       All game rules. No UIKit, no SpriteKit, no platform code.
+    Sources/CartKartSim/        Headless simulator used for balancing
+    Tests/CartKartCoreTests/    57 tests covering physics, items, laps and race flow
+  App/                          The iOS app: SwiftUI menus, SpriteKit race scene
+  project.yml                   XcodeGen spec that builds App/ against Core/
 ```
 
 The split is deliberate. `CartKartCore` contains the entire game — driving
@@ -42,15 +42,15 @@ Pick an iPhone or iPad simulator and run. The game is landscape only. Set your
 own signing team in the target settings before running on a device.
 
 If you would rather not use XcodeGen, create an iOS App target by hand, add the
-`App` folder to it, and add this directory as a local Swift package dependency
-on the `CartKartCore` product.
+`App` folder to it, and add `Core` as a local Swift package dependency on the
+`CartKartCore` product.
 
 ## Working on the simulation without a Mac
 
-The package builds and tests anywhere Swift runs:
+The package builds and tests anywhere Swift runs. From `CartKart/Core`:
 
 ```bash
-swift test                              # 56 tests, about two seconds
+swift test                              # 57 tests, a few seconds
 swift run -c release cartkart-sim race --track frozen-foods
 swift run -c release cartkart-sim balance --races 20
 swift run -c release cartkart-sim map --track frozen-foods --trace
@@ -124,3 +124,8 @@ course can be reshaped without moving everything by hand.
   they cannot take flat, drift through the long ones, dodge hazards, detour for
   item boxes, and pick sensible moments to fire. Difficulty changes their pace,
   their steering precision and how late they brake.
+- **Nobody stays stuck.** A cart that stops making progress backs itself out of
+  whatever it is wedged against, and anything still stranded after three
+  seconds is lifted back onto the lane by a member of staff. A test watches for
+  carts crawling for too long, which is how a 29 second jam on Bulk Warehouse
+  Rally was found and fixed.

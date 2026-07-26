@@ -39,6 +39,10 @@ public struct AIDriver {
         let skill = clamp(kart.aiSkill, 0.4, 1.2)
         let speed = kart.speed
 
+        if kart.aiReverseTimer > 0 {
+            return reverseOut(of: kart, track: track)
+        }
+
         // Look further ahead the faster we are going.
         let lookahead = clamp(150 + speed * 0.55, 150, 480)
         var targetArc = track.wrapArcLength(kart.arcLength + lookahead)
@@ -60,7 +64,7 @@ public struct AIDriver {
         var targetPoint = point(on: track, arc: targetArc, lane: lane)
 
         // Steer around hazards, obstacles and slow carts in the way.
-        if let dodge = avoidanceOffset(kart: kart, context: context, aimingAt: targetPoint) {
+        if let dodge = avoidanceOffset(kart: kart, context: context) {
             lane = clamp(lane + dodge, -0.95, 0.95)
             targetPoint = point(on: track, arc: targetArc, lane: lane)
         }
@@ -69,6 +73,12 @@ public struct AIDriver {
         let toTarget = targetPoint - kart.position
         let desired = toTarget.angle
         var steer = Angle.delta(from: kart.heading, to: desired) * 1.9
+
+        // A lane nudge is not enough when a pallet is already under the nose;
+        // in that case turn away from it as hard as possible.
+        if let escape = escapeSteer(for: kart, context: context) {
+            steer = escape
+        }
         // Weaker drivers wander a little.
         let noise = (1.05 - skill) * 0.45
         if noise > 0.001 {
@@ -78,8 +88,9 @@ public struct AIDriver {
 
         // MARK: Throttle
         let cornerSeverity = upcomingCurvature(kart: kart, track: track, distance: clamp(speed * 0.7, 120, 460))
-        // A grippy cart can carry more speed through the same corner.
-        let gripFactor = (kart.physics.grip / context.tuning.baseGrip).squareRoot()
+        // A grippy cart can carry a little more speed through the same corner,
+        // on top of the grip it already gets from the physics.
+        let gripFactor = pow(kart.physics.grip / context.tuning.baseGrip, 0.35)
         let cornerSpeedCap = kart.physics.topSpeed * gripFactor * clamp(1.05 - cornerSeverity * 130, 0.42, 1.0)
         var throttle = 1.0
         if speed > cornerSpeedCap * (0.9 + 0.2 * skill) {
@@ -117,6 +128,15 @@ public struct AIDriver {
     }
 
     // MARK: - Helpers
+
+    /// Backs away from whatever the cart is jammed against, turning the nose
+    /// back towards the racing line as it goes.
+    private static func reverseOut(of kart: KartState, track: Track) -> RaceInput {
+        let target = track.position(atArcLength: kart.arcLength + 200)
+        let desired = Angle.delta(from: kart.heading, to: (target - kart.position).angle)
+        // Steering is mirrored when rolling backwards, hence the sign flip.
+        return RaceInput(throttle: -1, steer: clamp(-desired * 2, -1, 1))
+    }
 
     private static func point(on track: Track, arc: Double, lane: Double) -> Vec2 {
         let index = track.sampleIndex(atArcLength: arc)
@@ -161,8 +181,29 @@ public struct AIDriver {
         return best?.box
     }
 
+    /// Full lock away from anything the cart is about to bury its nose in.
+    private static func escapeSteer(for kart: KartState, context: Context) -> Double? {
+        let forward = Vec2.direction(kart.heading)
+        var worst: (side: Double, distance: Double)?
+        for obstacle in context.obstacles where !obstacle.isBreakable {
+            let offset = obstacle.position - kart.position
+            let ahead = offset.dot(forward)
+            let clearance = obstacle.radius + context.tuning.cartRadius
+            // Only when it is genuinely in front and almost touching.
+            guard ahead > 0, ahead < clearance + 34 else { continue }
+            let side = offset.dot(forward.perpendicular)
+            guard abs(side) < clearance else { continue }
+            if worst == nil || ahead < worst!.distance {
+                worst = (side, ahead)
+            }
+        }
+        guard let worst else { return nil }
+        // Turn towards whichever side the obstacle is not on.
+        return worst.side >= 0 ? -1 : 1
+    }
+
     /// Returns a lane nudge (in half-width units) to dodge whatever is ahead.
-    private static func avoidanceOffset(kart: KartState, context: Context, aimingAt target: Vec2) -> Double? {
+    private static func avoidanceOffset(kart: KartState, context: Context) -> Double? {
         let forward = Vec2.direction(kart.heading)
         let scanDistance = clamp(kart.speed * 0.55 + 90, 110, 380)
         var nudge = 0.0
@@ -190,7 +231,6 @@ public struct AIDriver {
             guard other.speed < kart.speed - 40 else { continue }
             consider(position: other.position, radius: context.tuning.cartRadius, weight: 0.7)
         }
-        _ = target
         return abs(nudge) < 0.01 ? nil : clamp(nudge, -1, 1)
     }
 

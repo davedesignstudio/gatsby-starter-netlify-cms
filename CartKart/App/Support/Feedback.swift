@@ -114,6 +114,9 @@ final class Feedback {
             impact(.light)
         case .wallScrape(let id, _) where isPlayer(id):
             play(.thud, volume: 0.5)
+        case .rescued(let id) where isPlayer(id):
+            play(.whoosh)
+            impact(.heavy)
         case .lapCompleted(let id, _, _) where isPlayer(id):
             play(.lap)
             impact(.light)

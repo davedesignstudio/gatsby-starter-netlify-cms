@@ -87,7 +87,7 @@ public struct PhysicsProfile: Sendable {
         // every other stat over a three lap race.
         self.topSpeed = tuning.baseTopSpeed * scale(profile.speed, 0.055)
         self.acceleration = tuning.baseAcceleration * scale(profile.acceleration, 0.13)
-        self.grip = tuning.baseGrip * scale(profile.handling, 0.13)
+        self.grip = tuning.baseGrip * scale(profile.handling, 0.10)
         self.driftCharge = scale(profile.drift, 0.13)
         // allTerrain 5 keeps almost all your speed in the cereal aisle.
         self.roughPenalty = lerp(0.52, 0.86, (Double(clamp(profile.allTerrain, 1, 5)) - 1) / 4)

@@ -297,6 +297,13 @@ final class RaceScene: SKScene {
                 }
             case .kartBumped(let id, _, let impact) where impact > 200:
                 if let kart = kart(id) { effects.addBurst(at: kart.position, color: "white", scale: 0.6) }
+            case .rescued(let id):
+                if let kart = kart(id) {
+                    effects.addBurst(at: kart.position, color: "blue", scale: 1.2)
+                    if id == playerID {
+                        hud.showBanner("STAFF ASSISTANCE", duration: 1.4)
+                    }
+                }
             case .obstacleSmashed(let position, _):
                 effects.addBurst(at: position, color: "grey", scale: 1.4)
                 removeObstacleNode(near: position)

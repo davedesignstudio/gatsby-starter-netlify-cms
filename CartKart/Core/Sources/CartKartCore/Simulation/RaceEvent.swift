@@ -18,6 +18,8 @@ public enum RaceEvent: Sendable {
     case lapCompleted(kartID: Int, lap: Int, lapTime: Double)
     case finalLap(kartID: Int)
     case wrongWay(kartID: Int, active: Bool)
+    /// Staff lifted a stranded cart back onto the racing line.
+    case rescued(kartID: Int)
     case finished(kartID: Int, place: Int, totalTime: Double)
     case raceComplete
 }
