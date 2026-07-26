@@ -10,6 +10,17 @@
   "theme_color": "#160d2d",
   "icons": [
     {
+      "src": "images/cart-after-dark-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "images/cart-after-dark-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "images/cart-after-dark-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",

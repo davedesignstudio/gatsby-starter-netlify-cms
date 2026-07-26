@@ -1,4 +1,4 @@
-const CACHE_NAME = "cart-after-dark-v1";
+const CACHE_NAME = "cart-after-dark-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,8 @@ const ASSETS = [
   "./js/cart-after-dark.js",
   "./manifest.webmanifest",
   "./images/cart-after-dark-icon.svg",
+  "./images/cart-after-dark-icon-180.png",
+  "./images/cart-after-dark-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
