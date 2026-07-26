@@ -520,7 +520,7 @@ h1 span {
   #menu { padding: 14px max(20px, env(safe-area-inset-right)) 12px max(20px, env(safe-area-inset-left)); }
   .menu-topline { padding-bottom: 8px; }
   .title-lockup { width: 62vw; margin-top: 0; }
-  h1 { font-size: 9vw; }
+  h1 { font-size: 7vw; line-height: .86; }
   .tagline, .panel-label { display: none; }
   .menu-panel { width: 68vw; }
   .cart-options { max-width: 430px; }
