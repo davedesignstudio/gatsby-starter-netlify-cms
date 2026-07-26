@@ -1,0 +1,19 @@
+{
+  "name": "Cart Rush: After Hours",
+  "short_name": "Cart Rush",
+  "description": "A touch-first, after-hours supermarket cart racing game.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#10100e",
+  "theme_color": "#efff38",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "icons/cart-rush-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
