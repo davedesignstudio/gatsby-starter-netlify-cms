@@ -4848,3 +4848,528 @@ body {
       float: right; }
     .centered-nav.contain-to-grid .top-bar .title-area .name h1 a {
       display: none; } }
+
+/* dphilhowerstudio.com custom zoom layout */
+.top-bar .name h1 a.studio-logo {
+  color: #111;
+  display: block;
+  font-family: Poppins, helvetica-neue, helvetica, arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 45px;
+  padding: 0 20px;
+  text-transform: lowercase;
+}
+
+.top-bar .name h1 a.studio-logo:hover {
+  color: #edb713;
+}
+
+.studio-footer-logo {
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: lowercase;
+}
+
+.studio-zoom-hero {
+  background: #0f1015;
+  color: #fff;
+  min-height: 720px;
+  overflow: hidden;
+  padding: 190px 0 110px;
+  position: relative;
+}
+
+.studio-zoom-bg {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(237, 183, 19, 0.34), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(244, 84, 64, 0.28), transparent 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px);
+  background-size: auto, auto, 42px 42px;
+  bottom: 0;
+  left: 0;
+  opacity: 0.9;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.studio-zoom-hero .row,
+.studio-page-hero .row {
+  position: relative;
+  z-index: 2;
+}
+
+.studio-eyebrow {
+  color: #edb713;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.studio-eyebrow.dark {
+  color: #a67100;
+}
+
+.studio-zoom-hero h1 {
+  color: #fff;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin: 0 0 28px;
+  text-transform: lowercase;
+}
+
+.studio-lede {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 21px;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+.studio-actions {
+  margin-top: 34px;
+}
+
+.studio-button,
+.button.studio-button {
+  background: #edb713;
+  border: 2px solid #edb713;
+  color: #111;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-right: 12px;
+  text-transform: uppercase;
+}
+
+.studio-button:hover,
+.button.studio-button:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #111;
+}
+
+.studio-button.ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.studio-button.dark {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+  margin-top: 24px;
+}
+
+.zoom-frame {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 28px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+  margin-top: 10px;
+  overflow: hidden;
+  padding: 18px;
+  transform: rotate(2deg);
+}
+
+.zoom-frame-header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.zoom-frame-header span {
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  display: block;
+  height: 10px;
+  width: 10px;
+}
+
+.zoom-frame-header strong {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+.zoom-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.zoom-tile {
+  background: #fff;
+  border-radius: 22px;
+  color: #111;
+  min-height: 150px;
+  padding: 22px;
+  transform: scale(0.96);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.zoom-tile:hover {
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+}
+
+.zoom-tile span {
+  color: #777;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.zoom-tile strong {
+  display: block;
+  font-size: 42px;
+  letter-spacing: -0.06em;
+  margin-top: 44px;
+}
+
+.zoom-tile-primary {
+  background: #edb713;
+  grid-row: span 2;
+  min-height: 314px;
+}
+
+.zoom-tile-primary strong {
+  font-size: 92px;
+  margin-top: 112px;
+}
+
+.studio-intro,
+.studio-services,
+.studio-showcase,
+.studio-services-page,
+.studio-cta {
+  padding: 110px 0;
+}
+
+.studio-intro {
+  background: #fff;
+}
+
+.studio-intro h2,
+.studio-showcase h2,
+.studio-cta h2 {
+  color: #111;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.studio-intro p,
+.studio-showcase p,
+.studio-cta p {
+  color: #555;
+  line-height: 1.85;
+}
+
+.studio-services {
+  background: #f6f0e8;
+}
+
+.studio-service-card {
+  background: #fff;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  min-height: 350px;
+  padding: 34px 28px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.studio-service-card:hover {
+  box-shadow: 0 24px 48px rgba(17, 17, 17, 0.1);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.studio-service-card i,
+.studio-service-row i {
+  color: #edb713;
+  font-size: 30px;
+}
+
+.studio-service-card h3,
+.studio-service-row h3 {
+  color: #111;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+.studio-service-card p,
+.studio-service-row p {
+  color: #555;
+  line-height: 1.75;
+}
+
+.studio-showcase {
+  background: #fff;
+  overflow: hidden;
+}
+
+.poster-stack {
+  min-height: 430px;
+  position: relative;
+}
+
+.poster-card {
+  align-items: flex-end;
+  border-radius: 22px;
+  box-shadow: 0 24px 55px rgba(17, 17, 17, 0.16);
+  display: flex;
+  font-weight: 700;
+  justify-content: flex-start;
+  left: 40px;
+  min-height: 330px;
+  padding: 32px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 40px;
+  width: 300px;
+}
+
+.poster-card-back {
+  background: #111;
+  color: #fff;
+  transform: rotate(-10deg) translate(-18px, 12px);
+}
+
+.poster-card-mid {
+  background: #edb713;
+  color: #111;
+  transform: rotate(7deg) translate(42px, -8px);
+}
+
+.poster-card-front {
+  background: #f8f8f8;
+  color: #111;
+  display: block;
+  transform: rotate(-2deg) translate(86px, 32px);
+}
+
+.poster-card-front span {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  margin-bottom: 150px;
+}
+
+.poster-card-front strong {
+  display: block;
+  font-size: 54px;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  text-transform: none;
+}
+
+.studio-checklist {
+  list-style: none;
+  margin-left: 0;
+}
+
+.studio-checklist li {
+  border-top: 1px solid #e8e8e8;
+  color: #333;
+  font-weight: 700;
+  padding: 18px 0 18px 36px;
+  position: relative;
+}
+
+.studio-checklist li:before {
+  background: #edb713;
+  border-radius: 50%;
+  content: "";
+  height: 12px;
+  left: 0;
+  position: absolute;
+  top: 25px;
+  width: 12px;
+}
+
+.studio-process,
+.studio-page-hero {
+  background:
+    linear-gradient(135deg, rgba(237, 183, 19, 0.16) 0 1px, transparent 1px),
+    #111318;
+  background-size: 38px 38px;
+  color: #fff;
+  padding: 120px 0;
+}
+
+.studio-process .modSectionHeader h2,
+.studio-page-hero .modSectionHeader h2 {
+  color: #fff;
+}
+
+.studio-process-step {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  min-height: 280px;
+  padding: 34px;
+}
+
+.studio-process-step span {
+  color: #edb713;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 52px;
+}
+
+.studio-process-step h3 {
+  color: #fff;
+  font-weight: 700;
+}
+
+.studio-process-step p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+}
+
+.studio-cta {
+  background: #edb713;
+}
+
+.studio-cta .columns:last-child {
+  text-align: right;
+}
+
+.studio-services-page {
+  background: #fff;
+}
+
+.studio-service-row {
+  border: 1px solid #eee;
+  margin-bottom: 28px;
+  min-height: 250px;
+  padding: 32px;
+}
+
+.studio-deliverables {
+  background: #f6f0e8;
+  margin-top: 36px;
+  padding: 36px;
+}
+
+.studio-deliverables h3 {
+  color: #111;
+  font-weight: 700;
+}
+
+.studio-deliverables ul {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 20px 0 0;
+}
+
+.studio-deliverables li {
+  background: #fff;
+  color: #333;
+  font-weight: 700;
+  padding: 16px 18px;
+}
+
+@media only screen and (max-width: 64em) {
+  .studio-zoom-hero h1 {
+    font-size: 54px;
+  }
+
+  .studio-intro h2,
+  .studio-showcase h2,
+  .studio-cta h2 {
+    font-size: 36px;
+  }
+
+  .studio-service-card {
+    margin-bottom: 28px;
+  }
+
+  .poster-stack {
+    margin-bottom: 40px;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .top-bar .name h1 a.studio-logo {
+    font-size: 12px;
+    padding: 0 12px;
+  }
+
+  .studio-zoom-hero,
+  .studio-intro,
+  .studio-services,
+  .studio-showcase,
+  .studio-process,
+  .studio-page-hero,
+  .studio-services-page,
+  .studio-cta {
+    padding: 70px 0;
+  }
+
+  .studio-zoom-hero h1 {
+    font-size: 40px;
+  }
+
+  .studio-lede {
+    font-size: 18px;
+  }
+
+  .studio-button,
+  .button.studio-button {
+    display: block;
+    margin: 0 0 12px;
+    text-align: center;
+  }
+
+  .zoom-frame {
+    margin-top: 44px;
+    transform: none;
+  }
+
+  .zoom-grid,
+  .studio-deliverables ul {
+    grid-template-columns: 1fr;
+  }
+
+  .zoom-tile-primary {
+    min-height: 190px;
+  }
+
+  .zoom-tile-primary strong {
+    font-size: 68px;
+    margin-top: 58px;
+  }
+
+  .poster-card {
+    left: 0;
+    width: 240px;
+  }
+
+  .poster-card-front {
+    transform: rotate(-2deg) translate(42px, 32px);
+  }
+
+  .studio-cta .columns:last-child {
+    text-align: left;
+  }
+}
