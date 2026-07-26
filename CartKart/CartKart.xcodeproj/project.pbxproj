@@ -1,0 +1,352 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* CartKartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* CartKartApp.swift */; };
+		A10000000000000000000002 /* GameRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* GameRootView.swift */; };
+		A10000000000000000000003 /* GameModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* GameModels.swift */; };
+		A10000000000000000000004 /* ShoppingCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* ShoppingCart.swift */; };
+		A10000000000000000000005 /* StoreTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* StoreTrack.swift */; };
+		A10000000000000000000006 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* Items.swift */; };
+		A10000000000000000000007 /* AIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* AIController.swift */; };
+		A10000000000000000000008 /* RaceHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* RaceHUD.swift */; };
+		A10000000000000000000009 /* RaceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* RaceScene.swift */; };
+		A1000000000000000000000A /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* MenuScene.swift */; };
+		A1000000000000000000000B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* CartKartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartKartApp.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* GameRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRootView.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* GameModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModels.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* ShoppingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCart.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* StoreTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTrack.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* AIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIController.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* RaceHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceHUD.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* RaceScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceScene.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		A2000000000000000000000B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2000000000000000000000C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A30000000000000000000001 /* CartKart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CartKart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A40000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A50000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A50000000000000000000002 /* CartKart */,
+				A50000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A50000000000000000000002 /* CartKart */ = {
+			isa = PBXGroup;
+			children = (
+				A50000000000000000000004 /* App */,
+				A50000000000000000000005 /* Game */,
+				A5000000000000000000000B /* Resources */,
+				A2000000000000000000000C /* Info.plist */,
+			);
+			path = CartKart;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A30000000000000000000001 /* CartKart.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000004 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* CartKartApp.swift */,
+				A20000000000000000000002 /* GameRootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000005 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				A50000000000000000000006 /* Models */,
+				A50000000000000000000007 /* Entities */,
+				A50000000000000000000008 /* Systems */,
+				A50000000000000000000009 /* UI */,
+				A5000000000000000000000A /* Scenes */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000006 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000003 /* GameModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000007 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000004 /* ShoppingCart.swift */,
+				A20000000000000000000005 /* StoreTrack.swift */,
+				A20000000000000000000006 /* Items.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000008 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000007 /* AIController.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		A50000000000000000000009 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000008 /* RaceHUD.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A5000000000000000000000A /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000009 /* RaceScene.swift */,
+				A2000000000000000000000A /* MenuScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A5000000000000000000000B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000B /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A60000000000000000000001 /* CartKart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000000000000000000003 /* Build configuration list for PBXNativeTarget "CartKart" */;
+			buildPhases = (
+				A70000000000000000000001 /* Sources */,
+				A40000000000000000000001 /* Frameworks */,
+				A70000000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CartKart;
+			productName = CartKart;
+			productReference = A30000000000000000000001 /* CartKart.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A90000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A60000000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A80000000000000000000001 /* Build configuration list for PBXProject "CartKart" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A50000000000000000000001;
+			productRefGroup = A50000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A60000000000000000000001 /* CartKart */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A70000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* CartKartApp.swift in Sources */,
+				A10000000000000000000002 /* GameRootView.swift in Sources */,
+				A10000000000000000000003 /* GameModels.swift in Sources */,
+				A10000000000000000000004 /* ShoppingCart.swift in Sources */,
+				A10000000000000000000005 /* StoreTrack.swift in Sources */,
+				A10000000000000000000006 /* Items.swift in Sources */,
+				A10000000000000000000007 /* AIController.swift in Sources */,
+				A10000000000000000000008 /* RaceHUD.swift in Sources */,
+				A10000000000000000000009 /* RaceScene.swift in Sources */,
+				A1000000000000000000000A /* MenuScene.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A80000000000000000000010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A80000000000000000000011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A80000000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CartKart/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CartKart;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cartkart.game;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A80000000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CartKart/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CartKart;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cartkart.game;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000000000000000000001 /* Build configuration list for PBXProject "CartKart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000010 /* Debug */,
+				A80000000000000000000011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000000000000000000003 /* Build configuration list for PBXNativeTarget "CartKart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000012 /* Debug */,
+				A80000000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A90000000000000000000001 /* Project object */;
+}
