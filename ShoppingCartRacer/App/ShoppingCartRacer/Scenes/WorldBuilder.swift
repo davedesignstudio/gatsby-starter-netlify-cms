@@ -39,7 +39,8 @@ struct WorldBuilder {
         let texture = factory.floorTileTexture()
         let tileMetres: CGFloat = 4
         let tileSize = CGSize(width: tileMetres * metre, height: tileMetres * metre)
-        let margin: CGFloat = 24
+        // Just enough that the camera never reaches the edge of the floor.
+        let margin: CGFloat = 14
 
         let minX = CGFloat(plan.bounds.min.x) - margin
         let maxX = CGFloat(plan.bounds.max.x) + margin
@@ -83,8 +84,8 @@ struct WorldBuilder {
         shoulder.zPosition = Layer.shoulder.rawValue
         container.addChild(shoulder)
 
-        for run in surfaceRuns() {
-            let shape = SKShapeNode(path: ribbonPath(useShoulder: false, range: run.range))
+        for run in plan.surfaceRuns {
+            let shape = SKShapeNode(path: ribbonPath(useShoulder: false, indices: run.indices))
             shape.fillColor = UIColor(Palette.tint(for: run.surface))
             shape.strokeColor = .clear
             shape.zPosition = Layer.surface.rawValue
@@ -92,7 +93,7 @@ struct WorldBuilder {
 
             if run.surface == .wetFloor || run.surface == .freezerFrost {
                 // A brighter sheen on top so slippery ground is obvious at a glance.
-                let sheen = SKShapeNode(path: ribbonPath(useShoulder: false, range: run.range))
+                let sheen = SKShapeNode(path: ribbonPath(useShoulder: false, indices: run.indices))
                 sheen.fillColor = UIColor(RacerColor(0.9, 0.98, 1), alpha: 0.28)
                 sheen.strokeColor = .clear
                 sheen.zPosition = Layer.surface.rawValue + 1
@@ -103,44 +104,13 @@ struct WorldBuilder {
         return container
     }
 
-    private struct SurfaceRun {
-        let surface: Surface
-        let range: Range<Int>
-    }
-
-    /// Groups consecutive slices that share a floor type.
-    private func surfaceRuns() -> [SurfaceRun] {
-        guard !plan.slices.isEmpty else { return [] }
-        var runs: [SurfaceRun] = []
-        var startIndex = 0
-        for index in 1...plan.slices.count {
-            let ended = index == plan.slices.count || plan.slices[index].surface != plan.slices[startIndex].surface
-            if ended {
-                // Overlap by one slice so there is no seam between runs.
-                let end = min(index + 1, plan.slices.count)
-                runs.append(SurfaceRun(surface: plan.slices[startIndex].surface, range: startIndex..<end))
-                startIndex = index
-            }
-        }
-        // Close the loop back onto the first slice.
-        if let last = runs.last, last.range.upperBound == plan.slices.count {
-            runs[runs.count - 1] = SurfaceRun(surface: last.surface, range: last.range)
-        }
-        return runs
-    }
-
     /// Builds a closed polygon down one side of the aisle and back up the other.
-    private func ribbonPath(useShoulder: Bool, range: Range<Int>? = nil) -> CGPath {
+    private func ribbonPath(useShoulder: Bool, indices requested: [Int]? = nil) -> CGPath {
         let path = CGMutablePath()
         let slices = plan.slices
         guard !slices.isEmpty else { return path }
 
-        let indices: [Int]
-        if let range {
-            indices = Array(range).map { $0 % slices.count }
-        } else {
-            indices = Array(slices.indices) + [0]
-        }
+        let indices = requested ?? (Array(slices.indices) + [0])
         guard indices.count > 1 else { return path }
 
         var started = false
@@ -170,16 +140,26 @@ struct WorldBuilder {
         let container = SKNode()
         container.zPosition = Layer.props.rawValue - 1
 
+        // The wall is stroked, so its centre line has to sit outside the run-off:
+        // on the boundary itself, half the stroke would cover ground the carts are
+        // still allowed to drive on.
+        let wallOffset = 1.0
+
+        func wallPoint(_ slice: TrackArtPlan.Slice, left: Bool) -> CGPoint {
+            let edge = left ? slice.shoulderLeft : slice.shoulderRight
+            let outward = (edge - slice.centre).normalized
+            return point(edge + outward * wallOffset)
+        }
+
         for side in [true, false] {
             let path = CGMutablePath()
             var started = false
             for slice in plan.slices {
-                let world = side ? slice.shoulderLeft : slice.shoulderRight
-                let scenePoint = point(world)
+                let scenePoint = wallPoint(slice, left: side)
                 if started { path.addLine(to: scenePoint) } else { path.move(to: scenePoint); started = true }
             }
             if let first = plan.slices.first {
-                path.addLine(to: point(side ? first.shoulderLeft : first.shoulderRight))
+                path.addLine(to: wallPoint(first, left: side))
             }
 
             let wall = SKShapeNode(path: path)

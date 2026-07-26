@@ -68,6 +68,15 @@ public struct TrackArtPlan: Sendable {
         public let halfWidth: Double
     }
 
+    /// A stretch of course sharing one floor type, as a run of slice indices.
+    ///
+    /// Consecutive runs overlap by one slice and the final run wraps back onto the
+    /// first, so the filled shapes leave no gap — including across the start line.
+    public struct SurfaceRun: Sendable {
+        public let surface: Surface
+        public let indices: [Int]
+    }
+
     public let trackID: String
     public let theme: TrackTheme
     public let palette: Palette
@@ -203,6 +212,24 @@ public struct TrackArtPlan: Sendable {
             maxPoint = Vector2(max(maxPoint.x, prop.position.x + radius), max(maxPoint.y, prop.position.y + radius))
         }
         bounds = (minPoint, maxPoint)
+    }
+
+    /// Groups the slices into runs of identical floor for the renderer to fill.
+    public var surfaceRuns: [SurfaceRun] {
+        guard !slices.isEmpty else { return [] }
+        let count = slices.count
+        var runs: [SurfaceRun] = []
+        var startIndex = 0
+
+        for index in 1...count {
+            let ended = index == count || slices[index].surface != slices[startIndex].surface
+            guard ended else { continue }
+            // One slice of overlap, wrapped, so consecutive fills meet.
+            let indices = (startIndex...index).map { $0 % count }
+            runs.append(SurfaceRun(surface: slices[startIndex].surface, indices: indices))
+            startIndex = index
+        }
+        return runs
     }
 
     private static func propKinds(for theme: TrackTheme) -> [(kind: PropKind, weight: Double)] {

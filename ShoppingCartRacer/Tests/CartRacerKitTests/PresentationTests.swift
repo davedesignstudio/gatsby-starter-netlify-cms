@@ -40,6 +40,36 @@ final class PresentationTests: XCTestCase {
         }
     }
 
+    func testSurfaceRunsCoverTheWholeLapWithNoGaps() {
+        for definition in TrackLibrary.all {
+            let plan = TrackArtPlan(track: Track(definition: definition))
+            let runs = plan.surfaceRuns
+            let count = plan.slices.count
+            XCTAssertGreaterThan(runs.count, 1, "\(definition.id) should have several floor types")
+
+            // The renderer fills a quad between each consecutive pair of slices.
+            // Every quad on the lap has to be covered by some run, including the
+            // one straddling the start line, or there is a visible sliver of bare
+            // floor across the track.
+            var covered: Set<Int> = []
+            for run in runs {
+                XCTAssertFalse(run.indices.isEmpty)
+                for (first, second) in zip(run.indices, run.indices.dropFirst()) {
+                    XCTAssertEqual(second, (first + 1) % count, "run indices are not consecutive")
+                    covered.insert(first)
+                }
+                // Each run must be one floor type all the way through.
+                for index in run.indices.dropLast() {
+                    XCTAssertEqual(plan.slices[index].surface, run.surface)
+                }
+            }
+            XCTAssertEqual(covered.count, count, "\(definition.id) has a gap in the floor")
+
+            // And the runs should follow the floor types in order.
+            XCTAssertEqual(runs.first?.surface, plan.slices[0].surface)
+        }
+    }
+
     func testTrackArtPlanIsDeterministic() {
         let track = Track(definition: TrackLibrary.all[0])
         let first = TrackArtPlan(track: track)

@@ -12,8 +12,13 @@ struct RaceView: View {
         GeometryReader { proxy in
             ZStack {
                 if let coordinator {
-                    SpriteView(scene: coordinator.scene, options: [.ignoresSiblingOrder])
-                        .ignoresSafeArea()
+                    // Culling matters: the shop floor is a few thousand static
+                    // tiles, and passing options at all replaces the default set.
+                    SpriteView(
+                        scene: coordinator.scene,
+                        options: [.ignoresSiblingOrder, .shouldCullNonVisibleNodes]
+                    )
+                    .ignoresSafeArea()
 
                     RaceHUD(coordinator: coordinator)
 
