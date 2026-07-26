@@ -1,0 +1,14 @@
+{
+  "name": "Cart Kart: Aisle Racers",
+  "short_name": "Cart Kart",
+  "description": "Mode-7 shopping cart racing through the Midnight Megamart.",
+  "start_url": ".",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0b0b12",
+  "theme_color": "#101018",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

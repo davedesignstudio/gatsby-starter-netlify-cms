@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0b12;
+  font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  touch-action: none;
+  overscroll-behavior: none;
+  position: fixed;
+}
+
+#stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#game {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  /* sized by JS to fit while keeping 16:9 */
+}
+
+/* ---------- touch controls ---------- */
+
+#touch-ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: none; /* enabled by JS on touch devices, during racing */
+}
+
+#touch-ui.active { display: block; }
+
+#steer-pad {
+  position: absolute;
+  left: max(12px, env(safe-area-inset-left));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 14px;
+}
+
+#action-pad {
+  position: absolute;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.tbtn {
+  pointer-events: auto;
+  width: 76px;
+  height: 76px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
+  background: rgba(20, 22, 34, 0.42);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.tbtn.round { border-radius: 50%; }
+.tbtn.big { width: 92px; height: 92px; font-size: 17px; }
+
+.tbtn.pressed {
+  background: rgba(255, 210, 60, 0.55);
+  border-color: rgba(255, 230, 120, 0.9);
+  color: #1a1a1a;
+}
+
+/* ---------- rotate prompt ---------- */
+
+#rotate-overlay {
+  position: absolute;
+  inset: 0;
+  background: #0b0b12;
+  color: #ffd23c;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  text-align: center;
+}
+
+#rotate-overlay.show { display: flex; }
+
+.rotate-icon {
+  font-size: 64px;
+  animation: tilt 1.6s ease-in-out infinite;
+}
+
+.rotate-msg p {
+  margin-top: 14px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+@keyframes tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}

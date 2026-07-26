@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cart Kart: Aisle Racers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cart Kart">
+<meta name="theme-color" content="#101018">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="game" width="480" height="270"></canvas>
+
+  <!-- Touch controls -->
+  <div id="touch-ui">
+    <div id="steer-pad">
+      <button class="tbtn" id="btn-left" aria-label="Steer left">&#9664;</button>
+      <button class="tbtn" id="btn-right" aria-label="Steer right">&#9654;</button>
+    </div>
+    <div id="action-pad">
+      <button class="tbtn round" id="btn-item" aria-label="Use item">&#127857;</button>
+      <button class="tbtn round big" id="btn-drift" aria-label="Drift">DRIFT</button>
+    </div>
+  </div>
+</div>
+
+<div id="rotate-overlay">
+  <div class="rotate-msg">
+    <div class="rotate-icon">&#128241;</div>
+    <p>Rotate your phone to race!</p>
+  </div>
+</div>
+
+<script src="js/util.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/track.js"></script>
+<script src="js/render.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
