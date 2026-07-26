@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">Carts After Dark icon</title>
+  <rect width="180" height="180" rx="38" fill="#111a22"/>
+  <path d="M31 41h17l13 69h70l15-47H58" fill="none" stroke="#ffd34e" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+  <path d="M67 73h66M71 91h56M80 64l7 45m24-45-7 45" fill="none" stroke="#ef4f34" stroke-linecap="round" stroke-width="7"/>
+  <circle cx="75" cy="134" r="12" fill="#f7f1df"/>
+  <circle cx="126" cy="134" r="12" fill="#f7f1df"/>
+  <path d="m25 106 20-11M22 83l17-4" stroke="#ef4f34" stroke-linecap="round" stroke-width="7"/>
+</svg>

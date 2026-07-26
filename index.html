@@ -1,412 +1,251 @@
----
-layout: default
-section_id: home
-slides:
-  - bg: images/@stock/slide-1.jpg
-    small_title:
-      klass: bottom-to-top
-      text: The perfect theme for
-    title:
-      klass: bottom-to-top
-      text: Many purposes
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-4.jpg
-    klass: centered-text
-    small_title:
-      klass: bottom-to-top
-      text: We make websites that are
-    title:
-      klass: bottom-to-top
-      text: Creative &amp; Powerful
-    buttons:
-      klass: bottom-to-top
-      items:
-        - klass: boxed
-          text: View Features
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-        - text: Purchase Now
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-5.jpg
-    small_title:
-      klass: bottom-to-top
-      text: This is a creative theme that you'll
-    title:
-      klass: bottom-to-top
-      text: definitely love...
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Carts After Dark — a joyful, touch-first shopping cart racing game about neighbors showing up for one another."
+    />
+    <meta name="theme-color" content="#131b24" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Carts After Dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta property="og:title" content="Carts After Dark" />
+    <meta
+      property="og:description"
+      content="A fast, funny community cup — built for touch, keyboard, and gamepad."
+    />
+    <meta property="og:type" content="website" />
+    <title>Carts After Dark — The Community Cup</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="images/game/cart-mark.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="images/game/cart-mark.svg" />
+    <link rel="stylesheet" href="css/game.css" />
+  </head>
+  <body>
+    <main id="game" class="game" aria-label="Carts After Dark racing game">
+      <canvas id="game-canvas" aria-label="Top-down shopping cart race"></canvas>
 
+      <div class="ambient-glow" aria-hidden="true"></div>
 
-
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-
-
-services:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-
-milestones:
-  - icon: folder-open
-    from: 0
-    to: 69
-    title: Projects Completed
-  - icon: coffee
-    from: 0
-    to: 726
-    title: Cups of coffee offered
-  - icon: thumbs-up
-    from: 0
-    to: 59
-    title: Happy clients
-  - icon: file-text
-    from: 0
-    to: 21
-    title: Articles Published
-
----
-
-
-<div class='mod modDefaultSlider'>
-  <div class='sequence' data-autostop='on' data-timeout='0'>
-    <a class='sequence-prev' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <a class='sequence-next' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <ul class='sequence-pagination'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign class = 'current' %}
-        {% else %}
-          {% assign class = '' %}
-        {% endif %}
-        <li class="{{class}}"></li>
-      {% endfor %}
-    </ul>
-    <ul class='sequence-canvas'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign style = 'static' %}
-        {% else %}
-          {% assign style = '' %}
-        {% endif %}
-
-        <li class='frame {{style}} {{ slide.klass }}'>
-          <div class='bg' style='background-image: url({{ slide.bg}});'></div>
-          <div class='small-title {{ slide.small_title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.small_title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='title {{ slide.title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='buttons-wrapper {{ slide.buttons.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <div class='two spacing'></div>
-                {% for button in slide.buttons.items %}
-                  <a class='button {{ button.klass }}' href='{{ button.link_to }}'>{{ button.text }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<div class="four spacing"></div>
-
-<div class="row">
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-flask' delay='0' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-paper-plane-o' delay='200' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-tablet' delay='400' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-comments-o' delay='600' shape_class='icon-text-circle' %}
-  </div>
-</div>
-
-<div class="spacing"></div>
-
-<div class="full" style="background: #f5f5f5;">
-  <div class="row">
-    <div class="large-12 columns">
-      {% include section-header.html title="Our works" %}
-      <div class="spacing"></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class="three spacing"></div>
-    </div>
-  </div>
-
-  <div class="mod modGallery">
-    <ul class="gallery small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-      {% for work in page.works %}
-        <li class="{{ work.klass }}">
-          <a href='{{ work.link_to }}'>
-            <img alt="" src="{{ work.image }}" />
-            <div class='overlay'>
-              <div class='thumb-info'>
-                <h3>{{ work.title }}</h3>
-                <p>{{ work.desc }}</p>
-              </div>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='three spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <img class="fadeinleft" alt="" src="images/@stock/responsive.png" />
-      <div class='three spacing'></div>
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
+      <header class="topbar">
+        <a class="mini-logo" href="#" aria-label="Carts After Dark home">
+          <span class="mini-logo__cart" aria-hidden="true">⌁</span>
+          <span>Carts After Dark</span>
+        </a>
+        <div class="topbar__actions">
+          <button id="pause-button" class="icon-button is-hidden" type="button" aria-label="Pause race">
+            <span aria-hidden="true">Ⅱ</span>
+          </button>
+          <button id="sound-button" class="icon-button" type="button" aria-label="Mute sound">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4 9v6h4l5 4V5L8 9H4Zm12.2.1a4 4 0 0 1 0 5.8M18.8 6.5a7.5 7.5 0 0 1 0 11" />
+            </svg>
+          </button>
         </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+      </header>
 
-
-<div class='full parallax' style='background-image: url(images/@stock/milestone-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Parallax effect" color="#fff" %}
-      <div class='spacing'></div>
-      <p class='centered-text' style='color: #ccc;'>
-        Dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for milestone in page.milestones %}
-      <div class='medium-3 large-3 columns'>
-        <div class='mod modMilestone'>
-          <i class='fa fa-{{milestone.icon}}'></i>
-          <strong data-from='{{milestone.from}}' data-to='{{milestone.to}}'>&nbsp;</strong>
-          <span>{{milestone.title}}</span>
-          <div class='four spacing'></div>
+      <section id="start-screen" class="screen start-screen is-active" aria-labelledby="game-title">
+        <div class="start-screen__copy">
+          <p class="eyebrow"><span></span> The community cup <span></span></p>
+          <h1 id="game-title">
+            <span>Carts</span>
+            <span class="title-accent">After Dark</span>
+          </h1>
+          <p class="lede">
+            The store is closed. The supply list is long.<br />
+            Four neighbors turn the pickup into a race.
+          </p>
         </div>
+
+        <div class="start-screen__action">
+          <button id="meet-racers-button" class="primary-button" type="button">
+            <span>Meet the racers</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M5 12h14m-5-5 5 5-5 5" />
+            </svg>
+          </button>
+          <p class="control-hint">
+            <span class="key">WASD</span>
+            <span class="hint-divider"></span>
+            <span>Touch</span>
+            <span class="hint-divider"></span>
+            <span>Gamepad</span>
+          </p>
+        </div>
+
+        <div class="store-badge" aria-hidden="true">
+          <span>Open</span>
+          <strong>12:04 AM</strong>
+          <small>For racers only</small>
+        </div>
+      </section>
+
+      <section id="select-screen" class="screen select-screen" aria-labelledby="select-title">
+        <div class="panel panel--wide">
+          <div class="panel__heading">
+            <div>
+              <p class="eyebrow eyebrow--dark">Choose your neighbor</p>
+              <h2 id="select-title">Pick a racer</h2>
+            </div>
+            <p class="panel__note">Everyone gets the same cart.<br />Style makes the difference.</p>
+          </div>
+
+          <div id="racer-grid" class="racer-grid" role="radiogroup" aria-label="Choose a racer">
+            <button class="racer-card is-selected" type="button" role="radio" aria-checked="true" data-racer="0">
+              <span class="racer-card__portrait racer-card__portrait--nia" aria-hidden="true">
+                <span class="portrait__hair"></span><span class="portrait__face"></span><span class="portrait__shirt">N</span>
+              </span>
+              <span class="racer-card__text">
+                <strong>Nia</strong>
+                <small>Quick off the line</small>
+              </span>
+              <span class="racer-card__number">01</span>
+            </button>
+
+            <button class="racer-card" type="button" role="radio" aria-checked="false" data-racer="1">
+              <span class="racer-card__portrait racer-card__portrait--mateo" aria-hidden="true">
+                <span class="portrait__hair"></span><span class="portrait__face"></span><span class="portrait__shirt">M</span>
+              </span>
+              <span class="racer-card__text">
+                <strong>Mateo</strong>
+                <small>Holds every drift</small>
+              </span>
+              <span class="racer-card__number">12</span>
+            </button>
+
+            <button class="racer-card" type="button" role="radio" aria-checked="false" data-racer="2">
+              <span class="racer-card__portrait racer-card__portrait--june" aria-hidden="true">
+                <span class="portrait__hair"></span><span class="portrait__face"></span><span class="portrait__shirt">J</span>
+              </span>
+              <span class="racer-card__text">
+                <strong>June</strong>
+                <small>Turns on a dime</small>
+              </span>
+              <span class="racer-card__number">77</span>
+            </button>
+
+            <button class="racer-card" type="button" role="radio" aria-checked="false" data-racer="3">
+              <span class="racer-card__portrait racer-card__portrait--dev" aria-hidden="true">
+                <span class="portrait__hair"></span><span class="portrait__face"></span><span class="portrait__shirt">D</span>
+              </span>
+              <span class="racer-card__text">
+                <strong>Dev</strong>
+                <small>Boosts last longer</small>
+              </span>
+              <span class="racer-card__number">24</span>
+            </button>
+          </div>
+
+          <div class="panel__footer">
+            <button id="back-button" class="text-button" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5m5 5-5-5 5-5" /></svg>
+              Back
+            </button>
+            <button id="start-race-button" class="primary-button primary-button--dark" type="button">
+              <span>Start the supply run</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 5v14l11-7L7 5Z" /></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="hud" class="hud is-hidden" aria-label="Race status">
+        <div class="hud-card lap-card">
+          <span class="hud-label">Lap</span>
+          <strong><span id="lap-value">1</span><small>/3</small></strong>
+        </div>
+        <div class="position-card">
+          <span id="position-value">1</span><sup id="position-suffix">st</sup>
+          <small>place</small>
+        </div>
+        <div class="hud-card speed-card">
+          <div>
+            <span class="hud-label">Speed</span>
+            <strong id="speed-value">0</strong>
+          </div>
+          <span class="speed-unit">cart<br />power</span>
+        </div>
+        <div id="announcement" class="announcement" role="status" aria-live="polite"></div>
+      </section>
+
+      <div id="countdown" class="countdown is-hidden" aria-live="assertive">
+        <span>3</span>
       </div>
-    {% endfor %}
-  </div>
-  <div class='two spacing'></div>
-</div>
 
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our team" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class='two spacing'></div>
+      <div id="touch-controls" class="touch-controls is-hidden" aria-label="Touch controls">
+        <div class="steer-controls">
+          <button class="control-button control-button--steer" type="button" data-control="left" aria-label="Steer left">
+            <svg aria-hidden="true" viewBox="0 0 32 32"><path d="m19 8-8 8 8 8" /></svg>
+          </button>
+          <button class="control-button control-button--steer" type="button" data-control="right" aria-label="Steer right">
+            <svg aria-hidden="true" viewBox="0 0 32 32"><path d="m13 8 8 8-8 8" /></svg>
+          </button>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-
-<div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our recent posts" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-
-  <div class='row'>
-    {% for post in site.posts %}
-      {% if forloop.index > 3 %}
-        {% break %}
-      {% endif %}
-
-      <div class='large-4 medium-4 columns'>
-        <div class='mod modBlogPost'>
-          {% for image in post.images %}
-            {% unless forloop.first %}
-              {% break %}
-            {% endunless %}
-            <a href="{{post.url}}"><img alt="" src="{{image}}" /></a>
-          {% endfor %}
-          <div class='content'>
-            <p class='date'>{{post.date | date: "%B %d, %Y" }}</p>
-            <h4><a href="#">{{post.title}}</a></h4>
-            <p>{{post.excerpt}}</p>
-            <!--
-              <div class="tags">
-                {% for cat in post.categories %}
-                  <a href="#">{{cat | capitalize}}</a>
-                  {% unless forloop.last %}
-                    ,
-                  {% endunless %}
-                {% endfor %}
-              </div>
-            -->
-          </div>
+        <div class="pedal-controls">
+          <button id="item-button" class="item-button" type="button" data-control="item" aria-label="Use boost" disabled>
+            <span class="item-button__icon">⚡</span>
+            <span class="item-button__label">Empty</span>
+          </button>
+          <button class="control-button control-button--brake" type="button" data-control="brake" aria-label="Brake or reverse">
+            <span>Brake</span>
+          </button>
+          <button class="control-button control-button--gas" type="button" data-control="gas" aria-label="Accelerate">
+            <span>Go!</span>
+          </button>
         </div>
       </div>
 
-    {% endfor %}
+      <section id="pause-screen" class="screen pause-screen" aria-labelledby="pause-title">
+        <div class="panel panel--small">
+          <p class="eyebrow eyebrow--dark">Quick breather</p>
+          <h2 id="pause-title">Race paused</h2>
+          <button id="resume-button" class="primary-button primary-button--dark" type="button">Keep racing</button>
+          <button id="restart-button" class="text-button text-button--center" type="button">Restart race</button>
+        </div>
+      </section>
 
-  </div>
+      <section id="finish-screen" class="screen finish-screen" aria-labelledby="finish-title">
+        <div class="panel finish-panel">
+          <p id="finish-kicker" class="eyebrow eyebrow--dark">Supply run complete</p>
+          <div id="finish-place" class="finish-place">1<sup>st</sup></div>
+          <h2 id="finish-title">You brought it home!</h2>
+          <p id="finish-copy">The pantry is stocked and the crew is cheering.</p>
+          <div class="finish-stats">
+            <div><span>Time</span><strong id="finish-time">0:00.0</strong></div>
+            <div><span>Best lap</span><strong id="best-lap">0:00.0</strong></div>
+            <div><span>Pickups</span><strong id="pickup-count">0</strong></div>
+          </div>
+          <div class="finish-actions">
+            <button id="race-again-button" class="primary-button primary-button--dark" type="button">Race again</button>
+            <button id="change-racer-button" class="text-button text-button--center" type="button">Change racer</button>
+          </div>
+        </div>
+      </section>
 
+      <aside id="rotate-notice" class="rotate-notice" aria-label="Rotate device">
+        <div class="phone-icon" aria-hidden="true"><span></span></div>
+        <strong>Turn your phone sideways</strong>
+        <p>The carts need a little aisle room.</p>
+      </aside>
 
-  <div class='two spacing'></div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <a class='button' href='blog.html'>See more posts</a>
-      </p>
-    </div>
-  </div>
-  <div class='two spacing'></div>
-
-</div>
-
-
-{% include our-customers.html %}
-
-
-<div class='full no-padding' style='background: #fff'>
-  <div class='two spacing'></div>
-  <div class='mod modCallToAction'>
-    <div class='row'>
-      <div class='medium-9 large-9 columns'>
-        <p>Like what you see here? Checkout this theme and start to build your site immediately.</p>
+      <div class="game-story">
+        <button id="story-button" type="button" aria-expanded="false" aria-controls="story-note">Why they race</button>
+        <p id="story-note" hidden>
+          Our racers are neighbors between homes, making a routine community-pantry pickup a moment of joy.
+          The competition is playful; their circumstances are never the punchline.
+        </p>
       </div>
-      <div class='medium-3 large-3 columns'>
-        <a class='button' href='http://themeforest.net/user/honryou/portfolio?ref=honryou'>Learn more</a>
-      </div>
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+
+      <p id="sr-status" class="sr-only" aria-live="polite"></p>
+    </main>
+
+    <script src="js/game.js"></script>
+  </body>
+</html>
