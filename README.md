@@ -1,5 +1,14 @@
 # Gatsby + Netlify CMS Starter
 
+## Aisle Kart (new)
+
+Mario Kart–style supermarket racer with stray shopping carts:
+
+- **iOS (SpriteKit):** open [`AisleKart/AisleKart.xcodeproj`](AisleKart/AisleKart.xcodeproj) in Xcode 15+ and run on a simulator/device — see [`AisleKart/README.md`](AisleKart/README.md)
+- **Web demo (play now):** [`aisle-kart-web/`](aisle-kart-web/) — `python3 -m http.server 8765` then open `http://localhost:8765`
+
+---
+
 **Note:** This starter uses the [Gatsby v2 Beta](https://www.gatsbyjs.org/blog/2018-06-16-announcing-gatsby-v2-beta-launch/).
 
 This repo contains an example business website that is built with [Gatsby](https://www.gatsbyjs.org/), and [Netlify CMS](https://www.netlifycms.org): **[Demo Link](https://gatsby-netlify-cms.netlify.com/)**.
