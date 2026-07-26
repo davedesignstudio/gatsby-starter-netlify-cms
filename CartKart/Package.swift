@@ -8,12 +8,19 @@ let package = Package(
         .macOS(.v13)
     ],
     products: [
-        .library(name: "CartKartCore", targets: ["CartKartCore"])
+        .library(name: "CartKartCore", targets: ["CartKartCore"]),
+        // Headless race simulator, handy for balancing without a Mac.
+        .executable(name: "cartkart-sim", targets: ["CartKartSim"])
     ],
     targets: [
         .target(
             name: "CartKartCore",
             path: "Sources/CartKartCore"
+        ),
+        .executableTarget(
+            name: "CartKartSim",
+            dependencies: ["CartKartCore"],
+            path: "Sources/CartKartSim"
         ),
         .testTarget(
             name: "CartKartCoreTests",

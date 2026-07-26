@@ -277,7 +277,8 @@ public enum TrackLibrary {
             accent: .init(0.98, 0.82, 0.20),
             tagline: "Watch for the pallet stacks."
         ),
-        lapCount: 4,
+        // The longest lap in the game, so three of them is plenty.
+        lapCount: 3,
         controlPoints: [
             TrackControlPoint(0, -1300, halfWidth: 215),
             TrackControlPoint(800, -1350, halfWidth: 205),
@@ -346,7 +347,7 @@ public enum TrackLibrary {
             accent: .init(0.98, 0.30, 0.55),
             tagline: "Nine items or fewer. No exceptions."
         ),
-        lapCount: 5,
+        lapCount: 4,
         controlPoints: [
             TrackControlPoint(0, -620, halfWidth: 165),
             TrackControlPoint(520, -660, halfWidth: 155),

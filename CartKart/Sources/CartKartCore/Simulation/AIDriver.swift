@@ -78,7 +78,9 @@ public struct AIDriver {
 
         // MARK: Throttle
         let cornerSeverity = upcomingCurvature(kart: kart, track: track, distance: clamp(speed * 0.7, 120, 460))
-        let cornerSpeedCap = kart.physics.topSpeed * clamp(1.05 - cornerSeverity * 130, 0.42, 1.0)
+        // A grippy cart can carry more speed through the same corner.
+        let gripFactor = (kart.physics.grip / context.tuning.baseGrip).squareRoot()
+        let cornerSpeedCap = kart.physics.topSpeed * gripFactor * clamp(1.05 - cornerSeverity * 130, 0.42, 1.0)
         var throttle = 1.0
         if speed > cornerSpeedCap * (0.9 + 0.2 * skill) {
             throttle = speed > cornerSpeedCap * 1.25 ? -0.6 : 0.15
