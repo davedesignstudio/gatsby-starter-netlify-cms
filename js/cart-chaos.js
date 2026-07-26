@@ -94,6 +94,7 @@
     elapsed: 0,
     finished: false,
     finishText: "",
+    messageTimer: -1,
     karts: [],
     pickups: [],
     particles: [],
@@ -204,6 +205,7 @@
     state.elapsed = 0
     state.finished = false
     state.finishText = ""
+    state.messageTimer = -1
     state.karts = STARTING_GRID.map(function (kartConfig, index) {
       return createKart(kartConfig, index)
     })
@@ -259,18 +261,24 @@
     }
 
     if (state.countdown > 0) {
+      const previousCountdown = state.countdown
       state.countdown = Math.max(0, state.countdown - deltaSeconds)
       const countValue = Math.ceil(state.countdown)
       if (state.countdown > 0.1) {
         updateMessage("Countdown: " + countValue)
-      } else {
-        updateMessage("Go! Grab the energy drinks and boost.")
+      } else if (previousCountdown > 0.1) {
+        updateMessage("Go! Grab the energy drinks and boost.", 1.25)
       }
-    } else if (messageEl.textContent.indexOf("Go!") === 0 && state.elapsed > 1.3) {
-      hideMessage()
     }
 
     state.elapsed += deltaSeconds
+
+    if (state.messageTimer > 0) {
+      state.messageTimer = Math.max(0, state.messageTimer - deltaSeconds)
+      if (state.messageTimer === 0 && !state.finished) {
+        hideMessage()
+      }
+    }
 
     state.pickups.forEach(function (pickup) {
       if (!pickup.active) {
@@ -433,7 +441,7 @@
         pickup.respawn = 5.2
         kart.boost = Math.min(100, kart.boost + 28)
         if (kart === state.player) {
-          updateMessage("Energy drink snagged. Hit boost to rocket ahead.")
+          updateMessage("Energy drink snagged. Hit boost to rocket ahead.", 2.2)
         }
       }
     })
@@ -574,9 +582,10 @@
     hudBoost.style.width = state.player.boost + "%"
   }
 
-  function updateMessage(text) {
+  function updateMessage(text, durationSeconds) {
     messageEl.textContent = text
     messageEl.classList.remove("is-hidden")
+    state.messageTimer = typeof durationSeconds === "number" ? durationSeconds : -1
   }
 
   function hideMessage() {
