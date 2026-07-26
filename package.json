@@ -36,11 +36,11 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
-    "start": "npm run develop",
-    "clean": "rimraf .cache public",
-    "build": "npm run clean && gatsby build",
-    "develop": "npm run clean && gatsby develop",
-    "serve": "gatsby serve",
+    "start": "npx serve .",
+    "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
+    "build": "npm run clean && node scripts/build-static.js",
+    "develop": "npm start",
+    "serve": "npx serve public",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"{gatsby-*.js,src/**/*.js}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
