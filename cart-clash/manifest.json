@@ -1,0 +1,11 @@
+{
+  "name": "Cart Clash",
+  "short_name": "Cart Clash",
+  "description": "Mario Kart–style racing with homeless shopping carts in MegaMart.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0b1f24",
+  "theme_color": "#0b1f24",
+  "icons": []
+}
