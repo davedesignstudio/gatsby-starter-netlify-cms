@@ -1,0 +1,541 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	rootObject = EE772C1C1830BC9F087BCE1E /* Project object */;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6CB5080073A290B54FB0FE3C /* GameStore.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 28062334EBA006EEE4DF989E; };
+		41520581B34FB4FCA17071B4 /* RaceCoordinator.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = E794A4D1AA86E48DA5F012AC; };
+		ED790F8D460CD74BE058DD20 /* ShoppingCartRacerApp.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 2B6B2F38C8378AF8F56E369F; };
+		8E48DF8E9DCCBF4F008E0984 /* ArtFactory.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 4EA34CB42BAFD8725BB06352; };
+		A1411BE105787C735F72A1F3 /* CartNode.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = E6FC8A9519DBF0C30FFF09A8; };
+		3475A89EC5DD1220BE2815DE /* RaceScene.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = D75BC47C95DFF0C6131BBC52; };
+		2B72BF66F75C5B3B6D0C3284 /* UIColorBridge.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 831FA0860CCF9B51CDDA5713; };
+		4DEF7FB09B2E2EDE9B21CC53 /* WorldBuilder.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 70CE6E64B24ABA5F88E4FC8B; };
+		551C6D638C24A67C658ACA3A /* AudioDirector.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 953E1C031742712C2DFA6864; };
+		EFCA649EEFB1DF036F53C1D8 /* GamepadBridge.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 750F1DA81D6E88A66AF4BF2F; };
+		8F5260366F5994F0264F9148 /* HapticsDirector.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 6E6D839C00CF5E76EF5A3CAA; };
+		8D5E8882CC786027E5A48DD3 /* MotionSteering.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = F77F3DECEEB49118185158BB; };
+		05043B91769E50660CAAA694 /* CartPreview.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = E773C0997EB0857C85FEABBC; };
+		3C507C46758ED211A3476ADE /* CharacterSelectView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = A16E435B43C54AF34E31C124; };
+		A4E0240C561B4B9F5C1611F4 /* CupStandingsView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 3F3A68DE2724E3FF6D5DD283; };
+		B1B53EEEB39FDFCA74EE6689 /* MainMenuView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 1FBC60792F9B7E2461BF1899; };
+		C6D6148C4CB4722A2CCACAE6 /* RaceHUD.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 79AFA004F4A314B2230F5209; };
+		ABDF8822E89421E623A3C4AF /* RaceView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 866C0BEA6A69BA310E0EAB9D; };
+		5D9A5E265772323973BBFBA1 /* RecordsView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 98A0CAD8737BDC5CFAD34698; };
+		30D3674C8EDB6E257751BD32 /* ResultsView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = E3BFE42851F5AF23C90218AE; };
+		A9CFB94EC774C1D41FA5B481 /* SettingsView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 32C595A1CFB3A590C1431103; };
+		78C3CC5750AACD880A56F1E4 /* Theme.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 303D345A082E1E2992407538; };
+		9B24E5872DC8CA0ED77AC20D /* TouchControlsView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 71A9964782BC637B02A6DB70; };
+		47DA7DF53F215D53BE545A5E /* TrackSelectView.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = EADB2D1B643E65ED5753ED90; };
+		5D349364B819E0713DFFA612 /* Scalar.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 4EF23D4BBDE9824BFD599804; };
+		1A5495820B77E6E218E040F2 /* Vector2.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = A028E0D276B92430A243BFCA; };
+		6A88CFAB64170194764EE6C2 /* ItemKind.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 763AC6757EDA66035E72397C; };
+		3A7F7FAEE161502258073AC3 /* Racer.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = CF3F02AB6F1A4633082269D6; };
+		9042573710E4CC2639501FAE /* Surface.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 0C340334B2B2C6504286CEE3; };
+		A2A1498971EE599BBED405D0 /* TrackBuilder.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 05CCECB6F450C858BDFBE1FF; };
+		F77D1D463BFF65A7F72CB698 /* TrackDefinition.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 79A1C87BBA1C6B7B112CA17D; };
+		2427FFD33C60EC8B62B8C54E /* TrackGeometry.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = B18E6B4C9433F33562CDA25F; };
+		BB523EA4087A9C65B247044E /* TrackLibrary.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = D6ED1413B4B078740BA9652F; };
+		C8281A544E6A252A781FC2CE /* GrandPrix.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 9A23E75005107386729564DA; };
+		A1952DDCD06EBDFDF063A793 /* RaceHarness.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 97B511CB7E475472B1CCB397; };
+		2215878D7431945805CB08B9 /* RaceResult.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = A4F52DD402E53F1BA06D604E; };
+		CD98223DAF67A8EA93B212F8 /* AIDriver.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = B1FE0FE80E33E21FD9547629; };
+		66E4DE234966604F47610540 /* CartState.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 3B0C2014FE1B964B1E76AF19; };
+		AE33C04DA7EABEA6F3A6B8E9 /* DriverInput.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 17B0240E0A080597C0FB8FE2; };
+		95CE6F4B3B7EB6BE963542F5 /* RaceConfiguration.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = F59E9D219935AA8D144A86FD; };
+		78FDC3DC94318C4951765B29 /* RaceEvent.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = FEBDFD6BF50240545B3FC057; };
+		F772B8CC8E3692DCA35157CA /* RaceSimulation+Dynamics.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 4E303661113B019EB1EB3838; };
+		67D8E36FCD4E371A687A6F9C /* RaceSimulation+Items.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = D65512906BE928A954F39BC1; };
+		FE9873AEE54EF82EFCEBB7C5 /* RaceSimulation.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 977E78D9923F260907DEBFD4; };
+		BAABDD4E1ED50867F1F66D62 /* WorldObjects.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = FA5AB2266D4F09E87B22FB05; };
+		352AE1CCA101852BE2157184 /* CartArtPlan.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 97FC4E23D484A7EA0381B029; };
+		53AEB1EC6880451526DF2BEA /* Controls.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 4D2BF51FDAA2919B5DE0CC37; };
+		5CB8890BC22F8185580D1717 /* GameSession.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 4C744CAA320F5DA6D6DE351E; };
+		01A1F5E50EB4DBDDDAC2DB48 /* HUDModel.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 5C10A8DD554FF7EE5790AFFE; };
+		C11122321E212D64469C35B6 /* MinimapModel.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 0A61BCA9A6223FB9DD793867; };
+		EC117D6DC9481D17E964498D /* Palette.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 3D1C65D22899D2DAA0A38B3C; };
+		0108CBE316BE306A6F62CC54 /* RecordBook.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 366E9E8464A7653CDDC01A28; };
+		F5555DA067746A3BF1F5D4E4 /* TrackArtPlan.swift in Build Phase */ = {isa = PBXBuildFile; fileRef = 3252E5C1E9B3E13A1D364CED; };
+		D8BE1A23FC1237C05E827EAB /* Assets.xcassets in Build Phase */ = {isa = PBXBuildFile; fileRef = AC0826D79E4A4D1E57545DF2; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B11213968D06B4688DDACA52 /* ShoppingCartRacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingCartRacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0826D79E4A4D1E57545DF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8FB38B91983EBEF7BB0C8368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28062334EBA006EEE4DF989E /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		E794A4D1AA86E48DA5F012AC /* RaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceCoordinator.swift; sourceTree = "<group>"; };
+		2B6B2F38C8378AF8F56E369F /* ShoppingCartRacerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartRacerApp.swift; sourceTree = "<group>"; };
+		4EA34CB42BAFD8725BB06352 /* ArtFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtFactory.swift; sourceTree = "<group>"; };
+		E6FC8A9519DBF0C30FFF09A8 /* CartNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNode.swift; sourceTree = "<group>"; };
+		D75BC47C95DFF0C6131BBC52 /* RaceScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceScene.swift; sourceTree = "<group>"; };
+		831FA0860CCF9B51CDDA5713 /* UIColorBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorBridge.swift; sourceTree = "<group>"; };
+		70CE6E64B24ABA5F88E4FC8B /* WorldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBuilder.swift; sourceTree = "<group>"; };
+		953E1C031742712C2DFA6864 /* AudioDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDirector.swift; sourceTree = "<group>"; };
+		750F1DA81D6E88A66AF4BF2F /* GamepadBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamepadBridge.swift; sourceTree = "<group>"; };
+		6E6D839C00CF5E76EF5A3CAA /* HapticsDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsDirector.swift; sourceTree = "<group>"; };
+		F77F3DECEEB49118185158BB /* MotionSteering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionSteering.swift; sourceTree = "<group>"; };
+		E773C0997EB0857C85FEABBC /* CartPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPreview.swift; sourceTree = "<group>"; };
+		A16E435B43C54AF34E31C124 /* CharacterSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectView.swift; sourceTree = "<group>"; };
+		3F3A68DE2724E3FF6D5DD283 /* CupStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupStandingsView.swift; sourceTree = "<group>"; };
+		1FBC60792F9B7E2461BF1899 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		79AFA004F4A314B2230F5209 /* RaceHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceHUD.swift; sourceTree = "<group>"; };
+		866C0BEA6A69BA310E0EAB9D /* RaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceView.swift; sourceTree = "<group>"; };
+		98A0CAD8737BDC5CFAD34698 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
+		E3BFE42851F5AF23C90218AE /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
+		32C595A1CFB3A590C1431103 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		303D345A082E1E2992407538 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		71A9964782BC637B02A6DB70 /* TouchControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControlsView.swift; sourceTree = "<group>"; };
+		EADB2D1B643E65ED5753ED90 /* TrackSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectView.swift; sourceTree = "<group>"; };
+		4EF23D4BBDE9824BFD599804 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
+		A028E0D276B92430A243BFCA /* Vector2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2.swift; sourceTree = "<group>"; };
+		763AC6757EDA66035E72397C /* ItemKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemKind.swift; sourceTree = "<group>"; };
+		CF3F02AB6F1A4633082269D6 /* Racer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Racer.swift; sourceTree = "<group>"; };
+		0C340334B2B2C6504286CEE3 /* Surface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
+		05CCECB6F450C858BDFBE1FF /* TrackBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBuilder.swift; sourceTree = "<group>"; };
+		79A1C87BBA1C6B7B112CA17D /* TrackDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDefinition.swift; sourceTree = "<group>"; };
+		B18E6B4C9433F33562CDA25F /* TrackGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGeometry.swift; sourceTree = "<group>"; };
+		D6ED1413B4B078740BA9652F /* TrackLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLibrary.swift; sourceTree = "<group>"; };
+		9A23E75005107386729564DA /* GrandPrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrix.swift; sourceTree = "<group>"; };
+		97B511CB7E475472B1CCB397 /* RaceHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceHarness.swift; sourceTree = "<group>"; };
+		A4F52DD402E53F1BA06D604E /* RaceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResult.swift; sourceTree = "<group>"; };
+		B1FE0FE80E33E21FD9547629 /* AIDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIDriver.swift; sourceTree = "<group>"; };
+		3B0C2014FE1B964B1E76AF19 /* CartState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartState.swift; sourceTree = "<group>"; };
+		17B0240E0A080597C0FB8FE2 /* DriverInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInput.swift; sourceTree = "<group>"; };
+		F59E9D219935AA8D144A86FD /* RaceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceConfiguration.swift; sourceTree = "<group>"; };
+		FEBDFD6BF50240545B3FC057 /* RaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceEvent.swift; sourceTree = "<group>"; };
+		4E303661113B019EB1EB3838 /* RaceSimulation+Dynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RaceSimulation+Dynamics.swift"; sourceTree = "<group>"; };
+		D65512906BE928A954F39BC1 /* RaceSimulation+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RaceSimulation+Items.swift"; sourceTree = "<group>"; };
+		977E78D9923F260907DEBFD4 /* RaceSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceSimulation.swift; sourceTree = "<group>"; };
+		FA5AB2266D4F09E87B22FB05 /* WorldObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldObjects.swift; sourceTree = "<group>"; };
+		97FC4E23D484A7EA0381B029 /* CartArtPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartArtPlan.swift; sourceTree = "<group>"; };
+		4D2BF51FDAA2919B5DE0CC37 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
+		4C744CAA320F5DA6D6DE351E /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
+		5C10A8DD554FF7EE5790AFFE /* HUDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDModel.swift; sourceTree = "<group>"; };
+		0A61BCA9A6223FB9DD793867 /* MinimapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimapModel.swift; sourceTree = "<group>"; };
+		3D1C65D22899D2DAA0A38B3C /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		366E9E8464A7653CDDC01A28 /* RecordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBook.swift; sourceTree = "<group>"; };
+		3252E5C1E9B3E13A1D364CED /* TrackArtPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackArtPlan.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		349B578E88FC623128D2018B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5DCD066AE8F41879044B82F4 = {
+			isa = PBXGroup;
+			children = (
+				EE117E94E0750F9893F98D28,
+				D8B0FB6A0452E1DEDB56D25D,
+				253BE5A483437387B06B96CF,
+				C863DA5204F95EC573510473,
+			);
+			sourceTree = "<group>";
+		};
+		C863DA5204F95EC573510473 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B11213968D06B4688DDACA52,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE117E94E0750F9893F98D28 /* ShoppingCartRacer */ = {
+			isa = PBXGroup;
+			children = (
+				47A153C63E10CDF58FF731A3,
+				D939E34A7C5CCA7305B4C945,
+				FBBE0ACDD44802D8D27974D3,
+				59C0F29888CF2FB248CBB876,
+				AC0826D79E4A4D1E57545DF2,
+				8FB38B91983EBEF7BB0C8368,
+			);
+			path = ShoppingCartRacer;
+			sourceTree = "<group>";
+		};
+		47A153C63E10CDF58FF731A3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				28062334EBA006EEE4DF989E,
+				E794A4D1AA86E48DA5F012AC,
+				2B6B2F38C8378AF8F56E369F,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D939E34A7C5CCA7305B4C945 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4EA34CB42BAFD8725BB06352,
+				E6FC8A9519DBF0C30FFF09A8,
+				D75BC47C95DFF0C6131BBC52,
+				831FA0860CCF9B51CDDA5713,
+				70CE6E64B24ABA5F88E4FC8B,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		FBBE0ACDD44802D8D27974D3 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				953E1C031742712C2DFA6864,
+				750F1DA81D6E88A66AF4BF2F,
+				6E6D839C00CF5E76EF5A3CAA,
+				F77F3DECEEB49118185158BB,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		59C0F29888CF2FB248CBB876 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E773C0997EB0857C85FEABBC,
+				A16E435B43C54AF34E31C124,
+				3F3A68DE2724E3FF6D5DD283,
+				1FBC60792F9B7E2461BF1899,
+				79AFA004F4A314B2230F5209,
+				866C0BEA6A69BA310E0EAB9D,
+				98A0CAD8737BDC5CFAD34698,
+				E3BFE42851F5AF23C90218AE,
+				32C595A1CFB3A590C1431103,
+				303D345A082E1E2992407538,
+				71A9964782BC637B02A6DB70,
+				EADB2D1B643E65ED5753ED90,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D8B0FB6A0452E1DEDB56D25D /* CartRacerKit */ = {
+			isa = PBXGroup;
+			children = (
+				6CDE93A8C4499A9DBA341B24,
+				1D7FB3D81DCB5063A1E1EE46,
+				2A41D7368B8B796F8E54DBF5,
+				F5F67BBF35DF2E50F96A3984,
+			);
+			path = ../Sources/CartRacerKit;
+			name = CartRacerKit;
+			sourceTree = "<group>";
+		};
+		6CDE93A8C4499A9DBA341B24 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				4EF23D4BBDE9824BFD599804,
+				A028E0D276B92430A243BFCA,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		1D7FB3D81DCB5063A1E1EE46 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				763AC6757EDA66035E72397C,
+				CF3F02AB6F1A4633082269D6,
+				0C340334B2B2C6504286CEE3,
+				05CCECB6F450C858BDFBE1FF,
+				79A1C87BBA1C6B7B112CA17D,
+				B18E6B4C9433F33562CDA25F,
+				D6ED1413B4B078740BA9652F,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2A41D7368B8B796F8E54DBF5 /* Race */ = {
+			isa = PBXGroup;
+			children = (
+				9A23E75005107386729564DA,
+				97B511CB7E475472B1CCB397,
+				A4F52DD402E53F1BA06D604E,
+			);
+			path = Race;
+			sourceTree = "<group>";
+		};
+		F5F67BBF35DF2E50F96A3984 /* Simulation */ = {
+			isa = PBXGroup;
+			children = (
+				B1FE0FE80E33E21FD9547629,
+				3B0C2014FE1B964B1E76AF19,
+				17B0240E0A080597C0FB8FE2,
+				F59E9D219935AA8D144A86FD,
+				FEBDFD6BF50240545B3FC057,
+				4E303661113B019EB1EB3838,
+				D65512906BE928A954F39BC1,
+				977E78D9923F260907DEBFD4,
+				FA5AB2266D4F09E87B22FB05,
+			);
+			path = Simulation;
+			sourceTree = "<group>";
+		};
+		253BE5A483437387B06B96CF /* CartRacerPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				97FC4E23D484A7EA0381B029,
+				4D2BF51FDAA2919B5DE0CC37,
+				4C744CAA320F5DA6D6DE351E,
+				5C10A8DD554FF7EE5790AFFE,
+				0A61BCA9A6223FB9DD793867,
+				3D1C65D22899D2DAA0A38B3C,
+				366E9E8464A7653CDDC01A28,
+				3252E5C1E9B3E13A1D364CED,
+			);
+			path = ../Sources/CartRacerPresentation;
+			name = CartRacerPresentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		21CE794BD83B2101E821CA75 /* ShoppingCartRacer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88A9556C78F4D881C352E222;
+			buildPhases = (
+				F3F3D267CF0FD5307403D537,
+				349B578E88FC623128D2018B,
+				41B260B1D2A5E0B273280C8E,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShoppingCartRacer;
+			productName = ShoppingCartRacer;
+			productReference = B11213968D06B4688DDACA52;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE772C1C1830BC9F087BCE1E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					21CE794BD83B2101E821CA75 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 887D4B5F61EA6AAAF609F3AC;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5DCD066AE8F41879044B82F4;
+			productRefGroup = C863DA5204F95EC573510473;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				21CE794BD83B2101E821CA75,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41B260B1D2A5E0B273280C8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8BE1A23FC1237C05E827EAB /* Assets.xcassets */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3F3D267CF0FD5307403D537 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CB5080073A290B54FB0FE3C /* GameStore.swift */,
+				41520581B34FB4FCA17071B4 /* RaceCoordinator.swift */,
+				ED790F8D460CD74BE058DD20 /* ShoppingCartRacerApp.swift */,
+				8E48DF8E9DCCBF4F008E0984 /* ArtFactory.swift */,
+				A1411BE105787C735F72A1F3 /* CartNode.swift */,
+				3475A89EC5DD1220BE2815DE /* RaceScene.swift */,
+				2B72BF66F75C5B3B6D0C3284 /* UIColorBridge.swift */,
+				4DEF7FB09B2E2EDE9B21CC53 /* WorldBuilder.swift */,
+				551C6D638C24A67C658ACA3A /* AudioDirector.swift */,
+				EFCA649EEFB1DF036F53C1D8 /* GamepadBridge.swift */,
+				8F5260366F5994F0264F9148 /* HapticsDirector.swift */,
+				8D5E8882CC786027E5A48DD3 /* MotionSteering.swift */,
+				05043B91769E50660CAAA694 /* CartPreview.swift */,
+				3C507C46758ED211A3476ADE /* CharacterSelectView.swift */,
+				A4E0240C561B4B9F5C1611F4 /* CupStandingsView.swift */,
+				B1B53EEEB39FDFCA74EE6689 /* MainMenuView.swift */,
+				C6D6148C4CB4722A2CCACAE6 /* RaceHUD.swift */,
+				ABDF8822E89421E623A3C4AF /* RaceView.swift */,
+				5D9A5E265772323973BBFBA1 /* RecordsView.swift */,
+				30D3674C8EDB6E257751BD32 /* ResultsView.swift */,
+				A9CFB94EC774C1D41FA5B481 /* SettingsView.swift */,
+				78C3CC5750AACD880A56F1E4 /* Theme.swift */,
+				9B24E5872DC8CA0ED77AC20D /* TouchControlsView.swift */,
+				47DA7DF53F215D53BE545A5E /* TrackSelectView.swift */,
+				5D349364B819E0713DFFA612 /* Scalar.swift */,
+				1A5495820B77E6E218E040F2 /* Vector2.swift */,
+				6A88CFAB64170194764EE6C2 /* ItemKind.swift */,
+				3A7F7FAEE161502258073AC3 /* Racer.swift */,
+				9042573710E4CC2639501FAE /* Surface.swift */,
+				A2A1498971EE599BBED405D0 /* TrackBuilder.swift */,
+				F77D1D463BFF65A7F72CB698 /* TrackDefinition.swift */,
+				2427FFD33C60EC8B62B8C54E /* TrackGeometry.swift */,
+				BB523EA4087A9C65B247044E /* TrackLibrary.swift */,
+				C8281A544E6A252A781FC2CE /* GrandPrix.swift */,
+				A1952DDCD06EBDFDF063A793 /* RaceHarness.swift */,
+				2215878D7431945805CB08B9 /* RaceResult.swift */,
+				CD98223DAF67A8EA93B212F8 /* AIDriver.swift */,
+				66E4DE234966604F47610540 /* CartState.swift */,
+				AE33C04DA7EABEA6F3A6B8E9 /* DriverInput.swift */,
+				95CE6F4B3B7EB6BE963542F5 /* RaceConfiguration.swift */,
+				78FDC3DC94318C4951765B29 /* RaceEvent.swift */,
+				F772B8CC8E3692DCA35157CA /* RaceSimulation+Dynamics.swift */,
+				67D8E36FCD4E371A687A6F9C /* RaceSimulation+Items.swift */,
+				FE9873AEE54EF82EFCEBB7C5 /* RaceSimulation.swift */,
+				BAABDD4E1ED50867F1F66D62 /* WorldObjects.swift */,
+				352AE1CCA101852BE2157184 /* CartArtPlan.swift */,
+				53AEB1EC6880451526DF2BEA /* Controls.swift */,
+				5CB8890BC22F8185580D1717 /* GameSession.swift */,
+				01A1F5E50EB4DBDDDAC2DB48 /* HUDModel.swift */,
+				C11122321E212D64469C35B6 /* MinimapModel.swift */,
+				EC117D6DC9481D17E964498D /* Palette.swift */,
+				0108CBE316BE306A6F62CC54 /* RecordBook.swift */,
+				F5555DA067746A3BF1F5D4E4 /* TrackArtPlan.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1FEF218C4C57CE118AD5A8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = -Onone;
+			};
+			name = Debug;
+		};
+		D49EF4AC7029FD1A8C1140E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FEE7AE1A1C8291DDE6965C1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShoppingCartRacer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.trolleytrophy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		71B50D198E64EEE00C2C0E9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShoppingCartRacer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.trolleytrophy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		887D4B5F61EA6AAAF609F3AC /* Build configuration list for PBXProject ShoppingCartRacer */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1FEF218C4C57CE118AD5A8A,
+				D49EF4AC7029FD1A8C1140E0,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88A9556C78F4D881C352E222 /* Build configuration list for PBXNativeTarget ShoppingCartRacer */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEE7AE1A1C8291DDE6965C1D,
+				71B50D198E64EEE00C2C0E9C,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+}
