@@ -7,6 +7,7 @@ const ASSETS = [
   './js/cart-crashers.js',
   './manifest.webmanifest',
   './icons/cart-crashers.svg',
+  './icons/cart-crashers-512.png',
 ]
 
 self.addEventListener('install', (event) => {
