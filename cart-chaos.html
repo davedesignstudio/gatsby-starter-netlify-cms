@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Cart Chaos: Store Derby</title>
+    <meta
+      name="description"
+      content="An iPhone-friendly shopping cart racing prototype set inside a grocery store."
+    />
+    <link rel="stylesheet" href="css/cart-chaos.css" />
+  </head>
+  <body>
+    <main class="cart-chaos-app">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">iOS-friendly racing prototype</p>
+          <h1>Cart Chaos: Store Derby</h1>
+          <p class="hero-text">
+            Race a pack of runaway shopping carts through a closed grocery store, slingshot
+            around displays, and hit boost pads before the other carts reach checkout.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#game-shell">Play now</a>
+            <a class="secondary-action" href="index.html">Back to site</a>
+          </div>
+        </div>
+        <div class="hero-notes">
+          <div class="note-card">
+            <h2>How it plays</h2>
+            <ul>
+              <li>Auto-accelerating arcade racer inspired by kart games.</li>
+              <li>Built for touch screens and keyboard play.</li>
+              <li>Three laps, rival carts, boosts, spills, and shelf collisions.</li>
+            </ul>
+          </div>
+          <div class="note-card">
+            <h2>Controls</h2>
+            <ul>
+              <li><strong>Touch:</strong> hold left or right, brake, or turbo.</li>
+              <li><strong>Keyboard:</strong> A / D or arrow keys to steer.</li>
+              <li><strong>Brake:</strong> S, down arrow, or space bar.</li>
+              <li><strong>Turbo:</strong> W, up arrow, or shift.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="game-shell" class="game-shell">
+        <div class="hud-grid">
+          <div class="hud-card">
+            <span class="hud-label">Lap</span>
+            <strong id="lapValue">1 / 3</strong>
+          </div>
+          <div class="hud-card">
+            <span class="hud-label">Place</span>
+            <strong id="placeValue">4th</strong>
+          </div>
+          <div class="hud-card">
+            <span class="hud-label">Speed</span>
+            <strong id="speedValue">0 mph</strong>
+          </div>
+          <div class="hud-card hud-card--wide">
+            <span class="hud-label">Turbo</span>
+            <div class="meter">
+              <div id="turboFill" class="meter-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-shell">
+          <canvas id="raceCanvas" width="1280" height="720" aria-label="Shopping cart racer"></canvas>
+          <div id="overlay" class="overlay">
+            <div class="overlay-panel">
+              <p class="overlay-kicker">Store Derby</p>
+              <h2 id="overlayTitle">Tap play to roll out</h2>
+              <p id="overlayText">
+                Win three laps around the store by hugging the racing line, avoiding spills,
+                and using turbo on the straightaways.
+              </p>
+              <button id="startButton" class="overlay-button" type="button">Start race</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-group">
+            <button class="touch-button" data-control="left" type="button">Left</button>
+            <button class="touch-button" data-control="right" type="button">Right</button>
+          </div>
+          <div class="control-group control-group--right">
+            <button class="touch-button touch-button--warn" data-control="brake" type="button">
+              Brake
+            </button>
+            <button class="touch-button touch-button--boost" data-control="boost" type="button">
+              Turbo
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-strip">
+        <article class="feature-card">
+          <h2>Arcade handling</h2>
+          <p>
+            The player cart auto-accelerates like a casual mobile racer while steering stays
+            snappy enough to thread through endcaps and shelf turns.
+          </p>
+        </article>
+        <article class="feature-card">
+          <h2>Store hazards</h2>
+          <p>
+            Watch for juice spills, loose produce, and stacked shelf islands that can wipe speed
+            off your cart if you clip them.
+          </p>
+        </article>
+        <article class="feature-card">
+          <h2>Home-screen ready</h2>
+          <p>
+            The page is optimized for mobile Safari, so it can be saved to an iPhone home screen
+            and played like a lightweight app prototype.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script src="js/cart-chaos.js"></script>
+  </body>
+</html>
