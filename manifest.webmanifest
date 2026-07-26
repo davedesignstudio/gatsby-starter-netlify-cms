@@ -1,0 +1,18 @@
+{
+  "name": "Aisle Rally — Cart Racing",
+  "short_name": "Aisle Rally",
+  "description": "A fast, friendly shopping-cart racing game built for iPhone.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,57 +1,34 @@
-# Gatsby + Netlify CMS Starter
+# Aisle Rally
 
-**Note:** This starter uses the [Gatsby v2 Beta](https://www.gatsbyjs.org/blog/2018-06-16-announcing-gatsby-v2-beta-launch/).
+A fast, friendly shopping-cart racing game designed for iPhone and desktop browsers. Race two laps through Midnight Market, collect power-ups, and compete against three community racers.
 
-This repo contains an example business website that is built with [Gatsby](https://www.gatsbyjs.org/), and [Netlify CMS](https://www.netlifycms.org): **[Demo Link](https://gatsby-netlify-cms.netlify.com/)**.
+The cast includes neighbors navigating housing insecurity, portrayed as named people with skills, goals, and agency. Housing status is never the joke or the game mechanic.
 
-It follows the [JAMstack architecture](https://jamstack.org) by using Git as a single source of truth, and [Netlify](https://www.netlify.com) for continuous deployment, and CDN distribution.
+## Play locally
 
-## Prerequisites
+Requires Node.js 18 or newer.
 
-- Node (I recommend using v8.2.0 or higher)
-- [Gatsby CLI](https://www.gatsbyjs.org/docs/)
-
-## Getting Started (Recommended)
-
-Netlify CMS can run in any frontend web environment, but the quickest way to try it out is by running it on a pre-configured starter site with Netlify. The example here is the Kaldi coffee company template (adapted from [One Click Hugo CMS](https://github.com/netlify-templates/one-click-hugo-cms)). Use the button below to build and deploy your own copy of the repository:
-
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&amp;stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
-
-After clicking that button, you’ll authenticate with GitHub and choose a repository name. Netlify will then automatically create a repository in your GitHub account with a copy of the files from the template. Next, it will build and deploy the new site on Netlify, bringing you to the site dashboard when the build is complete. Next, you’ll need to set up Netlify’s Identity service to authorize users to log in to the CMS.
-
-### Access Locally
-```
-$ git clone https://github.com/[GITHUB_USERNAME]/[REPO_NAME].git
-$ cd [REPO_NAME]
-$ yarn
-$ npm run develop
-```
-To test the CMS locally, you'll need run a production build of the site:
-```
-$ npm run build
-$ npm run serve
+```sh
+npm start
 ```
 
-## Getting Started (Without Netlify)
-```
-$ gatsby new [SITE_DIRECTORY_NAME] https://github.com/AustinGreen/gatsby-starter-netlify-cms/
-$ cd [SITE_DIRECTORY_NAME]
-$ npm run build
-$ npm run serve
+Open `http://localhost:8000`. On iPhone, rotate to landscape and use Safari’s **Add to Home Screen** action for a full-screen, app-like experience.
+
+## Controls
+
+| Action | Touch | Keyboard |
+| --- | --- | --- |
+| Accelerate | Hold **GO** | <kbd>↑</kbd> or <kbd>W</kbd> |
+| Steer | Hold left/right | <kbd>←</kbd>/<kbd>→</kbd> or <kbd>A</kbd>/<kbd>D</kbd> |
+| Power-up | Tap **USE** | <kbd>Space</kbd> or <kbd>Shift</kbd> |
+| Pause | Pause button | <kbd>Esc</kbd> |
+
+## Development
+
+```sh
+npm test    # game-logic tests
+npm build   # production assets in public/
+npm check   # tests and build
 ```
 
-### Setting up the CMS
-Follow the [Netlify CMS Quick Start Guide](https://www.netlifycms.org/docs/quick-start/#authentication) to set up authentication, and hosting.
-
-## Debugging
-Windows users might encounter ```node-gyp``` errors when trying to npm install.
-To resolve, make sure that you have both Python 2.7 and the Visual C++ build environment installed.
-```
-npm config set python python2.7
-npm install --global --production windows-build-tools
-```
-
-[Full details here](https://www.npmjs.com/package/node-gyp 'NPM node-gyp page')
-
-## Purgecss
-This plugin uses [gatsby-plugin-purgecss](https://www.gatsbyjs.org/packages/gatsby-plugin-purgecss/) and [bulma](https://bulma.io/). The bulma builds are usually ~170K but reduced 90% by purgecss.
+The game is dependency-free and uses Canvas 2D, touch/pointer controls, Web Audio, and a service worker for offline play.
