@@ -27,6 +27,7 @@ private extension CGVector {
 private final class CartNode: SKShapeNode {
     let racerName: String
     var boostUntil: TimeInterval = 0
+    var slowUntil: TimeInterval = 0
 
     init(color: SKColor, racerName: String) {
         self.racerName = racerName
@@ -68,8 +69,8 @@ private final class CartNode: SKShapeNode {
             basket.addChild(item)
         }
 
-        for x in [-24.0, 24.0] {
-            for y in [-24.0, 24.0] {
+        for x in [CGFloat(-24), CGFloat(24)] {
+            for y in [CGFloat(-24), CGFloat(24)] {
                 let wheel = SKShapeNode(circleOfRadius: 5)
                 wheel.position = CGPoint(x: x, y: y)
                 wheel.fillColor = SKColor(rgb: 0x14212b)
@@ -106,6 +107,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         let cart: CartNode
         var waypoint = 0
         var completedLaps = 0
+        var hasFinished = false
         let topSpeed: CGFloat
     }
 
@@ -130,6 +132,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private var countdownStart: TimeInterval?
     private var previousUpdateTime: TimeInterval?
     private var currentTime: TimeInterval = 0
+    private var finishOrder: [String] = []
 
     private let cameraNode = SKCameraNode()
     private let lapLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
@@ -179,11 +182,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(floor)
 
         let gridPath = CGMutablePath()
-        for x in stride(from: -1200, through: 1200, by: 100) {
+        for x in stride(from: CGFloat(-1200), through: CGFloat(1200), by: 100) {
             gridPath.move(to: CGPoint(x: x, y: -900))
             gridPath.addLine(to: CGPoint(x: x, y: 900))
         }
-        for y in stride(from: -900, through: 900, by: 100) {
+        for y in stride(from: CGFloat(-900), through: CGFloat(900), by: 100) {
             gridPath.move(to: CGPoint(x: -1200, y: y))
             gridPath.addLine(to: CGPoint(x: 1200, y: y))
         }
@@ -251,7 +254,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private func addStartLine() {
         for index in 0..<8 {
             let tile = SKShapeNode(rectOf: CGSize(width: 30, height: 65))
-            tile.position = CGPoint(x: 0, y: CGFloat(index) * 65 - 812)
+            tile.position = CGPoint(x: 0, y: CGFloat(index) * 65 - 907)
             tile.fillColor = index.isMultiple(of: 2) ? .white : SKColor(rgb: 0x1f2933)
             tile.strokeColor = .clear
             tile.zPosition = 2
@@ -330,7 +333,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             spill.lineWidth = 3
             spill.zPosition = 3
             spill.name = "spill"
-            spill.physicsBody = SKPhysicsBody(ellipseOf: CGSize(width: 105, height: 54))
+            spill.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 96, height: 48))
             spill.physicsBody?.isDynamic = false
             spill.physicsBody?.categoryBitMask = PhysicsCategory.hazard
             spill.physicsBody?.collisionBitMask = 0
@@ -484,8 +487,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let forward = CGVector(dx: sin(player.zRotation), dy: cos(player.zRotation))
         let boosted = time < player.boostUntil
-        let acceleration: CGFloat = boosted ? 760 : 520
-        let maxSpeed: CGFloat = boosted ? 710 : 520
+        let slowed = time < player.slowUntil
+        let speedMultiplier: CGFloat = slowed ? 0.55 : 1
+        let acceleration: CGFloat = (boosted ? 760 : 520) * speedMultiplier
+        let maxSpeed: CGFloat = (boosted ? 710 : 520) * speedMultiplier
         body.applyForce(CGVector(dx: forward.dx * acceleration, dy: forward.dy * acceleration))
 
         let speed = body.velocity.length
@@ -525,7 +530,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
                 aiRacers[index].waypoint += 1
                 if aiRacers[index].waypoint == waypoints.count {
                     aiRacers[index].waypoint = 0
-                    aiRacers[index].completedLaps += 1
+                    if !aiRacers[index].hasFinished {
+                        aiRacers[index].completedLaps += 1
+                        if aiRacers[index].completedLaps >= totalLaps {
+                            aiRacers[index].hasFinished = true
+                            finishOrder.append(cart.racerName)
+                        }
+                    }
                 }
             }
 
@@ -536,7 +547,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             while angleDifference < -.pi { angleDifference += .pi * 2 }
             cart.zRotation += angleDifference * min(CGFloat(deltaTime) * 4.2, 1)
 
-            let speed = aiRacers[index].topSpeed
+            var speed = aiRacers[index].topSpeed
+            if currentTime < cart.boostUntil {
+                speed *= 1.35
+            }
+            if currentTime < cart.slowUntil {
+                speed *= 0.52
+            }
             body.velocity = CGVector(dx: dx / distance * speed, dy: dy / distance * speed)
             body.angularVelocity = 0
         }
@@ -555,6 +572,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             showMessage("LAP \(lapProgress.completedLaps + 1)")
         }
         if lapProgress.completedLaps >= totalLaps {
+            if !finishOrder.contains(player.racerName) {
+                finishOrder.append(player.racerName)
+            }
             finishRace()
         }
     }
@@ -573,9 +593,17 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         let speed = Int((player.physicsBody?.velocity.length ?? 0) * 0.42)
         speedLabel.text = "\(speed) km/h"
 
-        let playerProgress = lapProgress.completedLaps * waypoints.count + lapProgress.nextCheckpoint
+        let playerProgress = raceProgress(
+            position: player.position,
+            completedLaps: lapProgress.completedLaps,
+            nextCheckpoint: lapProgress.nextCheckpoint
+        )
         let racersAhead = aiRacers.filter {
-            $0.completedLaps * waypoints.count + $0.waypoint > playerProgress
+            $0.hasFinished || raceProgress(
+                position: $0.cart.position,
+                completedLaps: $0.completedLaps,
+                nextCheckpoint: $0.waypoint
+            ) > playerProgress
         }.count
         positionLabel.text = "\(racersAhead + 1) / \(aiRacers.count + 1)"
 
@@ -586,20 +614,36 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
+    private func raceProgress(
+        position: CGPoint,
+        completedLaps: Int,
+        nextCheckpoint: Int
+    ) -> CGFloat {
+        let target = waypoints[nextCheckpoint]
+        let previousIndex = (nextCheckpoint - 1 + waypoints.count) % waypoints.count
+        let previous = waypoints[previousIndex]
+        let segmentLength = max(hypot(target.x - previous.x, target.y - previous.y), 1)
+        let distanceRemaining = min(hypot(target.x - position.x, target.y - position.y), segmentLength)
+        let segmentProgress = 1 - distanceRemaining / segmentLength
+        return CGFloat(completedLaps * waypoints.count + nextCheckpoint) + segmentProgress
+    }
+
     private func finishRace() {
         guard raceState == .racing else { return }
         raceState = .finished
+        player.physicsBody?.velocity = .zero
         player.physicsBody?.angularVelocity = 0
+        for racer in aiRacers {
+            racer.cart.physicsBody?.velocity = .zero
+            racer.cart.physicsBody?.angularVelocity = 0
+        }
         steeringTouches.removeAll()
         driftTouches.removeAll()
 
-        let playerProgress = totalLaps * waypoints.count
-        let racersAhead = aiRacers.filter {
-            $0.completedLaps * waypoints.count + $0.waypoint > playerProgress
-        }.count
+        let finishingPlace = (finishOrder.firstIndex(of: player.racerName) ?? aiRacers.count) + 1
         countdownLabel.alpha = 1
         countdownLabel.fontSize = 44
-        countdownLabel.text = racersAhead == 0 ? "MARKET CHAMPION!" : "RACE COMPLETE!"
+        countdownLabel.text = finishingPlace == 1 ? "MARKET CHAMPION!" : "FINISHED #\(finishingPlace)!"
         messageLabel.alpha = 1
         messageLabel.text = "Tap anywhere to race again"
     }
@@ -615,6 +659,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
+        guard raceState == .racing else { return }
         let bodies = [contact.bodyA, contact.bodyB]
         guard let cart = bodies.compactMap({ $0.node as? CartNode }).first else { return }
 
@@ -624,6 +669,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         if bodies.contains(where: { $0.categoryBitMask == PhysicsCategory.hazard }) {
             cart.physicsBody?.velocity.dx *= 0.48
             cart.physicsBody?.velocity.dy *= 0.48
+            cart.slowUntil = max(cart.slowUntil, currentTime + 1.25)
             if cart === player {
                 showMessage("CLEANUP IN AISLE 3!")
             }
