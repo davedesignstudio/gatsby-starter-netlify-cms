@@ -63,7 +63,7 @@ final class CartNode: SKNode {
 
         let speedRatio = min(1, abs(speed) / maximumSpeed)
         let steeringRate: CGFloat = 2.65 * (0.35 + speedRatio * 0.65)
-        heading += steering * steeringRate * CGFloat(deltaTime)
+        heading -= steering * steeringRate * CGFloat(deltaTime)
         if spinTimeRemaining > 0 {
             heading += 7.5 * CGFloat(deltaTime)
         }
@@ -136,6 +136,7 @@ final class CartNode: SKNode {
 
     private func applyVelocity() {
         zRotation = heading
+        childNode(withName: "nameLabel")?.zRotation = -heading
         let forward = CGVector(dx: cos(heading), dy: sin(heading))
         physicsBody?.velocity = CGVector(dx: forward.dx * speed, dy: forward.dy * speed)
     }

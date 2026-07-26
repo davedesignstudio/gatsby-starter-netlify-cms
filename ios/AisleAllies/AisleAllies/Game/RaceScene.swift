@@ -12,7 +12,9 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
     private var finishedRacers: [ObjectIdentifier] = []
     private var lastUpdateTime: TimeInterval = 0
     private var raceStartTime: TimeInterval?
-    private var finishTime: TimeInterval?
+    private var raceElapsed: TimeInterval = 0
+    private var raceIsActive = false
+    private var didSetUpScene = false
     private var hasReportedResult = false
     private var steeringTouches: [UITouch: CGFloat] = [:]
 
@@ -28,7 +30,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         self.session = session
         self.racer = racer
         super.init(size: CGSize(width: 1_024, height: 1_366))
-        scaleMode = .aspectFill
+        scaleMode = .resizeFill
         backgroundColor = SKColor(red: 0.07, green: 0.06, blue: 0.11, alpha: 1)
     }
 
@@ -37,6 +39,9 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func didMove(to view: SKView) {
+        guard !didSetUpScene else { return }
+        didSetUpScene = true
+
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         view.isMultipleTouchEnabled = true
@@ -46,7 +51,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         StoreTrack.build(in: world)
         createRacers()
         createCamera()
-        createHUD()
+        createHUD(in: view)
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -63,6 +68,10 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         }
 
         let canDrive = currentTime >= (raceStartTime ?? currentTime)
+        raceIsActive = canDrive && !player.raceProgress.isFinished
+        if raceIsActive {
+            raceElapsed += deltaTime
+        }
         updateCountdown(currentTime: currentTime)
 
         let steering = steeringTouches.values.reduce(0, +)
@@ -82,10 +91,10 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         }
 
         if canDrive {
-            updateRaceProgress(currentTime: currentTime)
+            updateRaceProgress()
         }
         updateCamera()
-        updateHUD(currentTime: currentTime)
+        updateHUD()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -94,6 +103,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
             let tappedNodes = raceCamera.nodes(at: cameraLocation)
 
             if tappedNodes.contains(where: { $0.name == "boostButton" }) {
+                guard raceIsActive else { continue }
                 if player.useBoost() {
                     showMessage("BOOST!", color: .systemPink)
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -138,6 +148,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         switch otherNode?.name {
         case "pantryItem":
             cart.collectPantryItem()
+            otherNode?.physicsBody = nil
             otherNode?.removeAllActions()
             otherNode?.run(.sequence([
                 .group([
@@ -210,12 +221,25 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         camera = raceCamera
         addChild(raceCamera)
         raceCamera.position = player.position
-        raceCamera.setScale(0.88)
+        raceCamera.setScale(1.35)
     }
 
-    private func createHUD() {
-        let topPanel = SKShapeNode(rectOf: CGSize(width: 930, height: 130), cornerRadius: 35)
-        topPanel.position = CGPoint(x: 0, y: 590)
+    private func createHUD(in view: SKView) {
+        let halfVisibleWidth = size.width * raceCamera.xScale / 2
+        let halfVisibleHeight = size.height * raceCamera.yScale / 2
+        let horizontalEdge = halfVisibleWidth - 28
+        let topEdge =
+            halfVisibleHeight -
+            (view.safeAreaInsets.top + 18) * raceCamera.yScale
+        let bottomEdge =
+            -halfVisibleHeight +
+            (view.safeAreaInsets.bottom + 18) * raceCamera.yScale
+
+        let topPanel = SKShapeNode(
+            rectOf: CGSize(width: horizontalEdge * 2, height: 112),
+            cornerRadius: 30
+        )
+        topPanel.position = CGPoint(x: 0, y: topEdge - 56)
         topPanel.fillColor = .black.withAlphaComponent(0.68)
         topPanel.strokeColor = .white.withAlphaComponent(0.16)
         topPanel.lineWidth = 3
@@ -225,40 +249,52 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         positionLabel.fontSize = 58
         positionLabel.fontColor = .systemYellow
         positionLabel.horizontalAlignmentMode = .left
-        positionLabel.position = CGPoint(x: -425, y: 566)
+        positionLabel.position = CGPoint(x: -horizontalEdge + 18, y: topEdge - 86)
         positionLabel.zPosition = 101
         raceCamera.addChild(positionLabel)
 
         lapLabel.fontSize = 25
         lapLabel.fontColor = .white
         lapLabel.horizontalAlignmentMode = .left
-        lapLabel.position = CGPoint(x: -420, y: 626)
+        lapLabel.position = CGPoint(x: -horizontalEdge + 22, y: topEdge - 37)
         lapLabel.zPosition = 101
         raceCamera.addChild(lapLabel)
 
         timerLabel.fontSize = 34
         timerLabel.fontColor = .white
-        timerLabel.position = CGPoint(x: 0, y: 586)
+        timerLabel.position = CGPoint(x: 0, y: topEdge - 70)
         timerLabel.zPosition = 101
         raceCamera.addChild(timerLabel)
 
         pantryLabel.fontSize = 29
         pantryLabel.fontColor = .systemYellow
         pantryLabel.horizontalAlignmentMode = .right
-        pantryLabel.position = CGPoint(x: 425, y: 605)
+        pantryLabel.position = CGPoint(x: horizontalEdge - 20, y: topEdge - 48)
         pantryLabel.zPosition = 101
         raceCamera.addChild(pantryLabel)
 
         boostLabel.fontSize = 21
         boostLabel.fontColor = .white
         boostLabel.horizontalAlignmentMode = .right
-        boostLabel.position = CGPoint(x: 425, y: 565)
+        boostLabel.position = CGPoint(x: horizontalEdge - 20, y: topEdge - 82)
         boostLabel.zPosition = 101
         raceCamera.addChild(boostLabel)
 
-        createSteeringControl(x: -330, symbol: "‹", name: "leftControl")
-        createSteeringControl(x: 330, symbol: "›", name: "rightControl")
-        createBoostButton()
+        let controlY = bottomEdge + 88
+        let controlX = max(135, horizontalEdge - 82)
+        createSteeringControl(
+            x: -controlX,
+            y: controlY,
+            symbol: "‹",
+            name: "leftControl"
+        )
+        createSteeringControl(
+            x: controlX,
+            y: controlY,
+            symbol: "›",
+            name: "rightControl"
+        )
+        createBoostButton(y: controlY)
 
         countdownLabel.fontSize = 150
         countdownLabel.fontColor = .systemYellow
@@ -267,16 +303,21 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         raceCamera.addChild(countdownLabel)
 
         messageLabel.fontSize = 34
-        messageLabel.position = CGPoint(x: 0, y: 390)
+        messageLabel.position = CGPoint(x: 0, y: topEdge - 180)
         messageLabel.zPosition = 108
         messageLabel.alpha = 0
         raceCamera.addChild(messageLabel)
     }
 
-    private func createSteeringControl(x: CGFloat, symbol: String, name: String) {
-        let control = SKShapeNode(circleOfRadius: 105)
+    private func createSteeringControl(
+        x: CGFloat,
+        y: CGFloat,
+        symbol: String,
+        name: String
+    ) {
+        let control = SKShapeNode(circleOfRadius: 76)
         control.name = name
-        control.position = CGPoint(x: x, y: -505)
+        control.position = CGPoint(x: x, y: y)
         control.fillColor = .black.withAlphaComponent(0.34)
         control.strokeColor = .white.withAlphaComponent(0.35)
         control.lineWidth = 5
@@ -285,7 +326,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         let icon = SKLabelNode(fontNamed: "AvenirNext-Heavy")
         icon.name = name
         icon.text = symbol
-        icon.fontSize = 110
+        icon.fontSize = 82
         icon.fontColor = .white.withAlphaComponent(0.72)
         icon.verticalAlignmentMode = .center
         icon.position.y = 5
@@ -293,10 +334,10 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         raceCamera.addChild(control)
     }
 
-    private func createBoostButton() {
-        let button = SKShapeNode(circleOfRadius: 79)
+    private func createBoostButton(y: CGFloat) {
+        let button = SKShapeNode(circleOfRadius: 62)
         button.name = "boostButton"
-        button.position = CGPoint(x: 0, y: -510)
+        button.position = CGPoint(x: 0, y: y)
         button.fillColor = .systemPink.withAlphaComponent(0.7)
         button.strokeColor = .white
         button.lineWidth = 7
@@ -305,7 +346,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         let bolt = SKLabelNode(fontNamed: "AvenirNext-Heavy")
         bolt.name = "boostButton"
         bolt.text = "⚡"
-        bolt.fontSize = 65
+        bolt.fontSize = 50
         bolt.verticalAlignmentMode = .center
         button.addChild(bolt)
         raceCamera.addChild(button)
@@ -339,7 +380,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func updateRaceProgress(currentTime: TimeInterval) {
+    private func updateRaceProgress() {
         for cart in racers where !cart.raceProgress.isFinished {
             let checkpointIndex = cart.raceProgress.nextCheckpoint
             let checkpoint = StoreTrack.waypoints[checkpointIndex]
@@ -351,12 +392,10 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
             if cart.raceProgress.isFinished {
                 finishedRacers.append(ObjectIdentifier(cart))
 
-                if cart.isPlayer, finishTime == nil {
-                    finishTime = currentTime
-                    let elapsed = currentTime - (raceStartTime ?? currentTime)
+                if cart.isPlayer, !hasReportedResult {
                     let result = RaceResult(
                         place: finishedRacers.count,
-                        time: max(0, elapsed),
+                        time: raceElapsed,
                         pantryItems: cart.pantryItems
                     )
                     showMessage("FINISH!", color: .systemYellow)
@@ -372,8 +411,8 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updateCamera() {
-        let halfWidth: CGFloat = 450
-        let halfHeight: CGFloat = 600
+        let halfWidth = size.width * raceCamera.xScale / 2
+        let halfHeight = size.height * raceCamera.yScale / 2
         let x = min(
             StoreTrack.worldSize.width - halfWidth,
             max(halfWidth, player.position.x)
@@ -386,20 +425,11 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
         raceCamera.position.y += (y - raceCamera.position.y) * 0.12
     }
 
-    private func updateHUD(currentTime: TimeInterval) {
+    private func updateHUD() {
         let place = currentPlace()
         positionLabel.text = ordinal(place)
         lapLabel.text = "LAP \(player.raceProgress.lap) / \(player.raceProgress.totalLaps)"
-
-        let elapsed: TimeInterval
-        if let finishTime, let start = raceStartTime {
-            elapsed = finishTime - start
-        } else if let start = raceStartTime {
-            elapsed = max(0, currentTime - start)
-        } else {
-            elapsed = 0
-        }
-        timerLabel.text = elapsed.raceTime
+        timerLabel.text = raceElapsed.raceTime
         pantryLabel.text = "▣  \(player.pantryItems)"
         boostLabel.text = "BOOST  " + String(repeating: "●", count: player.boostCharges)
     }
