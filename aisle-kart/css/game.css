@@ -1,0 +1,364 @@
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Space+Grotesk:wght@400;600;700&display=swap");
+
+:root {
+  --floor: #d8c9a8;
+  --floor-deep: #c4b08a;
+  --shelf: #2f6f4e;
+  --shelf-dark: #1f4d36;
+  --metal: #8a939c;
+  --accent: #e85d04;
+  --accent-hot: #ffba08;
+  --ink: #1a1f24;
+  --paper: #f7f1e3;
+  --glow: rgba(255, 220, 120, 0.35);
+  --hud: rgba(18, 22, 28, 0.78);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(255, 236, 170, 0.55), transparent 55%),
+    linear-gradient(180deg, #3a4550 0%, #1c232b 40%, #12161c 100%);
+  color: var(--paper);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+canvas#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  background: #1c232b;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(24px + var(--safe-top)) 20px calc(24px + var(--safe-bottom));
+  text-align: center;
+  z-index: 5;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(232, 93, 4, 0.22), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(47, 111, 78, 0.35), transparent 45%),
+    linear-gradient(165deg, rgba(18, 22, 28, 0.92), rgba(28, 35, 43, 0.96));
+  backdrop-filter: blur(2px);
+}
+
+.screen.hidden {
+  display: none;
+}
+
+.brand {
+  font-family: "Lilita One", cursive;
+  font-size: clamp(3.2rem, 14vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: var(--accent-hot);
+  text-shadow:
+    0 4px 0 var(--accent),
+    0 10px 28px rgba(232, 93, 4, 0.45),
+    0 0 40px rgba(255, 186, 8, 0.25);
+  margin: 0 0 0.2em;
+  animation: brand-pop 1.1s cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+
+.tagline {
+  max-width: 28ch;
+  margin: 0 0 1.6rem;
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  font-weight: 600;
+  color: rgba(247, 241, 227, 0.88);
+  animation: fade-up 0.7s 0.1s both;
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 14px;
+  padding: 0.95rem 1.6rem;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--accent-hot), var(--accent));
+  box-shadow:
+    0 4px 0 #9a3d02,
+    0 12px 24px rgba(232, 93, 4, 0.35);
+  transition: transform 0.12s ease, filter 0.12s ease;
+  animation: fade-up 0.8s 0.28s both;
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #9a3d02, 0 6px 12px rgba(232, 93, 4, 0.25);
+}
+
+.btn.secondary {
+  color: var(--paper);
+  background: linear-gradient(180deg, #4a5560, #2c343d);
+  box-shadow: 0 4px 0 #151a20, 0 10px 20px rgba(0, 0, 0, 0.35);
+  margin-top: 0.75rem;
+}
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: min(100%, 420px);
+  margin: 0.5rem 0 1.25rem;
+  animation: fade-up 0.8s 0.2s both;
+}
+
+.cart-card {
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 0.85rem 0.7rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--paper);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.cart-card.selected {
+  border-color: var(--accent-hot);
+  background: rgba(232, 93, 4, 0.18);
+  transform: translateY(-2px);
+}
+
+.cart-card h3 {
+  margin: 0 0 0.2rem;
+  font-family: "Lilita One", cursive;
+  font-size: 1.15rem;
+  color: var(--accent-hot);
+}
+
+.cart-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.hud.hidden {
+  display: none;
+}
+
+.hud-top {
+  position: absolute;
+  top: calc(12px + var(--safe-top));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pill {
+  pointer-events: none;
+  background: var(--hud);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.55rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.pill span {
+  color: var(--accent-hot);
+}
+
+.item-slot {
+  position: absolute;
+  top: calc(70px + var(--safe-top));
+  left: 12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--hud);
+  border: 2px dashed rgba(255, 186, 8, 0.45);
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px calc(16px + var(--safe-bottom));
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.controls.hidden {
+  display: none;
+}
+
+.pad,
+.pedals {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.ctrl {
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(18, 22, 28, 0.72);
+  color: var(--paper);
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08), 0 8px 18px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.ctrl:active,
+.ctrl.active {
+  background: rgba(232, 93, 4, 0.75);
+}
+
+.ctrl.item {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  font-size: 1.35rem;
+}
+
+.countdown {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 7;
+  pointer-events: none;
+  font-family: "Lilita One", cursive;
+  font-size: clamp(4rem, 22vw, 8rem);
+  color: var(--accent-hot);
+  text-shadow: 0 6px 0 var(--accent), 0 0 40px rgba(255, 186, 8, 0.5);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.countdown.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.results h2 {
+  font-family: "Lilita One", cursive;
+  font-size: clamp(2.4rem, 10vw, 3.6rem);
+  margin: 0 0 0.4rem;
+  color: var(--accent-hot);
+}
+
+.results ol {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem;
+  width: min(100%, 320px);
+  text-align: left;
+}
+
+.results li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.45rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 600;
+}
+
+.results li.you {
+  background: rgba(232, 93, 4, 0.22);
+  outline: 1px solid rgba(255, 186, 8, 0.45);
+}
+
+.hint {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  opacity: 0.65;
+  animation: fade-up 0.8s 0.4s both;
+}
+
+@keyframes brand-pop {
+  from {
+    transform: translateY(24px) scale(0.92) rotate(-2deg);
+    filter: saturate(0.8);
+  }
+  to {
+    transform: translateY(0) scale(1) rotate(0);
+    filter: saturate(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand,
+  .tagline,
+  .btn,
+  .cart-grid,
+  .hint {
+    animation: none !important;
+  }
+}
+
+@media (min-width: 700px) {
+  .controls {
+    opacity: 0.35;
+  }
+
+  .controls:hover {
+    opacity: 1;
+  }
+}

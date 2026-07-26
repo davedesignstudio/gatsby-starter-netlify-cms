@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#12161c" />
+    <title>Aisle Kart — Rogue Cart Racing</title>
+    <link rel="stylesheet" href="css/game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game" aria-label="Aisle Kart race track"></canvas>
+
+      <div id="titleScreen" class="screen">
+        <h1 class="brand">AISLE<br />KART</h1>
+        <p class="tagline">
+          Homeless shopping carts. No owners. One grocery gauntlet.
+        </p>
+        <button class="btn" id="playBtn" type="button">Pick Your Cart</button>
+        <p class="hint">Best on iPhone Safari · landscape or portrait</p>
+      </div>
+
+      <div id="selectScreen" class="screen hidden">
+        <h1 class="brand" style="font-size: clamp(2.2rem, 9vw, 3.4rem)">Choose a rogue</h1>
+        <p class="tagline">Every cart has a story. And a dent.</p>
+        <div class="cart-grid" id="cartGrid"></div>
+        <button class="btn" id="raceBtn" type="button">Start Race</button>
+        <button class="btn secondary" id="backBtn" type="button">Back</button>
+      </div>
+
+      <div id="hud" class="hud hidden">
+        <div class="hud-top">
+          <div class="pill">POS <span id="posLabel">1</span>/5</div>
+          <div class="pill">LAP <span id="lapLabel">1</span>/3</div>
+          <div class="pill"><span id="speedLabel">0</span> mph</div>
+        </div>
+        <div class="item-slot" id="itemSlot">—</div>
+      </div>
+
+      <div id="countdown" class="countdown" aria-live="polite"></div>
+
+      <div id="controls" class="controls hidden">
+        <div class="pad">
+          <button class="ctrl" id="leftBtn" type="button" aria-label="Steer left">◀</button>
+          <button class="ctrl" id="rightBtn" type="button" aria-label="Steer right">▶</button>
+        </div>
+        <div class="pedals">
+          <button class="ctrl item" id="itemBtn" type="button" aria-label="Use item">🛒</button>
+          <button class="ctrl" id="brakeBtn" type="button" aria-label="Brake">BRK</button>
+          <button class="ctrl" id="gasBtn" type="button" aria-label="Accelerate">⛽</button>
+        </div>
+      </div>
+
+      <div id="resultsScreen" class="screen results hidden">
+        <h2 id="resultsTitle">Finish!</h2>
+        <ol id="resultsList"></ol>
+        <button class="btn" id="retryBtn" type="button">Race Again</button>
+        <button class="btn secondary" id="menuBtn" type="button">Main Menu</button>
+      </div>
+    </div>
+
+    <script src="js/game.js"></script>
+  </body>
+</html>
