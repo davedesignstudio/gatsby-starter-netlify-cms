@@ -1,3 +1,9 @@
+# Aisle Rush iOS Game
+
+The playable SpriteKit shopping-cart racer is in [`ios/AisleRush`](ios/AisleRush). Open its Xcode project to race runaway carts through a supermarket with touch steering, drifting, AI opponents, coupon boosts, spills, lap timing, and replay.
+
+The files below are the repository's pre-existing website starter and are unrelated to the iOS game.
+
 # Gatsby + Netlify CMS Starter
 
 **Note:** This starter uses the [Gatsby v2 Beta](https://www.gatsbyjs.org/blog/2018-06-16-announcing-gatsby-v2-beta-launch/).
