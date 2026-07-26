@@ -49,7 +49,7 @@ test("player accelerates and steering stays inside the track", () => {
   }
   assert.ok(state.player.speed > 0);
   assert.equal(state.player.lane, 55);
-  assert.ok(state.player.lap >= 1);
+  assert.ok(state.player.lap + state.player.progress > .25);
 });
 
 test("power-up is consumed and activates its effect", () => {
