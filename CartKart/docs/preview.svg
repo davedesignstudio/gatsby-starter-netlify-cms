@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Cart Kart preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#141a24"/>
+      <stop offset="100%" stop-color="#0d1118"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect x="80" y="90" width="640" height="270" rx="18" fill="#c8c2ba" stroke="#8a8278" stroke-width="6"/>
+  <rect x="250" y="165" width="300" height="120" rx="10" fill="#a68a62" stroke="#6d4f2d" stroke-width="4"/>
+  <text x="400" y="235" text-anchor="middle" fill="#ffffff55" font-family="Avenir, sans-serif" font-size="34" font-weight="700">DAIRY</text>
+  <rect x="120" y="130" width="90" height="40" rx="4" fill="#6b4a2a"/>
+  <rect x="590" y="130" width="90" height="40" rx="4" fill="#6b4a2a"/>
+  <rect x="120" y="280" width="90" height="40" rx="4" fill="#6b4a2a"/>
+  <rect x="590" y="280" width="90" height="40" rx="4" fill="#6b4a2a"/>
+  <g transform="translate(400 310)">
+    <rect x="-35" y="-10" width="70" height="45" rx="8" fill="#8f9094" stroke="#444" stroke-width="3"/>
+    <circle cx="0" cy="-28" r="16" fill="#f2c79e" stroke="#b47f59" stroke-width="2"/>
+    <rect x="-17" y="-40" width="34" height="10" rx="4" fill="#3388ee"/>
+    <circle cx="-22" cy="20" r="7" fill="#333"/>
+    <circle cx="22" cy="20" r="7" fill="#333"/>
+    <circle cx="-22" cy="0" r="7" fill="#333"/>
+    <circle cx="22" cy="0" r="7" fill="#333"/>
+  </g>
+  <text x="400" y="58" text-anchor="middle" fill="#ffd033" font-family="Avenir, sans-serif" font-size="42" font-weight="800">CART KART</text>
+  <text x="400" y="88" text-anchor="middle" fill="#d7e2ee" font-family="Avenir, sans-serif" font-size="18">Grocery Gauntlet  iOS SpriteKit Racer</text>
+</svg>
