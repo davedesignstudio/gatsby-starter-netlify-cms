@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1a2e1f" />
+  <meta name="description" content="Cart Rush — race rogue shopping carts through the supermarket aisles." />
+  <title>Cart Rush</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game" aria-label="Cart Rush race track"></canvas>
+
+    <div id="hud" class="hidden" aria-live="polite">
+      <div class="hud-top">
+        <div class="hud-pill position"><span id="place">1</span><small>/4</small></div>
+        <div class="hud-pill lap">LAP <span id="lap">1</span>/3</div>
+        <div class="hud-pill timer" id="timer">0:00.00</div>
+      </div>
+      <div class="hud-item" id="itemSlot">
+        <div class="item-box" id="itemBox"><span id="itemIcon">—</span></div>
+        <span class="item-hint">TAP TO USE</span>
+      </div>
+      <canvas id="minimap" width="120" height="120" aria-hidden="true"></canvas>
+    </div>
+
+    <div id="touch" class="hidden">
+      <div id="steer" class="pad">
+        <div class="pad-knob" id="steerKnob"></div>
+        <span class="pad-label">STEER</span>
+      </div>
+      <div class="right-pads">
+        <button type="button" id="brake" class="action-btn brake" aria-label="Brake">BRAKE</button>
+        <button type="button" id="gas" class="action-btn gas" aria-label="Accelerate">GAS</button>
+      </div>
+    </div>
+
+    <section id="title" class="screen">
+      <div class="title-bg" aria-hidden="true"></div>
+      <div class="title-content">
+        <p class="eyebrow">AISLE 9 · AFTER HOURS</p>
+        <h1>CART<br />RUSH</h1>
+        <p class="tagline">Rogue shopping carts. Fluorescent lights. One finish line.</p>
+        <button type="button" id="btnPlay" class="cta">START RACE</button>
+        <p class="hint desktop-only">Arrow keys / WASD · Space use item · Shift brake</p>
+        <p class="hint mobile-only">Steer with left pad · Hold GAS · Tap item</p>
+      </div>
+    </section>
+
+    <section id="select" class="screen hidden">
+      <div class="panel">
+        <h2>PICK YOUR CART</h2>
+        <div id="cartGrid" class="cart-grid"></div>
+        <button type="button" id="btnRace" class="cta" disabled>RACE</button>
+      </div>
+    </section>
+
+    <section id="countdown" class="screen hidden">
+      <div id="countNum" class="count-num">3</div>
+      <p class="count-sub">HOLD TIGHT</p>
+    </section>
+
+    <section id="results" class="screen hidden">
+      <div class="panel results-panel">
+        <h2 id="resultTitle">FINISH</h2>
+        <ol id="standings"></ol>
+        <div class="result-actions">
+          <button type="button" id="btnRetry" class="cta">RACE AGAIN</button>
+          <button type="button" id="btnMenu" class="cta ghost">MENU</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

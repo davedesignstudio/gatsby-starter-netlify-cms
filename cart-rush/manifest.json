@@ -1,0 +1,11 @@
+{
+  "name": "Cart Rush",
+  "short_name": "Cart Rush",
+  "description": "Race rogue shopping carts through the supermarket.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#1a2e1f",
+  "theme_color": "#1a2e1f",
+  "icons": []
+}
