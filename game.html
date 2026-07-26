@@ -1,0 +1,80 @@
+---
+layout: default
+title: Cart Dash
+section_id: game
+---
+
+<link rel="stylesheet" href="{{ "/css/cart-racer.css" | prepend: site.baseurl }}">
+
+<div class="cart-game-page">
+  <section class="cart-game-hero">
+    <div class="row">
+      <div class="large-10 large-centered columns">
+        <p class="cart-game-kicker">Original iOS-friendly store racer</p>
+        <h1>Cart Dash: After-Hours Aisle Run</h1>
+        <p>
+          Race a scrappy shopping cart through a closed superstore, grab coupon boosts,
+          dodge spills and displays, and finish every department checklist before the
+          night crew locks the doors.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-game-shell" aria-label="Playable Cart Dash game">
+    <div class="row">
+      <div class="large-9 columns">
+        <div class="cart-game-stage">
+          <canvas
+            id="cart-racer"
+            width="960"
+            height="540"
+            aria-label="Cart Dash racing game canvas"
+          ></canvas>
+
+          <div class="cart-game-overlay" id="cart-game-start">
+            <div>
+              <h2>Ready for the aisle run?</h2>
+              <p>
+                Steer the cart, collect coupon boosts, avoid messy hazards, and keep
+                your combo alive across three store departments.
+              </p>
+              <button class="cart-game-button" id="cart-game-start-button" type="button">
+                Start race
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-touch-controls" aria-label="Touch controls">
+          <button type="button" data-control="left" aria-label="Steer left">Left</button>
+          <button type="button" data-control="boost" aria-label="Use coupon boost">Boost</button>
+          <button type="button" data-control="right" aria-label="Steer right">Right</button>
+        </div>
+      </div>
+
+      <aside class="large-3 columns">
+        <div class="cart-game-panel">
+          <h3>How to play</h3>
+          <ul>
+            <li>Touch Left / Right, use arrow keys, or drag on the canvas to steer.</li>
+            <li>Collect golden coupons to charge boosts.</li>
+            <li>Tap Boost or press Space for a quick sprint.</li>
+            <li>Avoid spills, fallen displays, and rival carts.</li>
+          </ul>
+        </div>
+
+        <div class="cart-game-panel cart-game-scoreboard">
+          <h3>Race status</h3>
+          <p><strong>Goal:</strong> Finish Produce, Bakery, and Frozen.</p>
+          <p><strong>Tip:</strong> Clean driving keeps your speed multiplier high.</p>
+          <button class="cart-game-button secondary" id="cart-game-reset" type="button">
+            Reset race
+          </button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<script src="{{ "/js/cart-racer.js" | prepend: site.baseurl }}"></script>
