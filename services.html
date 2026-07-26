@@ -2,70 +2,218 @@
 layout: default
 title: Services
 section_id: services
-services_left:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-services_right:
-  - icon: compass
-    title: Art Direction
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: image
-    title: Photography
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: database
-    title: Data
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: film
-    title: Video
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
+services:
+  - icon: bookmark
+    title: Logo Design
+    desc: Build a memorable visual identity system that works across digital and print touchpoints.
+    deliverables:
+      - Primary and secondary logo lockups
+      - Color palette and typography direction
+      - Brand usage guide for consistent rollout
+  - icon: picture-o
+    title: Poster Design
+    desc: Create bold poster concepts that communicate quickly and stand out in busy public spaces.
+    deliverables:
+      - Campaign poster concept development
+      - Print-ready files for multiple dimensions
+      - Social media adaptation set
+  - icon: print
+    title: Print Media
+    desc: Design cohesive marketing collateral that keeps your brand polished from first glance to final handoff.
+    deliverables:
+      - Business cards and stationery systems
+      - Brochures, flyers, and event handouts
+      - Press-ready setup with bleed and trim specs
+  - icon: desktop
+    title: Website Design
+    desc: Plan and design conversion-focused website experiences that align brand story with business goals.
+    deliverables:
+      - Sitemap, user flow, and wireframe planning
+      - High-fidelity page mockups
+      - Developer-ready design handoff
 ---
 
-<div class='full parallax' style='background-image: url(images/@stock/service-page-header.jpg); color: #fff;'>
+<style>
+  .zoom-hero {
+    background: radial-gradient(circle at top right, #4f46e5, #1f2937 55%, #0b1120);
+    color: #fff;
+    padding: 70px 0 60px;
+  }
+
+  .zoom-brand-kicker {
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+  }
+
+  .zoom-stage {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    padding: 18px;
+    box-shadow: 0 20px 45px rgba(10, 15, 30, 0.4);
+  }
+
+  .zoom-main-panel,
+  .zoom-tile {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .zoom-main-panel h3 {
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .zoom-main-panel p {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+  }
+
+  .zoom-tiles {
+    display: grid;
+    gap: 12px;
+  }
+
+  .zoom-tile {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+  }
+
+  .zoom-tile i {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .zoom-section {
+    background: #f6f8fc;
+    padding: 65px 0;
+  }
+
+  .zoom-service-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e4e8f1;
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    margin-bottom: 24px;
+    height: 100%;
+  }
+
+  .zoom-service-card h3 {
+    margin-bottom: 8px;
+  }
+
+  .zoom-service-card ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .zoom-service-card li {
+    margin-bottom: 8px;
+    color: #475569;
+  }
+
+  .zoom-cta {
+    background: #0f172a;
+    color: #fff;
+    padding: 52px 0;
+  }
+
+  .zoom-cta p {
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 64em) {
+    .zoom-stage {
+      grid-template-columns: 1fr;
+    }
+
+    .zoom-main-panel,
+    .zoom-tile {
+      min-height: auto;
+    }
+  }
+</style>
+
+<div class='full zoom-hero'>
   <div class='row'>
     <div class='large-12 columns'>
-      {% include section-header.html title="Our services" tagline="Get to know what we do" color="#fff" class="big" %}
+      <p class='zoom-brand-kicker'>Graphic design studio layout</p>
+      {% include section-header.html title="dphilhowerstudio.com" tagline="Zoom-format creative sessions for modern brands" color="#fff" class="big" %}
+      <div class='two spacing'></div>
+      <div class='zoom-stage'>
+        <div class='zoom-main-panel'>
+          <h3>Design Direction Call</h3>
+          <p>
+            A collaborative Zoom-style presentation area for strategy notes, design previews,
+            and iterative feedback across branding, print, and web design projects.
+          </p>
+          <div class='two spacing'></div>
+          <a class='button boxed' href='contact.html'>Book a Zoom Consultation</a>
+        </div>
+        <div class='zoom-tiles'>
+          {% for service in page.services %}
+            <div class='zoom-tile'>
+              <span>{{service.title}}</span>
+              <i class='fa fa-{{service.icon}}'></i>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
-  <div class='four spacing'></div>
 </div>
 
-
-<div class='full'>
+<div class='zoom-section'>
   <div class='row'>
-    <div class='medium-6 columns'>
-      {% for service in page.services_left %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services_right %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+    <div class='large-12 columns'>
+      {% include section-header.html title="Creative services included" tagline="Built for dphilhowerstudio.com" %}
+      <div class='three spacing'></div>
     </div>
   </div>
-  <div class='spacing'></div>
+  <div class='row'>
+    {% for service in page.services %}
+      <div class='medium-6 columns'>
+        <div class='zoom-service-card'>
+          <div class='icon-text-simple'>
+            <i class='fa fa-{{service.icon}}'></i>
+            <h3>{{service.title}}</h3>
+          </div>
+          <p>{{service.desc}}</p>
+          <ul>
+            {% for item in service.deliverables %}
+              <li>{{item}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class='full zoom-cta'>
+  <div class='row'>
+    <div class='medium-8 columns'>
+      <h3 style='color: #fff;'>Ready to launch your next design project?</h3>
+      <p>
+        dphilhowerstudio.com combines clear process, fast communication, and polished visual craft.
+        Share your brief and get a custom proposal tailored to your goals.
+      </p>
+    </div>
+    <div class='medium-4 columns' style='text-align: right;'>
+      <a class='button' href='contact.html'>Start My Project</a>
+    </div>
+  </div>
 </div>
