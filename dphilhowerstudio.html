@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DPhilhower Studio &mdash; Graphic Design</title>
+  <meta name="description" content="DPhilhower Studio (dphilhowerstudio.com) is a graphic design studio offering logo design, poster design, print media and website design.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --panel: #16191f;
+      --panel-2: #1e222a;
+      --tile: #23272f;
+      --line: #2c313b;
+      --text: #f4f6fb;
+      --muted: #9aa3b2;
+      --accent: #2d8cff;      /* zoom blue */
+      --join: #35c759;        /* zoom green */
+      --leave: #e02d3c;       /* zoom red */
+      --radius: 16px;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(1200px 700px at 80% -10%, #1b2130 0%, rgba(27,33,48,0) 60%),
+        radial-gradient(900px 600px at -10% 110%, #191f2b 0%, rgba(25,31,43,0) 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- App window (the "Zoom" client) ---------- */
+    .app {
+      max-width: 1240px;
+      margin: 28px auto;
+      padding: 0 20px;
+    }
+
+    .window {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Top meeting bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      background: linear-gradient(180deg, #1a1e26, #14171d);
+      border-bottom: 1px solid var(--line);
+    }
+    .traffic { display: flex; gap: 8px; }
+    .traffic span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .traffic .r { background: #ff5f57; }
+    .traffic .y { background: #febc2e; }
+    .traffic .g { background: #28c840; }
+
+    .meeting-info { display: flex; align-items: center; gap: 10px; }
+    .secure {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted);
+      background: #10131a; border: 1px solid var(--line);
+      padding: 5px 10px; border-radius: 999px;
+    }
+    .secure svg { width: 13px; height: 13px; }
+    .meeting-title { font-weight: 600; font-size: 15px; letter-spacing: .2px; }
+    .timer {
+      margin-left: auto;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rec-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--leave); box-shadow: 0 0 0 0 rgba(224,45,60,.6); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(224,45,60,.6); }
+      70% { box-shadow: 0 0 0 8px rgba(224,45,60,0); }
+      100% { box-shadow: 0 0 0 0 rgba(224,45,60,0); }
+    }
+
+    /* Speaker banner (host = the studio) */
+    .stage { padding: 22px 22px 6px; }
+    .host {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(700px 320px at 15% 0%, rgba(45,140,255,.35), rgba(45,140,255,0) 60%),
+        linear-gradient(135deg, #1c2740 0%, #171a22 55%, #1a1330 100%);
+      padding: 46px 40px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .host .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .host h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .host h1 span { color: var(--accent); }
+    .host p {
+      margin: 16px 0 0;
+      max-width: 620px;
+      color: #c9d2e0;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .host .name-badge { top: auto; bottom: 16px; }
+    .host .mic-on { color: var(--join); }
+
+    /* Name badge (Zoom participant label) */
+    .name-badge {
+      position: absolute;
+      left: 16px; bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(8,10,14,.72);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      z-index: 3;
+    }
+    .name-badge svg { width: 14px; height: 14px; }
+
+    /* ---------- Gallery grid of service tiles ---------- */
+    .gallery-label {
+      display: flex; align-items: center; gap: 10px;
+      padding: 22px 24px 6px;
+      color: var(--muted);
+      font-size: 13px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .gallery-label .count {
+      background: var(--panel-2); border: 1px solid var(--line);
+      color: var(--text); border-radius: 999px;
+      padding: 2px 10px; font-size: 12px; letter-spacing: 0;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 8px 22px 22px;
+    }
+
+    .tile {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--tile);
+      min-height: 220px;
+      cursor: pointer;
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+    }
+    .tile:hover { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(45,140,255,.35), 0 18px 40px rgba(0,0,0,.4); }
+    .tile:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(45,140,255,.55); }
+
+    /* The "video feed" area we zoom on hover */
+    .feed {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .5s cubic-bezier(.22,.61,.36,1);
+    }
+    .tile:hover .feed { transform: scale(1.08); }
+
+    .feed .glyph {
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      text-align: center;
+      padding: 24px;
+    }
+    .feed .glyph svg { width: 72px; height: 72px; }
+    .feed .glyph .svc-title {
+      font-size: 21px; font-weight: 700; letter-spacing: -.2px;
+    }
+    .feed .glyph .svc-desc {
+      font-size: 13.5px; color: var(--muted); max-width: 260px; line-height: 1.55;
+    }
+
+    /* individual tile themes */
+    .t-logo    { background: radial-gradient(420px 260px at 30% 20%, #24345c, #171a22 70%); }
+    .t-logo svg    { color: #5aa2ff; }
+    .t-poster  { background: radial-gradient(420px 260px at 70% 20%, #4a2350, #171a22 70%); }
+    .t-poster svg  { color: #d071ff; }
+    .t-print   { background: radial-gradient(420px 260px at 30% 80%, #114034, #171a22 70%); }
+    .t-print svg   { color: #35c9a0; }
+    .t-web     { background: radial-gradient(420px 260px at 70% 80%, #533116, #171a22 70%); }
+    .t-web svg     { color: #ffa24d; }
+
+    /* subtle top gradient so name badge is readable */
+    .tile::after {
+      content: "";
+      position: absolute; inset: auto 0 0 0; height: 70px;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.45));
+      pointer-events: none;
+    }
+
+    .tile .name-badge { z-index: 4; }
+    .tile .status {
+      position: absolute; top: 14px; right: 14px; z-index: 4;
+      display: flex; gap: 8px;
+    }
+    .status .chip {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(8,10,14,.6);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      color: #cfd6e2;
+    }
+    .status .chip svg { width: 15px; height: 15px; }
+
+    /* ---------- Bottom control bar ---------- */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 16px 20px 22px;
+      background: linear-gradient(180deg, #14171d, #101319);
+      border-top: 1px solid var(--line);
+    }
+    .ctrl {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: background .2s, color .2s, border-color .2s, transform .1s;
+      min-width: 74px;
+    }
+    .ctrl svg { width: 22px; height: 22px; }
+    .ctrl:hover { background: #1c212b; color: var(--text); border-color: var(--line); }
+    .ctrl:active { transform: translateY(1px); }
+
+    .ctrl.primary {
+      background: var(--join); color: #04210f; font-weight: 700;
+    }
+    .ctrl.primary:hover { background: #2fb14e; color: #04210f; }
+    .ctrl.leave { color: #ff8a93; }
+    .ctrl.leave:hover { background: rgba(224,45,60,.14); color: #ff6b76; border-color: rgba(224,45,60,.4); }
+
+    /* footer meta */
+    .foot {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 22px 10px 6px;
+    }
+    .foot a { color: var(--accent); }
+    .foot .dot { margin: 0 8px; opacity: .5; }
+
+    @media (max-width: 720px) {
+      .app { padding: 0 12px; margin: 14px auto; }
+      .gallery { grid-template-columns: 1fr; }
+      .timer { display: none; }
+      .meeting-title { font-size: 13px; }
+      .host { padding: 34px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="window" role="application" aria-label="DPhilhower Studio services gallery">
+
+      <!-- Top meeting bar -->
+      <header class="topbar">
+        <div class="traffic" aria-hidden="true">
+          <span class="r"></span><span class="y"></span><span class="g"></span>
+        </div>
+        <div class="meeting-info">
+          <span class="secure" title="End-to-end creative">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure design session
+          </span>
+          <span class="meeting-title">DPhilhower Studio &mdash; Design Meeting</span>
+        </div>
+        <div class="timer"><span class="rec-dot" aria-hidden="true"></span> REC <span id="clock">00:00:00</span></div>
+      </header>
+
+      <!-- Host / speaker view: the studio -->
+      <section class="stage">
+        <div class="host">
+          <div class="eyebrow">dphilhowerstudio.com</div>
+          <h1>Design that <span>speaks</span><br>before you do.</h1>
+          <p>DPhilhower Studio is an independent graphic design practice crafting bold, human brand identities and beautiful print &amp; web experiences. Pull up a seat &mdash; everyone in the room below is ready to work on your project.</p>
+          <div class="name-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mic-on"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            DPhilhower Studio (Host)
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery grid label -->
+      <div class="gallery-label">
+        Gallery view <span class="count">4 services</span>
+      </div>
+
+      <!-- Service tiles laid out like a Zoom gallery -->
+      <section class="gallery">
+
+        <!-- Logo Design -->
+        <a class="tile" href="services.html" aria-label="Logo Design">
+          <div class="feed t-logo">
+            <div class="glyph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/><circle cx="12" cy="12" r="3.2"/></svg>
+              <div class="svc-title">Logo Design</div>
+              <div class="svc-desc">Distinctive marks and full identity systems that make a brand instantly recognizable.</div>
+            </div>
+          </div>
+          <div class="status">
+            <span class="chip" title="Camera on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          </div>
+          <div class="name-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--join)"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            Logo Design
+          </div>
+        </a>
+
+        <!-- Poster Design -->
+        <a class="tile" href="services.html" aria-label="Poster Design">
+          <div class="feed t-poster">
+            <div class="glyph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="1.5"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><path d="M8 15h5"/><circle cx="15.5" cy="17" r="1.6"/></svg>
+              <div class="svc-title">Poster Design</div>
+              <div class="svc-desc">Eye-catching event, promo and campaign posters built to stop scrolls and turn heads.</div>
+            </div>
+          </div>
+          <div class="status">
+            <span class="chip" title="Camera on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          </div>
+          <div class="name-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--join)"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            Poster Design
+          </div>
+        </a>
+
+        <!-- Print Media -->
+        <a class="tile" href="services.html" aria-label="Print Media">
+          <div class="feed t-print">
+            <div class="glyph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M6 14h12v8H6z"/><line x1="8" y1="17.5" x2="16" y2="17.5"/><line x1="8" y1="20" x2="14" y2="20"/></svg>
+              <div class="svc-title">Print Media</div>
+              <div class="svc-desc">Brochures, business cards, packaging and press-ready artwork prepared for perfect ink.</div>
+            </div>
+          </div>
+          <div class="status">
+            <span class="chip" title="Camera on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          </div>
+          <div class="name-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--join)"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            Print Media
+          </div>
+        </a>
+
+        <!-- Website Design -->
+        <a class="tile" href="services.html" aria-label="Website Design">
+          <div class="feed t-web">
+            <div class="glyph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="15" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><circle cx="5" cy="6.5" r=".6"/><circle cx="7.5" cy="6.5" r=".6"/><path d="M8 22h8"/><path d="M12 19v3"/></svg>
+              <div class="svc-title">Website Design</div>
+              <div class="svc-desc">Modern, responsive websites &mdash; from landing pages to full brand experiences.</div>
+            </div>
+          </div>
+          <div class="status">
+            <span class="chip" title="Camera on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          </div>
+          <div class="name-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--join)"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            Website Design
+          </div>
+        </a>
+
+      </section>
+
+      <!-- Bottom control bar -->
+      <nav class="controls" aria-label="Studio actions">
+        <a class="ctrl" href="portfolio.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Portfolio
+        </a>
+        <a class="ctrl" href="services.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 20l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          Services
+        </a>
+        <a class="ctrl primary" href="contact.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Start a Project
+        </a>
+        <a class="ctrl" href="about.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          About
+        </a>
+        <a class="ctrl leave" href="contact.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h9a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Contact
+        </a>
+      </nav>
+    </div>
+
+    <p class="foot">
+      <strong>DPhilhower Studio</strong>
+      <span class="dot">&bull;</span>
+      Logo &middot; Poster &middot; Print &middot; Web
+      <span class="dot">&bull;</span>
+      <a href="https://dphilhowerstudio.com">dphilhowerstudio.com</a>
+    </p>
+  </main>
+
+  <script>
+    // Live "meeting" timer for a bit of ambience.
+    (function () {
+      var start = Date.now();
+      var el = document.getElementById('clock');
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function tick() {
+        var s = Math.floor((Date.now() - start) / 1000);
+        el.textContent = pad(Math.floor(s / 3600)) + ':' + pad(Math.floor((s % 3600) / 60)) + ':' + pad(s % 60);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>

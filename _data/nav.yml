@@ -1,6 +1,9 @@
 - name: Home
   path: /index.html
   section_id: home
+- name: Studio
+  path: dphilhowerstudio.html
+  section_id: studio
 - name: About
   path: about.html
   section_id: about
