@@ -1,0 +1,18 @@
+{
+  "name": "Cart Dash: After Hours",
+  "short_name": "Cart Dash",
+  "description": "An arcade shopping cart racer built for touch screens.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0b1820",
+  "theme_color": "#f36b21",
+  "icons": [
+    {
+      "src": "/cart-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
