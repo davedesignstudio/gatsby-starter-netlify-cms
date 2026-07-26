@@ -250,7 +250,7 @@ public final class RaceEngine {
         }
 
         let racing = phase == .racing
-        if racing { updateStuckRecovery(dt: dt) }
+        if racing { updateStuckRecovery(dt: dt, playerInput: playerInput) }
 
         var inputs: [Int: RaceInput] = [:]
         for kart in karts {
@@ -361,13 +361,19 @@ public final class RaceEngine {
     /// Notices carts that have stopped making progress and does something
     /// about it: the AI backs out of whatever it is wedged against, and anyone
     /// still stranded after a few seconds gets lifted back onto the lane.
-    private func updateStuckRecovery(dt: Double) {
+    private func updateStuckRecovery(dt: Double, playerInput: RaceInput) {
         for index in karts.indices {
             var kart = karts[index]
             defer { karts[index] = kart }
             guard !kart.isFinished else { continue }
 
             kart.aiReverseTimer = max(0, kart.aiReverseTimer - dt)
+
+            // Nobody comes to help a player who is parked on purpose.
+            if kart.isPlayerControlled && playerInput.throttle <= 0.2 {
+                kart.stuckTimer = 0
+                continue
+            }
 
             // Being spun out or squashed is meant to stop you; that is not stuck.
             if kart.speed < 70 && kart.disruption == nil {

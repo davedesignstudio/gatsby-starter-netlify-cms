@@ -224,6 +224,54 @@ final class RaceEngineTests: XCTestCase {
         }
     }
 
+    func testStrandedPlayerIsPutBackOnTheLane() {
+        let engine = RaceEngine(configuration: configuration(racers: 1, playerIndex: 0))
+        advance(engine, seconds: 4.0, input: .idle)
+        _ = engine.drainEvents()
+
+        // Wedge the cart nose-first into the shelving, the way a bad landing
+        // from a spin-out leaves you.
+        let track = engine.track
+        let sample = track.sample(at: track.sampleIndex(atArcLength: engine.karts[0].arcLength))
+        let outwards = sample.tangent.perpendicular
+        engine.setKartForTesting(at: 0) { kart in
+            kart.position = sample.position + outwards * (sample.halfWidth + track.shoulderWidth - 20)
+            kart.heading = outwards.angle
+            kart.velocity = .zero
+        }
+
+        // Hold the throttle: the cart is pushing into a shelf and going nowhere.
+        var rescued = false
+        let step = engine.tuning.fixedTimeStep
+        for _ in 0..<Int(8.0 / step) {
+            engine.advance(deltaTime: step, playerInput: RaceInput(throttle: 1))
+            for case .rescued(let id) in engine.drainEvents() where id == 0 { rescued = true }
+        }
+
+        XCTAssertTrue(rescued, "a cart pinned against the shelving should be recovered")
+        let projection = engine.track.project(engine.karts[0].position)
+        XCTAssertLessThan(
+            abs(projection.lateralOffset),
+            projection.halfWidth,
+            "the rescue should leave the cart on driveable floor"
+        )
+    }
+
+    func testAParkedPlayerIsLeftAlone() {
+        let engine = RaceEngine(configuration: configuration(racers: 1, playerIndex: 0))
+        advance(engine, seconds: 4.0, input: .idle)
+        _ = engine.drainEvents()
+
+        // Sitting still on purpose is not being stuck.
+        var rescued = false
+        let step = engine.tuning.fixedTimeStep
+        for _ in 0..<Int(8.0 / step) {
+            engine.advance(deltaTime: step, playerInput: .idle)
+            for case .rescued in engine.drainEvents() { rescued = true }
+        }
+        XCTAssertFalse(rescued)
+    }
+
     func testHarderDifficultyIsActuallyHarder() {
         // A single race is noisy: one soup can decides it. Average a few.
         func averageWinningTime(_ difficulty: RaceConfiguration.Difficulty) -> Double {

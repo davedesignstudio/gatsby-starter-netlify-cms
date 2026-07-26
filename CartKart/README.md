@@ -17,7 +17,7 @@ CartKart/
   Core/                         Swift package with the simulation and the CLI
     Sources/CartKartCore/       All game rules. No UIKit, no SpriteKit, no platform code.
     Sources/CartKartSim/        Headless simulator used for balancing
-    Tests/CartKartCoreTests/    57 tests covering physics, items, laps and race flow
+    Tests/CartKartCoreTests/    59 tests covering physics, items, laps and race flow
   App/                          The iOS app: SwiftUI menus, SpriteKit race scene
   project.yml                   XcodeGen spec that builds App/ against Core/
 ```
@@ -50,7 +50,7 @@ If you would rather not use XcodeGen, create an iOS App target by hand, add the
 The package builds and tests anywhere Swift runs. From `CartKart/Core`:
 
 ```bash
-swift test                              # 57 tests, a few seconds
+swift test                              # 59 tests, a few seconds
 swift run -c release cartkart-sim race --track frozen-foods
 swift run -c release cartkart-sim balance --races 20
 swift run -c release cartkart-sim map --track frozen-foods --trace
