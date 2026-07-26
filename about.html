@@ -1,127 +1,63 @@
----
-layout: default
-title: About
-section_id: about
-skills:
-  - title: Web Design
-    percentage: 84
-  - title: Web Development
-    percentage: 95
-  - title: Site Management
-    percentage: 70
-  - title: Branding
-    percentage: 61
-testimonials:
-  - quote: Reprehenderit eos et non et ut eum reprehenderit quis sequi quia vel repellendus id. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est.
-    author: David White, Designer at Huglab
-  - quote: Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-    author: David White, Designer at Huglab
-  - quote: Reprehenderit eos et non et ut eum reprehenderit quis sequi quia vel repellendus id. Velit quit blanditiis dolor quam error eos dolores sequi eaque rerum est.
-    author: David White, Designer at Huglab
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — D Philhower Studio</title>
+  <meta name="description" content="About D Philhower Studio — graphic design rooted in New Jersey, focused on brands that cook, serve, and sell with style.">
+  <link rel="icon" href="images/siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+  <header class="site-header is-scrolled" data-header>
+    <a class="brand-mark" href="index.html" aria-label="D Philhower Studio home">
+      <span class="brand-mark__dot" aria-hidden="true"></span>
+      <span class="brand-mark__text">dphilhower<span>studio</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
+    </nav>
+  </header>
 
-<div class='full parallax' style='background-image: url(images/@stock/about-us.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='twelve columns'>
-      {% include section-header.html title="About us" color="#fff" tagline="Know something about our team" class="big" %}
+  <main>
+    <section class="page-hero">
+      <p class="eyebrow">The studio</p>
+      <h1>Design is a labor of love—just like a great kitchen.</h1>
+      <p>D Philhower Studio builds brands that feel personal, polished, and ready for the real world.</p>
+    </section>
+
+    <div class="page-content">
+      <p>Led by David Philhower, the studio blends classic layout craft with modern digital polish. Every project starts with a conversation—what you serve, who you serve, and how you want people to feel when they meet your brand.</p>
+      <p>We specialize in work for restaurants and small businesses: logos that live on aprons and apps, posters that fill windows, print that holds up under coffee cups, and websites that bring the dining room online.</p>
+      <p>Based in New Jersey. Working with clients who care about the details.</p>
+      <p><a class="btn btn--primary" href="contact.html">Work with us</a></p>
     </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+  </main>
 
-<div class='full'>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <h3>Our history</h3>
-      <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.</p>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.</p>
+  <footer class="site-footer">
+    <div class="site-footer__brand">
+      <strong>dphilhowerstudio.com</strong>
+      <p>Graphic design for brands that want to be remembered.</p>
     </div>
-    <div class='medium-6 columns'>
-      <h3>Our skills</h3>
-      <div class='mod modBarGraph'>
-        <ul class='bars'>
-          {% for skill in page.skills %}
-            <li>
-              <h4 style=''>
-                {{skill.title}}
-                <strong>{{skill.percentage}}%</strong>
-              </h4>
-              <p class='highlighted' data-percent='{{skill.percentage}}'></p>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+    <div class="site-footer__links">
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="mailto:dphilhowerstudio@gmail.com">dphilhowerstudio@gmail.com</a>
     </div>
-  </div>
-</div>
+    <p class="site-footer__copy">&copy; <span data-year></span> D Philhower Studio</p>
+  </footer>
 
-
-<div class='full'>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <p class='centered-text'>{{member.desc}}</p>
-          <div class='two spacing'></div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-
-
-<div class='full parallax' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <i class='fa fa-quote-left' style='color: #F9CE06; font-size: 36px;'></i>
-      </p>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="What our clients say" %}
-      <div class='spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='large-12 columns'>
-      <div class='mod modTestimonials'>
-        <div class='row'>
-          <div class='small-12 columns'>
-            <div class='items centered-text'>
-              {% for testimonial in page.testimonials %}
-                <div class='item'>
-                  <p class='quote'>"{{testimonial.quote}}"</p>
-                  <p class='author'>- {{testimonial.author}}</p>
-                  <div class='two spacing'></div>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class='spacing'></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% include our-customers.html %}
+  <script src="js/studio.js" defer></script>
+</body>
+</html>

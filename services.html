@@ -1,71 +1,79 @@
----
-layout: default
-title: Services
-section_id: services
-services_left:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-services_right:
-  - icon: compass
-    title: Art Direction
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: image
-    title: Photography
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: database
-    title: Data
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: film
-    title: Video
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services — D Philhower Studio</title>
+  <meta name="description" content="Logo design, poster design, print media, and website design from D Philhower Studio.">
+  <link rel="icon" href="images/siteicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+  <header class="site-header is-scrolled" data-header>
+    <a class="brand-mark" href="index.html" aria-label="D Philhower Studio home">
+      <span class="brand-mark__dot" aria-hidden="true"></span>
+      <span class="brand-mark__text">dphilhower<span>studio</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
+    </nav>
+  </header>
 
-<div class='full parallax' style='background-image: url(images/@stock/service-page-header.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" tagline="Get to know what we do" color="#fff" class="big" %}
-    </div>
-  </div>
-  <div class='four spacing'></div>
-</div>
+  <main>
+    <section class="page-hero">
+      <p class="eyebrow">What we make</p>
+      <h1>Services built for brands that show up.</h1>
+      <p>Four core offerings—identity, campaigns, print, and web—delivered with studio craft.</p>
+    </section>
 
+    <div class="services-list">
+      <article>
+        <p class="eyebrow">Identity</p>
+        <h2>Logo Design</h2>
+        <p>Custom logos and brand systems for restaurants, shops, and growing businesses. From first sketch to final vector files.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Campaign</p>
+        <h2>Poster Design</h2>
+        <p>Bold posters for events, menus of the month, and promotions that need to stop people mid-stride.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Collateral</p>
+        <h2>Print Media</h2>
+        <p>Menus, cards, flyers, packaging, and signage designed for real ink and real hands.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Digital</p>
+        <h2>Website Design</h2>
+        <p>Clear, branded websites that introduce your business and make the next step obvious.</p>
+      </article>
+    </div>
+  </main>
 
-<div class='full'>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      {% for service in page.services_left %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+  <footer class="site-footer">
+    <div class="site-footer__brand">
+      <strong>dphilhowerstudio.com</strong>
+      <p>Graphic design for brands that want to be remembered.</p>
     </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services_right %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+    <div class="site-footer__links">
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="mailto:dphilhowerstudio@gmail.com">dphilhowerstudio@gmail.com</a>
     </div>
-  </div>
-  <div class='spacing'></div>
-</div>
+    <p class="site-footer__copy">&copy; <span data-year></span> D Philhower Studio</p>
+  </footer>
+
+  <script src="js/studio.js" defer></script>
+</body>
+</html>
