@@ -1167,6 +1167,11 @@ p {
   transition-delay: 160ms;
 }
 
+.hero .reveal {
+  opacity: 1;
+  transform: none;
+}
+
 @keyframes orbit {
   to { transform: rotate(360deg); }
 }
@@ -1535,11 +1540,11 @@ p {
 
 @media (max-width: 450px) {
   .hero {
-    min-height: 700px;
+    min-height: 760px;
   }
 
   .hero h1 {
-    font-size: 17.8vw;
+    font-size: 15.5vw;
   }
 
   .hero-line {
