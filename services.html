@@ -2,69 +2,54 @@
 layout: default
 title: Services
 section_id: services
-services_left:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-services_right:
-  - icon: compass
-    title: Art Direction
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: image
-    title: Photography
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: database
-    title: Data
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: film
-    title: Video
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
 ---
 
-<div class='full parallax' style='background-image: url(images/@stock/service-page-header.jpg); color: #fff;'>
+<div class='full parallax studio-services-header' style='background-image: url(images/@stock/service-page-header.jpg); color: #fff;'>
   <div class='row'>
     <div class='large-12 columns'>
-      {% include section-header.html title="Our services" tagline="Get to know what we do" color="#fff" class="big" %}
+      {% include section-header.html title="dphilhowerstudio.com services" tagline="Zoom in on what we can create for your brand" color="#fff" class="big" %}
     </div>
   </div>
-  <div class='four spacing'></div>
+  <div class='three spacing'></div>
 </div>
-
 
 <div class='full'>
   <div class='row'>
+    <div class='large-12 columns'>
+      <p class='centered-text'>
+        Our design packages are built to work together. Start with one service or combine multiple offerings for a complete brand rollout.
+      </p>
+      <div class='three spacing'></div>
+    </div>
+  </div>
+  <div class='row zoom-services-grid'>
     <div class='medium-6 columns'>
-      {% for service in page.services_left %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+      <div class='zoom-service-card'>
+        <i class='fa fa-star'></i>
+        <h3>Logo Design</h3>
+        <p>Concept exploration, visual direction, and final master files for scalable brand usage.</p>
+      </div>
     </div>
     <div class='medium-6 columns'>
-      {% for service in page.services_right %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
+      <div class='zoom-service-card'>
+        <i class='fa fa-picture-o'></i>
+        <h3>Poster Design</h3>
+        <p>Promotional posters crafted for digital campaigns, storefront displays, and event communication.</p>
+      </div>
+    </div>
+    <div class='medium-6 columns'>
+      <div class='zoom-service-card'>
+        <i class='fa fa-print'></i>
+        <h3>Print Media</h3>
+        <p>Brochures, business cards, and promotional assets designed with press-ready bleed and trim specs.</p>
+      </div>
+    </div>
+    <div class='medium-6 columns'>
+      <div class='zoom-service-card'>
+        <i class='fa fa-laptop'></i>
+        <h3>Website Design</h3>
+        <p>Modern page structures and UI systems that convert visitors into customers across all devices.</p>
+      </div>
     </div>
   </div>
   <div class='spacing'></div>
