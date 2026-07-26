@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Cart Clash" />
+  <meta name="theme-color" content="#0b1f24" />
+  <meta name="description" content="Mario Kart–style racing with stray shopping carts tearing through a midnight supermarket." />
+  <title>Cart Clash — Supermarket Kart Racing</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game" width="800" height="1400"></canvas>
+
+    <section id="screen-title" class="screen active">
+      <div class="atmosphere" aria-hidden="true"></div>
+      <div class="title-compose">
+        <p class="eyebrow">Midnight SuperSaver · Aisle 7</p>
+        <h1 class="brand">CART<br />CLASH</h1>
+        <p class="tagline">Stray shopping carts. One store. No brakes.</p>
+        <div class="cta-row">
+          <button type="button" class="btn primary" id="btn-play">Race Now</button>
+          <button type="button" class="btn ghost" id="btn-how">How to Play</button>
+        </div>
+      </div>
+      <div class="title-floor" aria-hidden="true"></div>
+    </section>
+
+    <section id="screen-how" class="screen">
+      <div class="panel">
+        <h2>How to Play</h2>
+        <ul class="how-list">
+          <li><strong>Steer</strong> with the left pad or arrow keys</li>
+          <li><strong>Brake</strong> with the left bottom button / Space</li>
+          <li><strong>Item</strong> with the right button / E or Z</li>
+          <li>Grab glowing pickups, dump banana peels, fire soup cans</li>
+          <li>First to finish <strong>3 laps</strong> wins the midnight aisle</li>
+        </ul>
+        <button type="button" class="btn primary" id="btn-how-back">Got it</button>
+      </div>
+    </section>
+
+    <section id="screen-select" class="screen">
+      <div class="panel select-panel">
+        <h2>Pick Your Cart</h2>
+        <p class="select-sub">Every cart has a past. Choose wisely.</p>
+        <div id="cart-grid" class="cart-grid"></div>
+        <button type="button" class="btn primary" id="btn-start-race" disabled>Start Race</button>
+      </div>
+    </section>
+
+    <section id="screen-hud" class="screen hud">
+      <div class="hud-top">
+        <div class="hud-pill" id="hud-place">1st</div>
+        <div class="hud-pill" id="hud-lap">Lap 1/3</div>
+        <div class="hud-pill" id="hud-item">Empty</div>
+      </div>
+      <div class="countdown" id="countdown" hidden></div>
+      <div class="touch-controls" id="touch-controls">
+        <div class="pad-left">
+          <button type="button" class="ctrl" data-action="left" aria-label="Steer left">◀</button>
+          <button type="button" class="ctrl" data-action="right" aria-label="Steer right">▶</button>
+          <button type="button" class="ctrl brake" data-action="brake" aria-label="Brake">BRAKE</button>
+        </div>
+        <div class="pad-right">
+          <button type="button" class="ctrl item" data-action="item" aria-label="Use item">ITEM</button>
+        </div>
+      </div>
+      <button type="button" class="btn tiny pause-btn" id="btn-pause">II</button>
+    </section>
+
+    <section id="screen-pause" class="screen">
+      <div class="panel">
+        <h2>Paused</h2>
+        <button type="button" class="btn primary" id="btn-resume">Resume</button>
+        <button type="button" class="btn ghost" id="btn-quit">Quit to Title</button>
+      </div>
+    </section>
+
+    <section id="screen-results" class="screen">
+      <div class="panel results-panel">
+        <h2 id="results-title">Finish!</h2>
+        <ol id="results-list" class="results-list"></ol>
+        <button type="button" class="btn primary" id="btn-again">Race Again</button>
+        <button type="button" class="btn ghost" id="btn-title">Title</button>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
