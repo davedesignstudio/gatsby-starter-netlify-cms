@@ -353,6 +353,22 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updateCountdown() {
+        guard countdownRemaining > 0 else {
+            if countdownLabel.parent != nil, countdownLabel.action(forKey: "dismiss") == nil {
+                countdownLabel.run(
+                    .sequence([
+                        .group([
+                            .scale(to: 1.6, duration: 0.2),
+                            .fadeOut(withDuration: 0.2)
+                        ]),
+                        .removeFromParent()
+                    ]),
+                    withKey: "dismiss"
+                )
+            }
+            return
+        }
+
         switch countdownRemaining {
         case 2.4...:
             countdownLabel.text = "3"
@@ -365,15 +381,7 @@ final class RaceScene: SKScene, SKPhysicsContactDelegate {
             countdownLabel.fontSize = 90
             countdownLabel.fontColor = .systemPink
         default:
-            if countdownLabel.parent != nil {
-                countdownLabel.run(.sequence([
-                    .group([
-                        .scale(to: 1.6, duration: 0.2),
-                        .fadeOut(withDuration: 0.2)
-                    ]),
-                    .removeFromParent()
-                ]))
-            }
+            break
         }
     }
 
