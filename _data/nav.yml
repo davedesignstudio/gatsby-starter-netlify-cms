@@ -15,6 +15,9 @@
       path: portfolio.html
     - name: Portfolio item
       path: portfolio-item.html
+- name: Cart Racer
+  path: cart-racer.html
+  section_id: cart-racer
 - name: Contact
   path: contact.html
   section_id: contact
