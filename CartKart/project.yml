@@ -1,0 +1,61 @@
+name: CartKart
+options:
+  bundleIdPrefix: com.cartkart
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+packages:
+  CartKartCore:
+    # The simulation lives in the SwiftPM package alongside this spec.
+    path: .
+
+targets:
+  CartKart:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: App
+        excludes:
+          # Generated from the `info` block below; not a compiled source.
+          - Info.plist
+    dependencies:
+      - package: CartKartCore
+        product: CartKartCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cartkart.game
+        PRODUCT_NAME: Cart Kart
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ENABLE_PREVIEWS: YES
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Cart Kart
+        CFBundleShortVersionString: "1.0"
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UIUserInterfaceStyle: Dark
+        # Landscape only: the HUD and the thumb controls assume a wide screen.
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+
+schemes:
+  CartKart:
+    build:
+      targets:
+        CartKart: all
+    run:
+      config: Debug
