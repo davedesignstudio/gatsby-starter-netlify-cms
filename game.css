@@ -516,7 +516,7 @@ h1 span {
   .menu-footer { display: none; }
 }
 
-@media (max-width: 740px) and (orientation: landscape) {
+@media (max-width: 940px) and (orientation: landscape) {
   #menu { padding: 14px max(20px, env(safe-area-inset-right)) 12px max(20px, env(safe-area-inset-left)); }
   .menu-topline { padding-bottom: 8px; }
   .title-lockup { width: 62vw; margin-top: 0; }
