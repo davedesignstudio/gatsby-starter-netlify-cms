@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/css/fontello.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/css/font-awesome.css" | prepend: site.baseurl }}">
+  {% if page.extra_css %}
+    {% for stylesheet in page.extra_css %}
+  <link rel="stylesheet" href="{{ stylesheet | prepend: site.baseurl }}">
+    {% endfor %}
+  {% endif %}
   <script src="{{ "/javascripts/libs.js" | prepend: site.baseurl }}" type="text/javascript"></script>
   <script>
     // terrificjs bootstrap

@@ -1,0 +1,122 @@
+---
+layout: default
+title: Cart Chaos
+section_id: game
+extra_css:
+  - /css/cart-chaos.css
+---
+
+<div class="cart-chaos-page">
+  <section class="cart-chaos-hero">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="cart-chaos-hero-copy">
+          <span class="cart-chaos-kicker">iPhone-first racing prototype</span>
+          <h1>Cart Chaos: a supermarket kart racer with wild shopping-cart energy.</h1>
+          <p>
+            This playable concept turns the repo into a fast, touch-friendly arcade racer where battered carts drift through aisles, dodge cleanup spills, collect canned-energy boosts, and sprint for the checkout line.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-chaos-shell">
+    <div class="row">
+      <div class="large-8 columns">
+        <div class="cart-chaos-card">
+          <div class="cart-chaos-toolbar">
+            <div>
+              <h2>Play the vertical slice</h2>
+              <p>Race three rival carts for three laps. Best experienced in landscape on a phone, but keyboard controls work too.</p>
+            </div>
+            <button class="cart-chaos-button" id="cart-chaos-restart" type="button">Restart race</button>
+          </div>
+
+          <div class="cart-chaos-stage">
+            <div class="cart-chaos-canvas-wrap">
+              <canvas
+                aria-label="Cart Chaos racing game"
+                class="cart-chaos-canvas"
+                height="720"
+                id="cart-chaos-canvas"
+                width="1280"
+              ></canvas>
+              <div class="cart-chaos-message" id="cart-chaos-message">Countdown: 3</div>
+            </div>
+          </div>
+
+          <div class="cart-chaos-touch-controls" aria-label="Touch controls">
+            <button class="cart-chaos-control" data-input="left" type="button">Left</button>
+            <button class="cart-chaos-control" data-input="right" type="button">Right</button>
+            <button class="cart-chaos-control" data-input="throttle" type="button">Gas</button>
+            <button class="cart-chaos-control" data-input="brake" type="button">Brake</button>
+            <button class="cart-chaos-control cart-chaos-control--boost" data-input="boost" type="button">Boost</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="large-4 columns">
+        <div class="cart-chaos-card cart-chaos-side-card">
+          <h3>Race HUD</h3>
+          <div class="cart-chaos-hud">
+            <div class="cart-chaos-stat">
+              <span>Lap</span>
+              <strong id="cart-chaos-lap">1 / 3</strong>
+            </div>
+            <div class="cart-chaos-stat">
+              <span>Place</span>
+              <strong id="cart-chaos-place">1st / 4</strong>
+            </div>
+            <div class="cart-chaos-stat">
+              <span>Speed</span>
+              <strong id="cart-chaos-speed">0 mph</strong>
+            </div>
+            <div class="cart-chaos-stat">
+              <span>Time</span>
+              <strong id="cart-chaos-timer">01:50</strong>
+            </div>
+            <div class="cart-chaos-stat">
+              <span>Status</span>
+              <strong id="cart-chaos-status">Countdown</strong>
+            </div>
+            <div class="cart-chaos-stat">
+              <div>
+                <span>Boost</span>
+                <div class="cart-chaos-boost-meter">
+                  <div class="cart-chaos-boost-fill" id="cart-chaos-boost"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-chaos-card cart-chaos-side-card">
+          <h3>Why it feels like kart racing</h3>
+          <ul class="cart-chaos-feature-list">
+            <li>Three rival AI carts chase a snaking aisle circuit inside a big-box store.</li>
+            <li>Boost pickups and slippery cleanup spills create the swingy arcade rhythm you want from a kart racer.</li>
+            <li>A live minimap, lap tracking, place ranking, and punchy collisions make it readable on small screens.</li>
+          </ul>
+        </div>
+
+        <div class="cart-chaos-card cart-chaos-side-card">
+          <h3>Controls</h3>
+          <ul class="cart-chaos-tip-list">
+            <li><span class="cart-chaos-key">W</span> / <span class="cart-chaos-key">Up</span> accelerate</li>
+            <li><span class="cart-chaos-key">A</span> / <span class="cart-chaos-key">Left</span> steer left</li>
+            <li><span class="cart-chaos-key">D</span> / <span class="cart-chaos-key">Right</span> steer right</li>
+            <li><span class="cart-chaos-key">S</span> / <span class="cart-chaos-key">Down</span> brake or reverse</li>
+            <li><span class="cart-chaos-key">Shift</span> or <span class="cart-chaos-key">Space</span> boost</li>
+            <li><span class="cart-chaos-key">R</span> quick restart</li>
+          </ul>
+          <p class="cart-chaos-footer-note">
+            The implementation is a browser-based vertical slice inside this repo, which is the fastest way to prove out the iOS game loop, touch controls, and art direction without an existing Xcode project.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="{{ "/js/cart-chaos.js" | prepend: site.baseurl }}" type="text/javascript"></script>
