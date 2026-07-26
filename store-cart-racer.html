@@ -1,0 +1,119 @@
+---
+layout: default
+title: Store Cart Sprint
+section_id: cart-racer
+extra_css:
+  - /css/store-cart-racer.css
+extra_js:
+  - /js/store-cart-racer.js
+---
+
+<div class="store-racer-page">
+  <section class="store-racer-hero">
+    <div class="store-racer-shell">
+      <div class="store-racer-grid">
+        <div class="store-racer-copy">
+          <span class="store-racer-eyebrow">iPhone and iPad-friendly prototype</span>
+          <h1>Store Cart Sprint</h1>
+          <p class="lede">
+            Race souped-up shopping carts through a late-night superstore, dodge endcaps,
+            scoop up battery boosts, and fight for first across three neon-lit laps.
+          </p>
+          <div class="store-racer-footer-cta">
+            <a class="store-racer-button" href="#race-panel">Launch race</a>
+            <a class="store-racer-button secondary" href="#gameplay-notes">Gameplay notes</a>
+          </div>
+          <ul class="store-racer-stats" aria-live="polite">
+            <li>
+              <span class="store-racer-stat-value" id="store-racer-rank">6th</span>
+              <span class="store-racer-stat-label">Current place</span>
+            </li>
+            <li>
+              <span class="store-racer-stat-value" id="store-racer-lap">1 / 3</span>
+              <span class="store-racer-stat-label">Lap</span>
+            </li>
+            <li>
+              <span class="store-racer-stat-value" id="store-racer-boost">70%</span>
+              <span class="store-racer-stat-label">Boost meter</span>
+            </li>
+            <li>
+              <span class="store-racer-stat-value" id="store-racer-timer">75.0s</span>
+              <span class="store-racer-stat-label">Race clock</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="store-racer-panel" id="race-panel">
+          <div class="store-racer-canvas-wrap">
+            <canvas
+              id="store-racer-canvas"
+              width="560"
+              height="720"
+              aria-label="Store Cart Sprint touch-friendly racing game"
+            ></canvas>
+            <div class="store-racer-overlay" id="store-racer-overlay">
+              <div class="store-racer-overlay-card">
+                <h2 id="store-racer-overlay-title">Ready for the night shift?</h2>
+                <p id="store-racer-overlay-copy">
+                  Swipe or tap left and right to switch aisles. Hold boost when your meter is
+                  charged and finish the three-lap run ahead of the other carts.
+                </p>
+                <button class="store-racer-button" id="store-racer-start" type="button">
+                  Start race
+                </button>
+                <p class="store-racer-hint">
+                  Keyboard support: A / D or arrow keys to steer, space to boost.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="store-racer-mobile-controls">
+            <button class="store-racer-control" data-control="left" type="button">Left</button>
+            <button class="store-racer-control boost" data-control="boost" type="button">Boost</button>
+            <button class="store-racer-control" data-control="right" type="button">Right</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="store-racer-content" id="gameplay-notes">
+    <div class="store-racer-shell">
+      <h2 class="store-racer-section-title">Arcade loop</h2>
+      <p class="store-racer-section-copy">
+        This prototype is tuned for mobile touch screens, but it keeps the arcade energy of a
+        kart racer: rivals push pace over three laps, pickups refill your battery meter, and
+        collisions with displays or floor signs drain momentum until you recover.
+      </p>
+
+      <div class="store-racer-cards">
+        <article class="store-racer-card">
+          <h3>How to play</h3>
+          <ul>
+            <li>Move across four aisles to line up clean passes.</li>
+            <li>Grab battery packs for extra boost energy.</li>
+            <li>Avoid checkout signs, displays, and produce spills.</li>
+          </ul>
+        </article>
+
+        <article class="store-racer-card">
+          <h3>What feels kart-like</h3>
+          <ul>
+            <li>Three-lap structure with live race position tracking.</li>
+            <li>Boost management that rewards timing instead of button mashing.</li>
+            <li>Distinct rivals with pace variance and lane changes.</li>
+          </ul>
+        </article>
+
+        <article class="store-racer-card">
+          <h3>iOS direction</h3>
+          <p>
+            The game runs as a browser prototype today, and its systems map cleanly to a native
+            iOS build in SpriteKit or Unity if you want to keep expanding the concept.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+</div>
