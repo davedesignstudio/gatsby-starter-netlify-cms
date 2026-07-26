@@ -1,0 +1,19 @@
+{
+  "name": "Cart Dash: After Hours",
+  "short_name": "Cart Dash",
+  "description": "Race the aisles and stock the community pantry.",
+  "id": "/",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17251d",
+  "theme_color": "#17251d",
+  "icons": [
+    {
+      "src": "images/cart-dash-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
