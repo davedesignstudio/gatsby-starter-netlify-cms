@@ -3,6 +3,7 @@ import SpriteKit
 final class CartRacer: SKNode {
     let racerName: String
     let isPlayer: Bool
+    let playerSlot: Int
     let bodyColor: SKColor
     let cartColor: SKColor
 
@@ -26,9 +27,10 @@ final class CartRacer: SKNode {
     private let shadowNode = SKShapeNode(ellipseOf: CGSize(width: 54, height: 28))
     private let wheels: [SKShapeNode]
 
-    init(name: String, isPlayer: Bool, bodyColor: SKColor, cartColor: SKColor) {
+    init(name: String, isPlayer: Bool, playerSlot: Int = 0, bodyColor: SKColor, cartColor: SKColor) {
         self.racerName = name
         self.isPlayer = isPlayer
+        self.playerSlot = playerSlot
         self.bodyColor = bodyColor
         self.cartColor = cartColor
 
@@ -101,11 +103,12 @@ final class CartRacer: SKNode {
         }
 
         if isPlayer {
-            let arrow = SKLabelNode(text: "▼")
-            arrow.fontSize = 14
-            arrow.fontColor = .yellow
-            arrow.position = CGPoint(x: 0, y: 48)
-            cartNode.addChild(arrow)
+            let marker = SKLabelNode(text: playerSlot == 0 ? "P1" : "P2")
+            marker.fontName = "AvenirNext-Heavy"
+            marker.fontSize = 11
+            marker.fontColor = playerSlot == 0 ? .yellow : .cyan
+            marker.position = CGPoint(x: 0, y: 48)
+            cartNode.addChild(marker)
         }
 
         cartNode.zPosition = 1

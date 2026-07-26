@@ -17,8 +17,12 @@
 		A10000010000000000000008 /* InputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000008 /* InputManager.swift */; };
 		A10000010000000000000009 /* PowerUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000009 /* PowerUpType.swift */; };
 		A10000010000000000000010 /* RaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000010 /* RaceState.swift */; };
-		A10000010000000000000011 /* TrackLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000011 /* TrackLayout.swift */; };
+		A10000010000000000000011 /* TrackDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000011 /* TrackDefinition.swift */; };
 		A10000010000000000000012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000012 /* Assets.xcassets */; };
+		A10000010000000000000013 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000014 /* GameSettings.swift */; };
+		A10000010000000000000014 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000015 /* SoundManager.swift */; };
+		A10000010000000000000015 /* RaceScene3DController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000016 /* RaceScene3DController.swift */; };
+		A10000010000000000000016 /* SceneKitRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000017 /* SceneKitRaceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +36,13 @@
 		A20000010000000000000008 /* InputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputManager.swift; sourceTree = "<group>"; };
 		A20000010000000000000009 /* PowerUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpType.swift; sourceTree = "<group>"; };
 		A20000010000000000000010 /* RaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceState.swift; sourceTree = "<group>"; };
-		A20000010000000000000011 /* TrackLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayout.swift; sourceTree = "<group>"; };
+		A20000010000000000000011 /* TrackDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDefinition.swift; sourceTree = "<group>"; };
 		A20000010000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20000010000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000010000000000000014 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		A20000010000000000000015 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000016 /* RaceScene3DController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceScene3DController.swift; sourceTree = "<group>"; };
+		A20000010000000000000017 /* SceneKitRaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitRaceView.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* CartKart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CartKart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,6 +73,7 @@
 				A50000010000000000000006 /* Entities */,
 				A50000010000000000000007 /* Models */,
 				A50000010000000000000008 /* Systems */,
+				A50000010000000000000009 /* SceneKit */,
 				A20000010000000000000012 /* Assets.xcassets */,
 				A20000010000000000000013 /* Info.plist */,
 			);
@@ -111,7 +120,8 @@
 			children = (
 				A20000010000000000000009 /* PowerUpType.swift */,
 				A20000010000000000000010 /* RaceState.swift */,
-				A20000010000000000000011 /* TrackLayout.swift */,
+				A20000010000000000000011 /* TrackDefinition.swift */,
+				A20000010000000000000014 /* GameSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,8 +131,18 @@
 			children = (
 				A20000010000000000000007 /* AIController.swift */,
 				A20000010000000000000008 /* InputManager.swift */,
+				A20000010000000000000015 /* SoundManager.swift */,
 			);
 			path = Systems;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000009 /* SceneKit */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000016 /* RaceScene3DController.swift */,
+				A20000010000000000000017 /* SceneKitRaceView.swift */,
+			);
+			path = SceneKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,7 +224,11 @@
 				A10000010000000000000008 /* InputManager.swift in Sources */,
 				A10000010000000000000009 /* PowerUpType.swift in Sources */,
 				A10000010000000000000010 /* RaceState.swift in Sources */,
-				A10000010000000000000011 /* TrackLayout.swift in Sources */,
+				A10000010000000000000011 /* TrackDefinition.swift in Sources */,
+				A10000010000000000000013 /* GameSettings.swift in Sources */,
+				A10000010000000000000014 /* SoundManager.swift in Sources */,
+				A10000010000000000000015 /* RaceScene3DController.swift in Sources */,
+				A10000010000000000000016 /* SceneKitRaceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

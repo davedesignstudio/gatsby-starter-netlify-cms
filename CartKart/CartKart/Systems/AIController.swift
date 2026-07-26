@@ -2,13 +2,14 @@ import SpriteKit
 
 final class AIController {
     let racer: CartRacer
-    private var targetCheckpoint = 0
+    private let track: TrackDefinition
     private var reactionDelay: TimeInterval
     private var nextDecision: TimeInterval = 0
     private var steerBias: CGFloat
 
-    init(racer: CartRacer, skill: CGFloat) {
+    init(racer: CartRacer, track: TrackDefinition, skill: CGFloat) {
         self.racer = racer
+        self.track = track
         reactionDelay = TimeInterval(0.08 + (1 - skill) * 0.12)
         steerBias = CGFloat.random(in: -0.08...0.08)
         racer.maxSpeed *= 0.85 + skill * 0.2
@@ -51,16 +52,10 @@ final class AIController {
     private var lastDrift = false
 
     private func checkpointTarget(for racer: CartRacer) -> CGPoint {
-        let checkpoints: [CGPoint] = [
-            CGPoint(x: 0, y: -360),
-            CGPoint(x: 560, y: 0),
-            CGPoint(x: 0, y: 360),
-            CGPoint(x: -560, y: 0)
-        ]
+        let checkpoints = track.checkpoints
         let index = racer.checkpointIndex % checkpoints.count
         var target = checkpoints[index]
 
-        // Lane offset so AI racers don't stack perfectly.
         let lane = CGFloat(racer.racePosition) * 28 - 42
         switch index {
         case 0: target.x += lane
@@ -69,8 +64,8 @@ final class AIController {
         default: target.y -= lane
         }
 
-        if !TrackLayout.isOnTrack(target) {
-            target = TrackLayout.nearestTrackPoint(from: target)
+        if !track.isOnTrack(target) {
+            target = track.nearestTrackPoint(from: target)
         }
         return target
     }

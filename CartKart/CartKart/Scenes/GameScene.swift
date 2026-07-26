@@ -1,10 +1,12 @@
 import SpriteKit
 
 final class GameScene: SKScene, SKPhysicsContactDelegate {
+    private let track: TrackDefinition
+    private let multiplayer: Bool
     private var racers: [CartRacer] = []
     private var aiControllers: [AIController] = []
-    private var player: CartRacer!
-    private let input = InputManager()
+    private var humanPlayers: [CartRacer] = []
+    private var input: InputManager
     private var cameraNode = SKCameraNode()
     private var hud = SKNode()
     private var raceTime: TimeInterval = 0
@@ -20,6 +22,20 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private let itemLabel = SKLabelNode(text: "No Item")
     private let countdownLabel = SKLabelNode(text: "3")
 
+    init(size: CGSize, track: TrackDefinition = GameSettings.shared.selectedTrack, multiplayer: Bool = GameSettings.shared.playerMode == .localMultiplayer) {
+        self.track = track
+        self.multiplayer = multiplayer
+        self.input = InputManager(multiplayer: multiplayer)
+        super.init(size: size)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.track = .grocery
+        self.multiplayer = false
+        self.input = InputManager(multiplayer: false)
+        super.init(coder: aDecoder)
+    }
+
     override func didMove(to view: SKView) {
         backgroundColor = SKColor(red: 0.12, green: 0.13, blue: 0.16, alpha: 1)
         physicsWorld.gravity = .zero
@@ -34,23 +50,24 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func buildTrack() {
-        let floor = SKShapeNode(rect: TrackLayout.outerRect, cornerRadius: 12)
-        floor.fillColor = SKColor(red: 0.78, green: 0.75, blue: 0.7, alpha: 1)
-        floor.strokeColor = SKColor(red: 0.55, green: 0.52, blue: 0.48, alpha: 1)
+        let floor = SKShapeNode(rect: track.outerRect, cornerRadius: 12)
+        floor.fillColor = track.floorColor
+        floor.strokeColor = track.floorColor.darker(by: 0.2)
         floor.lineWidth = 6
         floor.zPosition = -10
         addChild(floor)
 
-        let island = SKShapeNode(rect: TrackLayout.innerRect, cornerRadius: 10)
-        island.fillColor = SKColor(red: 0.65, green: 0.62, blue: 0.58, alpha: 1)
-        island.strokeColor = SKColor(red: 0.45, green: 0.42, blue: 0.38, alpha: 1)
+        let island = SKShapeNode(rect: track.innerRect, cornerRadius: 10)
+        island.fillColor = track.islandColor
+        island.strokeColor = track.islandColor.darker(by: 0.15)
         island.lineWidth = 4
         island.zPosition = -9
         addChild(island)
 
-        addShelf(at: TrackLayout.innerRect, label: "DAIRY")
-        for shelf in TrackLayout.shelfObstacles {
-            addShelfBlock(shelf, label: ["CEREAL", "SOUP", "CHIPS", "PASTA", "COOKIES", "JUICE"].randomElement()!)
+        addShelf(at: track.innerRect, label: track.islandLabel)
+        for (index, shelf) in track.shelfObstacles.enumerated() {
+            let label = track.shelfLabels[index % track.shelfLabels.count]
+            addShelfBlock(shelf, label: label)
         }
 
         addWalls()
@@ -61,8 +78,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
     private func addShelf(at rect: CGRect, label: String) {
         let shelf = SKShapeNode(rect: rect, cornerRadius: 8)
-        shelf.fillColor = SKColor(red: 0.5, green: 0.35, blue: 0.2, alpha: 1)
-        shelf.strokeColor = SKColor(red: 0.35, green: 0.22, blue: 0.12, alpha: 1)
+        shelf.fillColor = track.shelfColor
+        shelf.strokeColor = track.shelfColor.darker(by: 0.15)
         shelf.lineWidth = 3
         shelf.zPosition = -5
         addChild(shelf)
@@ -101,7 +118,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func addWalls() {
-        let outer = TrackLayout.outerRect
+        let outer = track.outerRect
         let walls: [(CGPoint, CGSize)] = [
             (CGPoint(x: outer.midX, y: outer.maxY), CGSize(width: outer.width, height: 20)),
             (CGPoint(x: outer.midX, y: outer.minY), CGSize(width: outer.width, height: 20)),
@@ -120,7 +137,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(wall)
         }
 
-        let inner = TrackLayout.innerRect
+        let inner = track.innerRect
         let innerWalls: [(CGPoint, CGSize)] = [
             (CGPoint(x: inner.midX, y: inner.maxY), CGSize(width: inner.width, height: 16)),
             (CGPoint(x: inner.midX, y: inner.minY), CGSize(width: inner.width, height: 16)),
@@ -141,16 +158,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func addDecor() {
-        let colors: [SKColor] = [
-            SKColor(red: 0.9, green: 0.2, blue: 0.2, alpha: 1),
-            SKColor(red: 0.2, green: 0.6, blue: 0.95, alpha: 1),
-            SKColor(red: 0.95, green: 0.75, blue: 0.1, alpha: 1),
-            SKColor(red: 0.3, green: 0.8, blue: 0.4, alpha: 1)
-        ]
-
         for index in 0..<24 {
             let tile = SKShapeNode(rectOf: CGSize(width: 48, height: 48), cornerRadius: 4)
-            tile.fillColor = colors[index % colors.count].withAlphaComponent(0.18)
+            tile.fillColor = track.decorColors[index % track.decorColors.count].withAlphaComponent(0.18)
             tile.strokeColor = .clear
             let angle = CGFloat(index) / 24 * .pi * 2
             let radius: CGFloat = 420
@@ -161,7 +171,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func addItemBoxes() {
-        for point in TrackLayout.itemBoxPositions {
+        for point in track.itemBoxPositions {
             let box = SKShapeNode(rectOf: CGSize(width: 36, height: 36), cornerRadius: 6)
             box.fillColor = SKColor(red: 0.95, green: 0.55, blue: 0.1, alpha: 0.85)
             box.strokeColor = .white
@@ -200,7 +210,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         line.fillColor = .white
         line.strokeColor = .black
         line.lineWidth = 1
-        line.position = TrackLayout.startPosition
+        line.position = track.startPosition
         line.zRotation = .pi / 2
         line.zPosition = 0
         addChild(line)
@@ -215,26 +225,36 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func buildRacers() {
-        let configs: [(String, Bool, SKColor, SKColor, CGPoint, CGFloat)] = [
-            ("You", true, SKColor(red: 0.2, green: 0.55, blue: 0.95, alpha: 1), .lightGray, CGPoint(x: -40, y: -360), .pi / 2),
-            ("Rusty Ron", false, SKColor(red: 0.85, green: 0.25, blue: 0.2, alpha: 1), SKColor(red: 0.45, green: 0.45, blue: 0.48, alpha: 1), CGPoint(x: 40, y: -360), .pi / 2),
-            ("Cart Carl", false, SKColor(red: 0.25, green: 0.7, blue: 0.35, alpha: 1), .gray, CGPoint(x: -40, y: -400), .pi / 2),
-            ("Wheels Wendy", false, SKColor(red: 0.75, green: 0.35, blue: 0.85, alpha: 1), SKColor(red: 0.6, green: 0.6, blue: 0.62, alpha: 1), CGPoint(x: 40, y: -400), .pi / 2)
+        let configs: [(String, Bool, Int, SKColor, SKColor)] = [
+            ("You", true, 0, SKColor(red: 0.2, green: 0.55, blue: 0.95, alpha: 1), .lightGray),
+            ("Player 2", true, 1, SKColor(red: 0.95, green: 0.55, blue: 0.15, alpha: 1), .gray),
+            ("Rusty Ron", false, -1, SKColor(red: 0.85, green: 0.25, blue: 0.2, alpha: 1), SKColor(red: 0.45, green: 0.45, blue: 0.48, alpha: 1)),
+            ("Cart Carl", false, -1, SKColor(red: 0.25, green: 0.7, blue: 0.35, alpha: 1), .gray)
         ]
 
+        let humanCount = multiplayer ? 2 : 1
+
         for (index, config) in configs.enumerated() {
-            let racer = CartRacer(name: config.0, isPlayer: config.1, bodyColor: config.2, cartColor: config.3)
-            racer.position = config.4
-            racer.zRotation = config.5
+            let isHuman = index < humanCount
+            let racer = CartRacer(
+                name: isHuman ? (index == 0 ? "You" : "Player 2") : config.0,
+                isPlayer: isHuman,
+                playerSlot: isHuman ? config.2 : 0,
+                bodyColor: config.3,
+                cartColor: config.4
+            )
+            let grid = track.startGrid[index]
+            racer.position = grid.0
+            racer.zRotation = grid.1
             racer.zPosition = 10
             addChild(racer)
             racers.append(racer)
 
-            if config.1 {
-                player = racer
+            if isHuman {
+                humanPlayers.append(racer)
             } else {
                 let skill = CGFloat(0.55 + Double(index) * 0.12)
-                aiControllers.append(AIController(racer: racer, skill: skill))
+                aiControllers.append(AIController(racer: racer, track: track, skill: skill))
             }
         }
     }
@@ -242,7 +262,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private func setupCamera() {
         camera = cameraNode
         addChild(cameraNode)
-        cameraNode.position = player.position
+        if let first = humanPlayers.first {
+            cameraNode.position = first.position
+        }
     }
 
     private func setupHUD() {
@@ -282,10 +304,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func setupInput() {
-        hud.addChild(input.joystick)
-        hud.addChild(input.accelerateButton)
-        hud.addChild(input.driftButton)
-        hud.addChild(input.itemButton)
+        input.addToHUD(hud)
         input.layout(in: size)
     }
 
@@ -293,6 +312,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         countdownLabel.alpha = 1
         countdownLabel.text = "\(countdown)"
         countdownLabel.setScale(1.4)
+        SoundManager.shared.play(.countdown)
 
         let tick = SKAction.sequence([
             SKAction.run { [weak self] in
@@ -300,6 +320,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.countdown -= 1
                 if self.countdown > 0 {
                     self.countdownLabel.text = "\(self.countdown)"
+                    SoundManager.shared.play(.countdown)
                     self.countdownLabel.run(SKAction.sequence([
                         SKAction.scale(to: 1.6, duration: 0.1),
                         SKAction.scale(to: 1.0, duration: 0.25)
@@ -307,6 +328,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if self.countdown == 0 {
                     self.countdownLabel.text = "GO!"
                     self.countdownLabel.fontColor = SKColor(red: 0.3, green: 0.95, blue: 0.45, alpha: 1)
+                    SoundManager.shared.play(.go)
                 } else {
                     self.countdownLabel.run(SKAction.fadeOut(withDuration: 0.2))
                     self.raceStarted = true
@@ -339,47 +361,58 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
         updatePositions()
         updateHUD()
-        cameraNode.position = player.position
+        updateCamera()
+    }
+
+    private func updateCamera() {
+        if humanPlayers.count > 1 {
+            let x = humanPlayers.map(\.position.x).reduce(0, +) / CGFloat(humanPlayers.count)
+            let y = humanPlayers.map(\.position.y).reduce(0, +) / CGFloat(humanPlayers.count)
+            cameraNode.position = CGPoint(x: x, y: y)
+        } else if let player = humanPlayers.first {
+            cameraNode.position = player.position
+        }
     }
 
     private func updatePlayerInput() {
-        guard !player.finished else { return }
+        for player in humanPlayers where !player.finished {
+            let slot = player.playerSlot
+            let usedItem = player.applyInput(
+                steer: input.steer(for: slot),
+                accelerate: input.accelerate(for: slot),
+                brake: input.brake(for: slot),
+                drift: input.drift(for: slot),
+                useItem: input.consumeItemTap(for: slot)
+            )
 
-        let usedItem = player.applyInput(
-            steer: input.steer,
-            accelerate: input.accelerate,
-            brake: input.brake,
-            drift: input.drift,
-            useItem: input.consumeItemTap()
-        )
-
-        if let item = usedItem {
-            deployItem(item, from: player)
+            if let item = usedItem {
+                deployItem(item, from: player)
+            }
         }
     }
 
     private func keepOnTrack(_ racer: CartRacer) {
-        if !TrackLayout.isOnTrack(racer.position) {
-            racer.position = TrackLayout.nearestTrackPoint(from: racer.position)
+        if !track.isOnTrack(racer.position) {
+            racer.position = track.nearestTrackPoint(from: racer.position)
             racer.speed *= 0.6
+            if racer.isPlayer {
+                SoundManager.shared.play(.collision)
+            }
         }
     }
 
     private func updateCheckpoint(for racer: CartRacer) {
-        let checkpoints: [CGPoint] = [
-            CGPoint(x: 0, y: -360),
-            CGPoint(x: 560, y: 0),
-            CGPoint(x: 0, y: 360),
-            CGPoint(x: -560, y: 0)
-        ]
-
-        let target = checkpoints[racer.checkpointIndex % checkpoints.count]
+        let target = track.checkpoints[racer.checkpointIndex % track.checkpoints.count]
         let distance = hypot(racer.position.x - target.x, racer.position.y - target.y)
 
         if distance < 90 {
+            let previousLap = racer.lap
             racer.checkpointIndex += 1
-            if racer.checkpointIndex % checkpoints.count == 0 {
+            if racer.checkpointIndex % track.checkpoints.count == 0 {
                 racer.lap += 1
+                if racer.lap > previousLap && racer.lap < RaceState.totalLaps && racer.isPlayer {
+                    SoundManager.shared.play(.lapComplete)
+                }
                 if racer.lap >= RaceState.totalLaps && !racer.finished {
                     finishRacer(racer)
                 }
@@ -393,7 +426,12 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         racer.speed = 0
         finishOrder.append(racer)
 
-        if racer.isPlayer || finishOrder.count == racers.count {
+        if racer.isPlayer {
+            SoundManager.shared.play(.raceFinish)
+        }
+
+        let humansDone = humanPlayers.allSatisfy(\.finished)
+        if humansDone || finishOrder.count == racers.count {
             presentResults()
         }
     }
@@ -411,19 +449,19 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func distanceToNextCheckpoint(_ racer: CartRacer) -> CGFloat {
-        let checkpoints: [CGPoint] = [
-            CGPoint(x: 0, y: -360),
-            CGPoint(x: 560, y: 0),
-            CGPoint(x: 0, y: 360),
-            CGPoint(x: -560, y: 0)
-        ]
-        let target = checkpoints[racer.checkpointIndex % checkpoints.count]
+        let target = track.checkpoints[racer.checkpointIndex % track.checkpoints.count]
         return hypot(racer.position.x - target.x, racer.position.y - target.y)
     }
 
     private func updateHUD() {
+        guard let player = humanPlayers.first else { return }
         lapLabel.text = "Lap \(min(player.lap + 1, RaceState.totalLaps))/\(RaceState.totalLaps)"
-        positionLabel.text = ordinal(player.racePosition)
+        if multiplayer, humanPlayers.count > 1 {
+            let p2 = humanPlayers[1]
+            positionLabel.text = "P1 \(ordinal(player.racePosition)) • P2 \(ordinal(p2.racePosition))"
+        } else {
+            positionLabel.text = ordinal(player.racePosition)
+        }
         timerLabel.text = formatTime(raceTime)
         if let item = player.heldPowerUp {
             itemLabel.text = "Item: \(item.icon) \(item.displayName)"
@@ -466,6 +504,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let boxNode = boxBody.node, let racerNode = racerBody.node as? CartRacer else { return }
 
         racerNode.collectPowerUp(PowerUpType.random())
+        SoundManager.shared.play(.itemPickup)
         boxNode.removeFromParent()
         itemBoxes.removeAll { $0 == boxNode }
         respawnItemBox(after: 4.0)
@@ -476,7 +515,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             SKAction.wait(forDuration: delay),
             SKAction.run { [weak self] in
                 guard let self else { return }
-                let point = TrackLayout.itemBoxPositions.randomElement() ?? .zero
+                let point = self.track.itemBoxPositions.randomElement() ?? .zero
                 let box = SKShapeNode(rectOf: CGSize(width: 36, height: 36), cornerRadius: 6)
                 box.fillColor = SKColor(red: 0.95, green: 0.55, blue: 0.1, alpha: 0.85)
                 box.strokeColor = .white
@@ -511,11 +550,14 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if hazard.name == "banana" {
             racer.applySpin()
+            SoundManager.shared.play(.spin)
         } else if hazard.name == "milk" {
             racer.applySlip()
+            SoundManager.shared.play(.spin)
         } else if hazard.name == "cans" {
             racer.applySpin(duration: 0.6)
             racer.speed *= 0.7
+            SoundManager.shared.play(.collision)
         }
 
         hazard.removeFromParent()
@@ -528,6 +570,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             spawnBanana(at: CGPoint(x: racer.position.x - cos(racer.zRotation) * 40, y: racer.position.y - sin(racer.zRotation) * 40))
         case .couponBoost:
             racer.applyBoost()
+            SoundManager.shared.play(.boost)
             showFloatingText("BOOST!", at: racer.position, color: .green)
         case .spilledMilk:
             spawnMilk(at: CGPoint(x: racer.position.x - cos(racer.zRotation) * 50, y: racer.position.y - sin(racer.zRotation) * 50))
@@ -615,7 +658,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
     private func presentResults() {
         guard let view else { return }
-        let results = ResultsScene(size: size)
+        let results = ResultsScene(size: size, track: track, multiplayer: multiplayer)
         results.scaleMode = .resizeFill
         results.finishOrder = finishOrder
         results.raceTime = raceTime

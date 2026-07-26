@@ -3,6 +3,20 @@ import SpriteKit
 final class ResultsScene: SKScene {
     var finishOrder: [CartRacer] = []
     var raceTime: TimeInterval = 0
+    private let track: TrackDefinition
+    private let multiplayer: Bool
+
+    init(size: CGSize, track: TrackDefinition = GameSettings.shared.selectedTrack, multiplayer: Bool = GameSettings.shared.playerMode == .localMultiplayer) {
+        self.track = track
+        self.multiplayer = multiplayer
+        super.init(size: size)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.track = .grocery
+        self.multiplayer = false
+        super.init(coder: aDecoder)
+    }
 
     override func didMove(to view: SKView) {
         backgroundColor = SKColor(red: 0.06, green: 0.08, blue: 0.12, alpha: 1)
@@ -17,13 +31,20 @@ final class ResultsScene: SKScene {
         title.position = CGPoint(x: 0, y: size.height * 0.32)
         addChild(title)
 
-        let playerPosition = finishOrder.firstIndex(where: { $0.isPlayer }).map { $0 + 1 } ?? finishOrder.count
+        let humanRacers = finishOrder.filter(\.isPlayer)
+        let playerPosition = humanRacers.first.map { finishOrder.firstIndex(of: $0).map { $0 + 1 } ?? finishOrder.count } ?? finishOrder.count
         let headline: String
-        switch playerPosition {
-        case 1: headline = "🏆 Aisle Champion!"
-        case 2: headline = "🥈 Runner-up Roller!"
-        case 3: headline = "🥉 Third Wheel!"
-        default: headline = "🛒 Better luck next shift!"
+        if multiplayer, humanRacers.count > 1 {
+            let p1Pos = finishOrder.firstIndex(of: humanRacers[0]).map { $0 + 1 } ?? 4
+            let p2Pos = finishOrder.firstIndex(of: humanRacers[1]).map { $0 + 1 } ?? 4
+            headline = "P1: \(ordinal(p1Pos)) • P2: \(ordinal(p2Pos))"
+        } else {
+            switch playerPosition {
+            case 1: headline = "🏆 Aisle Champion!"
+            case 2: headline = "🥈 Runner-up Roller!"
+            case 3: headline = "🥉 Third Wheel!"
+            default: headline = "🛒 Better luck next shift!"
+            }
         }
 
         let result = SKLabelNode(text: headline)
@@ -142,9 +163,13 @@ final class ResultsScene: SKScene {
             menu.scaleMode = .resizeFill
             view?.presentScene(menu, transition: SKTransition.crossFade(withDuration: 0.5))
         } else if nodes.contains(where: { $0.name == "retry" }) {
-            let game = GameScene(size: size)
-            game.scaleMode = .resizeFill
-            view?.presentScene(game, transition: SKTransition.doorsOpenVertical(withDuration: 0.5))
+            if GameSettings.shared.renderMode == .sceneKit3D {
+                NotificationCenter.default.post(name: .cartKartRenderModeChanged, object: nil)
+            } else {
+                let game = GameScene(size: size, track: track, multiplayer: multiplayer)
+                game.scaleMode = .resizeFill
+                view?.presentScene(game, transition: SKTransition.doorsOpenVertical(withDuration: 0.5))
+            }
         }
     }
 }
