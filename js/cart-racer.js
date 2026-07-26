@@ -8,7 +8,7 @@
 
   var ctx = canvas.getContext("2d");
   var startOverlay = document.getElementById("cart-game-start");
-  var startButton = document.getElementById("cart-game-start-button");
+  var initialOverlayHtml = startOverlay ? startOverlay.innerHTML : "";
   var resetButton = document.getElementById("cart-game-reset");
   var controlButtons = document.querySelectorAll("[data-control]");
   var WIDTH = 960;
@@ -17,9 +17,9 @@
   var ROAD_RIGHT = 805;
   var PLAYER_Y = 425;
   var departments = [
-    { name: "Produce", at: 650 },
-    { name: "Bakery", at: 1350 },
-    { name: "Frozen", at: 2100 }
+    { name: "Produce", at: 4200 },
+    { name: "Bakery", at: 9300 },
+    { name: "Frozen", at: 15000 }
   ];
   var keys = {};
   var touchControls = { left: false, right: false, boost: false };
@@ -58,7 +58,9 @@
       particles: []
     };
     if (startOverlay) {
+      startOverlay.innerHTML = initialOverlayHtml;
       startOverlay.classList.remove("is-hidden");
+      bindStartButton();
     }
   }
 
@@ -83,7 +85,14 @@
         "<p>Score: " + Math.floor(game.score) + " - Distance: " +
         Math.floor(game.distance) + " ft - Combo: x" + game.combo.toFixed(1) +
         "</p><button class=\"cart-game-button\" id=\"cart-game-start-button\" type=\"button\">Race again</button></div>";
-      document.getElementById("cart-game-start-button").addEventListener("click", startGame);
+      bindStartButton();
+    }
+  }
+
+  function bindStartButton() {
+    var button = document.getElementById("cart-game-start-button");
+    if (button) {
+      button.addEventListener("click", startGame);
     }
   }
 
@@ -550,7 +559,10 @@
 
   function drawHud() {
     var nextDept = departments[game.departmentIndex];
-    var progress = nextDept ? Math.min(1, game.distance / nextDept.at) : 1;
+    var previousDeptAt = game.departmentIndex === 0 ? 0 : departments[game.departmentIndex - 1].at;
+    var progress = nextDept ?
+      Math.min(1, (game.distance - previousDeptAt) / (nextDept.at - previousDeptAt)) :
+      1;
 
     ctx.fillStyle = "rgba(5, 11, 17, 0.72)";
     roundedRect(22, 18, 310, 112, 16);
@@ -683,9 +695,6 @@
     });
   });
 
-  if (startButton) {
-    startButton.addEventListener("click", startGame);
-  }
   if (resetButton) {
     resetButton.addEventListener("click", startGame);
   }
