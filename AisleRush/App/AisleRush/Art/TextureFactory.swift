@@ -16,7 +16,7 @@ enum TextureFactory {
 
     static func texture(_ key: String, size: CGSize, draw: (CGContext, CGSize) -> Void) -> SKTexture {
         if let cached = cache[key] { return cached }
-        let texture = SKTexture(image: image(key, size: size, draw: draw))
+        let texture = SKTexture(image: render(size: size, draw: draw))
         texture.filteringMode = .linear
         cache[key] = texture
         return texture
@@ -24,15 +24,26 @@ enum TextureFactory {
 
     static func image(_ key: String, size: CGSize, draw: (CGContext, CGSize) -> Void) -> UIImage {
         if let cached = imageCache[key] { return cached }
+        let rendered = render(size: size, draw: draw)
+        imageCache[key] = rendered
+        return rendered
+    }
+
+    /// Renders without caching the intermediate image, for callers that only
+    /// want the texture.
+    private static func render(size: CGSize, draw: (CGContext, CGSize) -> Void) -> UIImage {
         let format = UIGraphicsImageRendererFormat.default()
         format.opaque = false
         format.scale = 1
         let renderer = UIGraphicsImageRenderer(size: size, format: format)
-        let rendered = renderer.image { context in
+        return renderer.image { context in
+            // UIGraphicsImageRenderer hands over a context flipped to match
+            // UIKit. Every drawing routine below is written in Core Graphics'
+            // own y-up convention, so put it back.
+            context.cgContext.translateBy(x: 0, y: size.height)
+            context.cgContext.scaleBy(x: 1, y: -1)
             draw(context.cgContext, size)
         }
-        imageCache[key] = rendered
-        return rendered
     }
 
     static func purgeCache() {
@@ -473,6 +484,11 @@ enum TextureFactory {
             let rect = CGRect(origin: .zero, size: size).insetBy(dx: size.width * 0.16, dy: size.height * 0.16)
             context.addPath(CGPath(roundedRect: rect, cornerWidth: 12, cornerHeight: 12, transform: nil))
             context.fillPath()
+
+            // UIKit text drawing expects the flipped context we just undid.
+            context.saveGState()
+            context.translateBy(x: 0, y: size.height)
+            context.scaleBy(x: 1, y: -1)
             let text = "?" as NSString
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: size.height * 0.5, weight: .heavy),
@@ -483,6 +499,7 @@ enum TextureFactory {
                 at: CGPoint(x: (size.width - bounds.width) / 2, y: (size.height - bounds.height) / 2),
                 withAttributes: attributes
             )
+            context.restoreGState()
         }
     }
 
@@ -631,7 +648,8 @@ enum TextureFactory {
     private static func drawStar(in context: CGContext, centre: CGPoint, radius: CGFloat, color: UIColor) {
         let path = CGMutablePath()
         for index in 0..<10 {
-            let angle = CGFloat(index) * .pi / 5 - .pi / 2
+            // Starting a quarter turn up puts a point at the top, y-up.
+            let angle = CGFloat(index) * .pi / 5 + .pi / 2
             let length = index % 2 == 0 ? radius : radius * 0.45
             let point = CGPoint(x: centre.x + cos(angle) * length, y: centre.y + sin(angle) * length)
             if index == 0 { path.move(to: point) } else { path.addLine(to: point) }

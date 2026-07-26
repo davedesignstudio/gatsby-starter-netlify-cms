@@ -87,6 +87,14 @@ final class GameFlow: ObservableObject {
         if next != .race {
             Audio.shared.stopEngineLoop()
         }
+        // Let go of the finished race once we are past the results, otherwise
+        // its scene graph stays resident behind the menus.
+        switch next {
+        case .race, .results:
+            break
+        default:
+            session = nil
+        }
         screen = next
     }
 
@@ -149,8 +157,12 @@ final class GameFlow: ObservableObject {
             entrants: entrants,
             settings: settings
         )
-        newSession.onComplete = { [weak self] results in
-            self?.finish(results: results, session: newSession)
+        // Both captures must be weak: the session owns this closure, so a
+        // strong capture of it would keep the whole scene graph alive for the
+        // life of the app.
+        newSession.onComplete = { [weak self, weak newSession] results in
+            guard let self, let newSession else { return }
+            self.finish(results: results, session: newSession)
         }
         session = newSession
         outcome = nil

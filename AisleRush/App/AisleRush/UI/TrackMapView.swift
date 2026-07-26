@@ -36,10 +36,17 @@ struct TrackMapView: View {
         Canvas { context, size in
             let layout = TrackMapLayout(track: track, in: CGRect(origin: .zero, size: size), inset: lineWidth)
 
+            // The centreline is sampled every metre, which is hundreds of
+            // segments the size of a postage stamp cannot show. In the race
+            // HUD this redraws twenty times a second, so stride it.
+            let count = track.sampleCount
+            let stride = max(1, count / 90)
             var path = Path()
-            for index in 0...track.sampleCount {
-                let point = layout.map(track.centerline[index % track.sampleCount])
+            var index = 0
+            while index < count {
+                let point = layout.map(track.centerline[index])
                 if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+                index += stride
             }
             path.closeSubpath()
 

@@ -41,6 +41,7 @@ final class Audio {
     private var rattleBuffer: AVAudioPCMBuffer?
     private var isRunning = false
     private var rattleActive = false
+    private var observers: [NSObjectProtocol] = []
 
     private init() {}
 
@@ -78,13 +79,59 @@ final class Audio {
 
     private func configureSession() {
         let session = AVAudioSession.sharedInstance()
-        // Ambient: a racing game should never stop somebody's podcast.
-        try? session.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+        // Ambient already mixes with other audio, and a racing game should
+        // never stop somebody's podcast. Passing .mixWithOthers here would
+        // throw: that option is only valid for playback categories.
+        try? session.setCategory(.ambient, mode: .default)
         try? session.setActive(true)
+
+        // A phone call, Siri or a route change stops the engine. Without this
+        // the game would be silent for the rest of the launch.
+        let centre = NotificationCenter.default
+        observers.append(centre.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: session,
+            queue: .main
+        ) { [weak self] notification in
+            self?.handleInterruption(notification)
+        })
+        observers.append(centre.addObserver(
+            forName: .AVAudioEngineConfigurationChange,
+            object: engine,
+            queue: .main
+        ) { [weak self] _ in
+            self?.restart()
+        })
+    }
+
+    private func handleInterruption(_ notification: Notification) {
+        guard let raw = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: raw) else { return }
+        switch type {
+        case .began:
+            rattleActive = false
+            engine.pause()
+        case .ended:
+            restart()
+        @unknown default:
+            break
+        }
+    }
+
+    private func restart() {
+        guard isRunning else { return }
+        try? AVAudioSession.sharedInstance().setActive(true)
+        rattleActive = false
+        do {
+            try engine.start()
+            for player in players { player.play() }
+        } catch {
+            // Nothing sensible to do; the next interruption may recover it.
+        }
     }
 
     func play(_ effect: Effect, muffled: Bool = false) {
-        guard isEnabled, isRunning, let buffer = buffers[effect], !players.isEmpty else { return }
+        guard isEnabled, isRunning, engine.isRunning, let buffer = buffers[effect], !players.isEmpty else { return }
         let player = players[nextPlayer % players.count]
         nextPlayer += 1
         player.volume = muffled ? 0.22 : 0.85
@@ -94,7 +141,7 @@ final class Audio {
 
     /// The rolling rattle of casters, pitched by how fast the cart is going.
     func updateEngineLoop(speed: Double, topSpeed: Double, boosting: Bool) {
-        guard isEnabled, isRunning, let rattleBuffer else { return }
+        guard isEnabled, isRunning, engine.isRunning, let rattleBuffer else { return }
         guard speed > 0.6 else { return stopEngineLoop() }
 
         if !rattleActive {

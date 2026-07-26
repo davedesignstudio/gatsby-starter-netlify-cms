@@ -9,17 +9,20 @@ final class TiltController {
     private var neutralRoll: Double?
     /// Tilt beyond this many radians counts as full lock.
     private let fullLock: Double = 0.42
+    /// Which way round the device is. Resolved once at start rather than on
+    /// every one of sixty callbacks a second.
+    private var gravitySign: Double = 1
 
     func start(onUpdate: @escaping (Double) -> Void) {
         guard motion.isDeviceMotionAvailable, !motion.isDeviceMotionActive else { return }
+        // Landscape: the axis that tips left and right is gravity.y, and its
+        // sign flips with which way up the device is being held.
+        gravitySign = UIApplication.shared.landscapeOrientation == .landscapeLeft ? 1 : -1
         motion.deviceMotionUpdateInterval = 1.0 / 60.0
         motion.startDeviceMotionUpdates(to: .main) { [weak self] data, _ in
             guard let self, let data else { return }
 
-            // Landscape: the axis that tips left and right is gravity.y, and
-            // its sign flips with the home-button side.
-            let orientation = UIApplication.shared.landscapeOrientation
-            let raw = orientation == .landscapeLeft ? data.gravity.y : -data.gravity.y
+            let raw = data.gravity.y * self.gravitySign
             let angle = asin(max(-1, min(1, raw)))
 
             if self.neutralRoll == nil { self.neutralRoll = angle }

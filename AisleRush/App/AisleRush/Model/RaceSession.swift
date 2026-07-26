@@ -17,7 +17,12 @@ final class RaceSession: ObservableObject {
     @Published var isPaused = false {
         didSet {
             scene.isPaused = isPaused
-            if isPaused { Audio.shared.stopEngineLoop() }
+            if isPaused {
+                // Any finger still down when the pad stops taking touches
+                // would otherwise stay held through the pause.
+                input.releaseAll()
+                Audio.shared.stopEngineLoop()
+            }
         }
     }
 
@@ -37,7 +42,9 @@ final class RaceSession: ObservableObject {
         self.config = config
         self.entrants = entrants
         self.settings = settings
-        track = Track(definition: definition)
+        // The selection screen already baked this track; baking it again is a
+        // visible hitch on the way into a race.
+        track = TrackCache.shared.track(id: definition.id)
         simulation = RaceSimulation(track: track, config: config, entrants: entrants)
         if settings.steering == .tilt {
             tilt.start { [weak self] value in
@@ -56,8 +63,15 @@ final class RaceSession: ObservableObject {
         guard !hasCompleted else { return }
         hasCompleted = true
         tilt.stop()
+        input.releaseAll()
         Audio.shared.stopEngineLoop()
-        onComplete?(results)
+        // This is called from inside the scene's update loop. Handing control
+        // to SwiftUI here would tear down the hosting view while its own
+        // render callback is still on the stack, so wait for the next turn.
+        let handler = onComplete
+        DispatchQueue.main.async {
+            handler?(results)
+        }
     }
 
     /// The player's own cart, for garage-style readouts on the pause screen.

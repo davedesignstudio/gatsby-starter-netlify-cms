@@ -14,6 +14,17 @@ final class RaceInput {
     var fire = false
     var aimBackward = false
 
+    /// Drops every held control. Used when the pad is taken away mid-touch:
+    /// pausing, finishing, or the system cancelling a gesture.
+    func releaseAll() {
+        steer = 0
+        throttle = 0
+        brake = false
+        drift = false
+        fire = false
+        aimBackward = false
+    }
+
     func control(autoAccelerate: Bool, duringCountdown: Bool) -> ControlInput {
         // Auto-accelerate must not apply before the lights change: holding the
         // throttle for the whole countdown floods the wheels, and the player
@@ -50,15 +61,6 @@ struct HUDSnapshot: Equatable {
     var countdown: Int?
     var showGo = false
     var mishap: CartMishap = .none
-    var leaderboard: [LeaderboardRow] = []
-
-    struct LeaderboardRow: Equatable, Identifiable {
-        var id: Int
-        var place: Int
-        var name: String
-        var isPlayer: Bool
-        var gap: Double
-    }
 }
 
 final class RaceScene: SKScene {
@@ -76,6 +78,11 @@ final class RaceScene: SKScene {
     private var projectileNodes: [Int: SKSpriteNode] = [:]
     private var dropNodes: [Int: SKSpriteNode] = [:]
     private var crateNodes: [SKSpriteNode] = []
+    private var propNodes: [SKSpriteNode] = []
+    /// Last applied up/down state, so the fade actions are not restarted on
+    /// every frame while they are still running.
+    private var crateIsDown: [Bool] = []
+    private var propIsDown: [Bool] = []
 
     private var lastUpdate: TimeInterval?
     private var accumulator: Double = 0
@@ -125,6 +132,9 @@ final class RaceScene: SKScene {
         effectNode.zPosition = 30
         worldNode.addChild(effectNode)
         crateNodes = scenery.crates
+        propNodes = scenery.props
+        crateIsDown = [Bool](repeating: false, count: scenery.crates.count)
+        propIsDown = [Bool](repeating: false, count: scenery.props.count)
 
         for cart in simulation.carts {
             let node = CartNode(cart: cart, isPlayer: cart.id == simulation.playerCartID)
@@ -222,7 +232,6 @@ final class RaceScene: SKScene {
             case .itemBoxCollected(let cartID):
                 Audio.shared.play(.pickup, muffled: cartID != playerID)
                 if cartID == playerID { Haptics.impact(.light) }
-                refreshCrateVisibility()
 
             case .itemAwarded(let cartID, _):
                 if cartID == playerID { Haptics.selection() }
@@ -301,7 +310,7 @@ final class RaceScene: SKScene {
 
         syncProjectiles()
         syncDrops()
-        refreshCrateVisibility()
+        refreshFittings()
         fadeSkidMarks(dt: dt)
     }
 
@@ -358,18 +367,31 @@ final class RaceScene: SKScene {
         }
     }
 
-    private func refreshCrateVisibility() {
-        for (index, node) in crateNodes.enumerated() where index < simulation.itemBoxCooldowns.count {
+    /// Crates fade out while they respawn and props lie scattered while they
+    /// are on cooldown, so what you see matches what you can hit.
+    private func refreshFittings() {
+        for index in crateNodes.indices where index < simulation.itemBoxCooldowns.count {
+            let node = crateNodes[index]
             let down = simulation.itemBoxCooldowns[index] > 0
-            let wanted: CGFloat = down ? 0.18 : 1
-            if abs(node.alpha - wanted) > 0.01 {
+            if down != crateIsDown[index] {
+                crateIsDown[index] = down
                 node.removeAllActions()
-                node.run(.fadeAlpha(to: wanted, duration: 0.18))
-                node.setScale(down ? 0.7 : 1)
+                node.run(.fadeAlpha(to: down ? 0.15 : 1, duration: 0.2))
+                node.run(.scale(to: down ? 0.6 : 1, duration: 0.2))
             }
             if !down {
                 node.zRotation += 0.01
             }
+        }
+
+        for index in propNodes.indices where index < simulation.propCooldowns.count {
+            let down = simulation.propCooldowns[index] > 0
+            guard down != propIsDown[index] else { continue }
+            propIsDown[index] = down
+            let node = propNodes[index]
+            node.removeAllActions()
+            node.run(.fadeAlpha(to: down ? 0.35 : 1, duration: down ? 0.12 : 0.3))
+            node.run(.scale(to: down ? 0.72 : 1, duration: down ? 0.12 : 0.3))
         }
     }
 
@@ -515,17 +537,6 @@ final class RaceScene: SKScene {
         snapshot.mishap = player.mishap
         if case .countdown(let remaining) = simulation.phase {
             snapshot.countdown = max(1, Int(ceil(remaining - 0.4)))
-        }
-
-        snapshot.leaderboard = simulation.standings.prefix(8).enumerated().compactMap { offset, id in
-            guard let cart = simulation.cart(withID: id) else { return nil }
-            return HUDSnapshot.LeaderboardRow(
-                id: id,
-                place: offset + 1,
-                name: cart.setup.character.name,
-                isPlayer: cart.isPlayer,
-                gap: (player.totalDistance - cart.totalDistance) / max(player.stats.topSpeed, 1)
-            )
         }
 
         session.hud = snapshot

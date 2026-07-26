@@ -5,6 +5,7 @@ import AisleRushCore
 struct RaceView: View {
     @ObservedObject var session: RaceSession
     @EnvironmentObject private var settings: GameSettings
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -14,6 +15,10 @@ struct RaceView: View {
                 debugOptions: []
             )
             .ignoresSafeArea()
+            // Restarting builds a new session and a new scene in the same
+            // position in the view tree; the id forces SpriteView to present
+            // the new one rather than update in place.
+            .id(ObjectIdentifier(session))
 
             RaceHUDView(hud: session.hud, track: session.track, simulation: session.simulation)
                 .allowsHitTesting(false)
@@ -39,6 +44,18 @@ struct RaceView: View {
         }
         .animation(.easeInOut(duration: 0.2), value: session.isPaused)
         .statusBarHidden()
+        // The controls sit right on the home indicator; make the system wait
+        // for a second swipe before it takes one.
+        .defersSystemGestures(on: .bottom)
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active {
+                session.isPaused = true
+            } else {
+                // SpriteKit clears isPaused itself on activation, so put the
+                // pause back if the player left the game paused.
+                session.scene.isPaused = session.isPaused
+            }
+        }
     }
 
     private var pauseButton: some View {

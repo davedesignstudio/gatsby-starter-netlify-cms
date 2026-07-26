@@ -5,7 +5,7 @@ struct ResultsView: View {
     let outcome: RaceOutcome
 
     @EnvironmentObject private var flow: GameFlow
-    @State private var revealed = 0
+    @State private var hasAppeared = false
 
     var body: some View {
         ZStack {
@@ -24,7 +24,9 @@ struct ResultsView: View {
             .padding(.horizontal, 28)
             .padding(.vertical, 16)
         }
-        .onAppear(perform: revealRows)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.35)) { hasAppeared = true }
+        }
     }
 
     private var header: some View {
@@ -86,9 +88,9 @@ struct ResultsView: View {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .fill(result.isPlayer ? Theme.citrus.opacity(0.18) : Color.clear)
                     )
-                    .opacity(index < revealed ? 1 : 0)
-                    .offset(y: index < revealed ? 0 : 8)
-                    .animation(.easeOut(duration: 0.2), value: revealed)
+                    .opacity(hasAppeared ? 1 : 0)
+                    .offset(y: hasAppeared ? 0 : 8)
+                    .animation(.easeOut(duration: 0.2).delay(0.05 * Double(index)), value: hasAppeared)
                 }
             }
         }
@@ -180,12 +182,4 @@ struct ResultsView: View {
         }
     }
 
-    private func revealRows() {
-        revealed = 0
-        for index in outcome.results.indices {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.06 * Double(index)) {
-                revealed = index + 1
-            }
-        }
-    }
 }

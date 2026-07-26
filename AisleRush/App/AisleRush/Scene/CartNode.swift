@@ -14,6 +14,7 @@ final class CartNode: SKNode {
     private let rightSparks: SKEmitterNode
     private var cans: [SKSpriteNode] = []
     private var lastDriftTier = -1
+    private var sheenIsOn = false
     private let frameSize: CGSize
 
     init(cart: Cart, isPlayer: Bool) {
@@ -69,6 +70,9 @@ final class CartNode: SKNode {
             arrow.blendMode = .add
             arrow.alpha = 0.85
             arrow.position = CGPoint(x: size.width * 0.72, y: 0)
+            // The scene renders with .ignoresSiblingOrder, so equal z values
+            // draw in an arbitrary order. Be explicit.
+            arrow.zPosition = 2
             marker = arrow
         } else {
             marker = nil
@@ -130,11 +134,10 @@ final class CartNode: SKNode {
     }
 
     func setSurfaceSheen(_ enabled: Bool) {
-        let target: CGFloat = enabled ? 0.22 : 0
-        if abs(sheen.alpha - target) > 0.02 {
-            sheen.removeAllActions()
-            sheen.run(.fadeAlpha(to: target, duration: 0.2))
-        }
+        guard enabled != sheenIsOn else { return }
+        sheenIsOn = enabled
+        sheen.removeAllActions()
+        sheen.run(.fadeAlpha(to: enabled ? 0.22 : 0, duration: 0.2))
     }
 
     private func syncCans(count: Int, angle: Double) {

@@ -16,6 +16,7 @@ enum Haptics {
         medium.prepare()
         heavy.prepare()
         selectionGenerator.prepare()
+        notificationGenerator.prepare()
     }
 
     static func impact(_ style: UIImpactFeedbackGenerator.FeedbackStyle) {

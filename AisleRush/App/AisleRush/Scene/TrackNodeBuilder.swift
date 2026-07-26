@@ -72,13 +72,15 @@ enum TrackNodeBuilder {
         let shelving = shelfNodes(track: track, depth: shelfDepth)
         let fittings = SKNode()
 
+        // SpriteKit sorts on cumulative z, so these are relative to the
+        // fittings node. Keeping them small leaves the carts on top.
         var crates: [SKSpriteNode] = []
         let crateTexture = TextureFactory.itemCrate()
         for box in track.itemBoxes {
             let sprite = SKSpriteNode(texture: crateTexture)
             sprite.size = CGSize(width: 2.6 * scale, height: 2.6 * scale)
             sprite.position = box.position.point
-            sprite.zPosition = 6
+            sprite.zPosition = 1
             fittings.addChild(sprite)
             crates.append(sprite)
         }
@@ -90,7 +92,7 @@ enum TrackNodeBuilder {
             sprite.size = CGSize(width: side, height: side)
             sprite.position = prop.position.point
             sprite.zRotation = CGFloat(prop.angle)
-            sprite.zPosition = 7
+            sprite.zPosition = 2
             fittings.addChild(sprite)
             props.append(sprite)
         }
@@ -100,7 +102,7 @@ enum TrackNodeBuilder {
             sprite.size = CGSize(width: CGFloat(zone.length) * scale, height: CGFloat(zone.width) * scale)
             sprite.position = zone.position.point
             sprite.zRotation = CGFloat(zone.angle)
-            sprite.zPosition = 3
+            sprite.zPosition = 0
             sprite.blendMode = .add
             sprite.alpha = 0.85
             sprite.run(.repeatForever(.sequence([

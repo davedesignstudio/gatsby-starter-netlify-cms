@@ -55,7 +55,8 @@ final class GameSettings: ObservableObject {
         rotatingCamera = store.object(forKey: Keys.rotatingCamera) as? Bool ?? true
         soundEnabled = store.object(forKey: Keys.sound) as? Bool ?? true
         hapticsEnabled = store.object(forKey: Keys.haptics) as? Bool ?? true
-        difficulty = store.object(forKey: Keys.difficulty) as? Int ?? 1
+        // Clamped: this indexes a fixed-size names table.
+        difficulty = min(max(store.object(forKey: Keys.difficulty) as? Int ?? 1, 0), 2)
         tiltSensitivity = store.object(forKey: Keys.tiltSensitivity) as? Double ?? 1.0
 
         Audio.shared.isEnabled = soundEnabled
