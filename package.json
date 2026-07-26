@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "node scripts/build-game.js",
-    "test": "node --check js/game.js && node scripts/build-game.js"
+    "test": "node --check js/game.js && node --check tests/browser-smoke.js && node scripts/build-game.js",
+    "test:browser": "node tests/browser-smoke.js"
   },
   "engines": {
     "node": ">=18"

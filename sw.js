@@ -1,4 +1,4 @@
-var CACHE_NAME = "cart-rush-v1";
+var CACHE_NAME = "cart-rush-v2";
 var GAME_ASSETS = [
   "./",
   "./index.html",
