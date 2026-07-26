@@ -374,8 +374,15 @@ public final class CMAttitude {
     public var yaw: Double = 0
 }
 
+public struct CMAcceleration {
+    public var x: Double = 0
+    public var y: Double = 0
+    public var z: Double = 0
+}
+
 public final class CMDeviceMotion {
     public var attitude = CMAttitude()
+    public var gravity = CMAcceleration()
 }
 
 public final class CMMotionManager {

@@ -26,7 +26,9 @@ struct CupStandingsView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 12) {
                         Panel(title: "Championship") {
-                            ForEach(Array(cup.standings.enumerated()), id: \.element.racerID) { index, entrant in
+                            let standings = cup.standings
+                            ForEach(standings.indices, id: \.self) { index in
+                                let entrant = standings[index]
                                 HStack(spacing: 10) {
                                     Text("\(index + 1)")
                                         .font(Theme.numeric(15))
@@ -55,7 +57,8 @@ struct CupStandingsView: View {
 
                                     // Round-by-round finishes, then the points.
                                     HStack(spacing: 4) {
-                                        ForEach(Array(entrant.finishes.enumerated()), id: \.offset) { _, finish in
+                                        ForEach(entrant.finishes.indices, id: \.self) { round in
+                                            let finish = entrant.finishes[round]
                                             Text("\(finish)")
                                                 .font(Theme.numeric(10))
                                                 .foregroundStyle(Theme.muted)

@@ -139,10 +139,10 @@ final class GameStore: ObservableObject {
         }
     }
 
-    /// Takes the device's current tilt as level.
+    /// Takes however the player is holding the device right now as centred.
     func calibrateTilt() {
         var updated = session.settings
-        updated.tiltNeutral = motion.roll()
+        updated.tiltNeutral = motion.steeringAngle()
         update(settings: updated)
         haptics.tapSelection()
     }

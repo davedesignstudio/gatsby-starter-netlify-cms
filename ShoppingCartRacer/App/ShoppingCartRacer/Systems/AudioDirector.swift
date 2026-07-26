@@ -118,6 +118,11 @@ final class AudioDirector {
         rattleMixer.outputVolume = min(volume, 0.5)
     }
 
+    /// Cuts the engine loop dead, for pauses and for leaving the race.
+    func silenceEngine() {
+        rattleMixer.outputVolume = 0
+    }
+
     func play(_ cue: Cue, volume: Float = 1) {
         guard isRunning, isEnabled, let buffer = buffers[cue] else { return }
         let player = oneShotPlayers[nextOneShot % oneShotPlayers.count]

@@ -118,6 +118,11 @@ public enum RacePhase: Equatable, Sendable {
     case complete
 
     public var isRacing: Bool { self == .racing }
+
+    public var isCountingDown: Bool {
+        if case .countdown = self { return true }
+        return false
+    }
 }
 
 /// Global physics constants. Kept in one struct so balance passes are a diff in

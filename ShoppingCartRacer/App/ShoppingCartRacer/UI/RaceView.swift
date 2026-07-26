@@ -5,6 +5,8 @@ struct RaceView: View {
     @EnvironmentObject private var store: GameStore
     @State private var coordinator: RaceCoordinator?
     @State private var failureMessage: String?
+    /// Remembered so a restart can rebuild the scene without a geometry pass.
+    @State private var lastKnownSize = CGSize(width: 844, height: 390)
 
     var body: some View {
         GeometryReader { proxy in
@@ -47,12 +49,13 @@ struct RaceView: View {
                 }
             }
             .onAppear { build(size: proxy.size) }
+            .onDisappear { coordinator?.stopEngineSound() }
         }
         // A new generation means "start a fresh race", including a restart of the
         // one we are already on.
         .onChange(of: store.session.raceGeneration) { _ in
             coordinator = nil
-            build(size: UIScreen.main.bounds.size)
+            build(size: lastKnownSize)
         }
     }
 
@@ -63,7 +66,8 @@ struct RaceView: View {
             return
         }
 
-        let sceneSize = size.width > 0 && size.height > 0 ? size : UIScreen.main.bounds.size
+        let sceneSize = size.width > 1 && size.height > 1 ? size : lastKnownSize
+        lastKnownSize = sceneSize
         let created = RaceCoordinator(
             configuration: configuration,
             settings: store.settings,

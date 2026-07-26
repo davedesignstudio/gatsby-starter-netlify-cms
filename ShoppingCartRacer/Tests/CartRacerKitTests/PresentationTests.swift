@@ -286,17 +286,136 @@ final class PresentationTests: XCTestCase {
         XCTAssertEqual(automatic.throttle, 1)
     }
 
+    // MARK: - Starting a race through the real control path
+
+    /// Runs a race from the countdown, driving the player's cart through
+    /// `ControlMapper` exactly as the scene does.
+    private func runStart(
+        settings: ControlSettings,
+        controls: @escaping (RacePhase) -> RawControlState,
+        seconds: Double = 4.5
+    ) -> (events: [RaceEvent], cart: CartState) {
+        guard let configuration = RaceConfiguration.standard(
+            trackID: "aisle-seven",
+            playerRacerID: "marge",
+            difficulty: .busy
+        ) else {
+            fatalError("could not build a race")
+        }
+        let simulation = RaceSimulation(configuration: configuration)
+        var mapper = ControlMapper()
+        var events: [RaceEvent] = []
+        let step = simulation.tuning.fixedTimeStep
+        var elapsed = 0.0
+
+        while elapsed < seconds {
+            let phase = simulation.phase
+            let input = mapper.input(
+                from: controls(phase),
+                settings: settings,
+                delta: step,
+                isCountingDown: phase.isCountingDown
+            )
+            simulation.setPlayerInput(input)
+            simulation.step(step)
+            events += simulation.drainEvents()
+            elapsed += step
+        }
+        return (events, simulation.playerCart!)
+    }
+
+    func testAutoThrottleDoesNotFloodTheEngineOnTheGrid() {
+        // The assist holds the throttle down. If that applied during the
+        // countdown the player would flood the engine before every single race.
+        var settings = ControlSettings()
+        settings.autoAccelerate = true
+
+        let outcome = runStart(settings: settings) { _ in RawControlState() }
+
+        XCTAssertFalse(
+            outcome.events.contains { if case .floodedEngine = $0 { return true } else { return false } },
+            "the automatic throttle flooded the engine on the grid"
+        )
+        XCTAssertEqual(outcome.cart.stallTimer, 0)
+        // And the assist still gets the cart away once the lights change.
+        XCTAssertGreaterThan(outcome.cart.forwardSpeed, 4)
+    }
+
+    func testRevvingOnTheDriftButtonEarnsARocketStartWithTheAssistOn() {
+        var settings = ControlSettings()
+        settings.autoAccelerate = true
+
+        let outcome = runStart(settings: settings) { phase in
+            // Feather it as the last light goes out.
+            if case .countdown(let remaining) = phase, remaining < 0.4 {
+                return RawControlState(drifting: true)
+            }
+            return RawControlState()
+        }
+
+        XCTAssertTrue(
+            outcome.events.contains(.rocketStart(cartID: 0)),
+            "revving on the grid did not earn a rocket start"
+        )
+    }
+
+    func testHoldingTheRevTooLongStillFloodsTheEngine() {
+        var settings = ControlSettings()
+        settings.autoAccelerate = true
+
+        let outcome = runStart(settings: settings) { phase in
+            phase.isCountingDown ? RawControlState(drifting: true) : RawControlState()
+        }
+
+        XCTAssertTrue(
+            outcome.events.contains { if case .floodedEngine = $0 { return true } else { return false } },
+            "revving from the first light should flood the engine"
+        )
+    }
+
+    func testManualThrottleStillControlsTheStart() {
+        var settings = ControlSettings()
+        settings.autoAccelerate = false
+
+        let idle = runStart(settings: settings) { _ in RawControlState() }
+        XCTAssertFalse(idle.events.contains(.rocketStart(cartID: 0)))
+        XCTAssertLessThan(idle.cart.forwardSpeed, 1, "the cart moved with no throttle")
+
+        let launched = runStart(settings: settings) { phase in
+            if case .countdown(let remaining) = phase {
+                return RawControlState(accelerating: remaining < 0.4)
+            }
+            return RawControlState(accelerating: true)
+        }
+        XCTAssertTrue(launched.events.contains(.rocketStart(cartID: 0)))
+        XCTAssertGreaterThan(launched.cart.forwardSpeed, 4)
+    }
+
+    func testRocketStartHintMatchesTheControlScheme() {
+        var settings = ControlSettings()
+        settings.autoAccelerate = true
+        XCTAssertTrue(ControlMapper.rocketStartHint(settings: settings).contains("DRIFT"))
+        settings.autoAccelerate = false
+        XCTAssertTrue(ControlMapper.rocketStartHint(settings: settings).contains("GAS"))
+    }
+
     func testTiltSteeringDirectionAndCalibration() {
         var settings = ControlSettings()
-        // Raising the right edge of the device steers right, which is negative.
-        XCTAssertLessThan(ControlMapper.tiltSteer(roll: 0.5, settings: settings), 0)
-        XCTAssertGreaterThan(ControlMapper.tiltSteer(roll: -0.5, settings: settings), 0)
-        XCTAssertEqual(ControlMapper.tiltSteer(roll: 0, settings: settings), 0)
-        XCTAssertEqual(abs(ControlMapper.tiltSteer(roll: 5, settings: settings)), 1, accuracy: 1e-12)
+        // Turning the device one way steers one way, and symmetrically.
+        XCTAssertLessThan(ControlMapper.tiltSteer(angle: 0.5, settings: settings), 0)
+        XCTAssertGreaterThan(ControlMapper.tiltSteer(angle: -0.5, settings: settings), 0)
+        XCTAssertEqual(ControlMapper.tiltSteer(angle: 0, settings: settings), 0)
+        XCTAssertEqual(abs(ControlMapper.tiltSteer(angle: 0.9, settings: settings)), 1, accuracy: 1e-12)
 
-        // Holding the device at an angle can be calibrated as level.
-        settings.tiltNeutral = 0.3
-        XCTAssertEqual(ControlMapper.tiltSteer(roll: 0.3, settings: settings), 0, accuracy: 1e-12)
+        // However the player is holding the device can be calibrated as centred.
+        settings.tiltNeutral = 1.2
+        XCTAssertEqual(ControlMapper.tiltSteer(angle: 1.2, settings: settings), 0, accuracy: 1e-12)
+        XCTAssertLessThan(ControlMapper.tiltSteer(angle: 1.5, settings: settings), 0)
+
+        // A neutral near the wrap point must not invert the steering.
+        settings.tiltNeutral = .pi - 0.05
+        XCTAssertLessThan(ControlMapper.tiltSteer(angle: -.pi + 0.05, settings: settings), 0)
+        XCTAssertGreaterThan(ControlMapper.tiltSteer(angle: .pi - 0.3, settings: settings), 0)
     }
 
     // MARK: - Records and progression

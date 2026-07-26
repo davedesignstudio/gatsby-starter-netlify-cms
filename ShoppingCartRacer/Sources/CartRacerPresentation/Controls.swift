@@ -121,31 +121,56 @@ public struct ControlMapper: Sendable {
 
     public init() {}
 
+    /// - Parameter isCountingDown: true before the lights go out, which changes
+    ///   how the throttle is treated.
     public mutating func input(
         from raw: RawControlState,
         settings: ControlSettings,
-        delta: Double
+        delta: Double,
+        isCountingDown: Bool = false
     ) -> DriverInput {
         let steer = filter.update(raw: raw.steer, settings: settings, delta: delta)
 
         var throttle = 0.0
         if raw.braking {
             throttle = -1
+        } else if isCountingDown, settings.autoAccelerate {
+            // The automatic throttle must not apply during the countdown. Held
+            // down from the first light it would flood the engine before every
+            // single start, so with the assist on, revving is opt-in on the drift
+            // button and doing nothing is a clean getaway.
+            throttle = raw.drifting ? 1 : 0
         } else if raw.accelerating || settings.autoAccelerate {
             throttle = 1
         }
 
-        return DriverInput(throttle: throttle, steer: steer, drift: raw.drifting, useItem: raw.firingItem)
+        return DriverInput(
+            throttle: throttle,
+            steer: steer,
+            // Revving on the grid must not also be read as a drift.
+            drift: isCountingDown ? false : raw.drifting,
+            useItem: raw.firingItem
+        )
     }
 
-    /// Converts a device roll angle into a steering value.
+    /// What to tell the player about earning a rocket start, which depends on
+    /// whether they are driving the throttle themselves.
+    public static func rocketStartHint(settings: ControlSettings) -> String {
+        settings.autoAccelerate
+            ? "Hold DRIFT as the lights go out"
+            : "Hold GAS as the lights go out"
+    }
+
+    /// Converts a device tilt angle into a steering value.
     ///
     /// - Parameters:
-    ///   - roll: radians, positive when the right edge of the device is raised.
-    ///   - range: the tilt angle that corresponds to full lock.
-    public static func tiltSteer(roll: Double, settings: ControlSettings, range: Double = 0.55) -> Double {
-        let corrected = roll - settings.tiltNeutral
-        // Tilting right should turn right, which is a negative steer value.
+    ///   - angle: radians, from the direction of gravity in the device's own
+    ///     plane. Measured against the calibrated neutral, not absolute.
+    ///   - range: how far the device has to be turned for full lock.
+    public static func tiltSteer(angle: Double, settings: ControlSettings, range: Double = 0.55) -> Double {
+        // Wrapped, so a neutral near ±π does not flip the steering.
+        let corrected = Scalar.normalizeAngle(angle - settings.tiltNeutral)
+        // Turning the device clockwise should steer right, which is negative.
         return Scalar.clamp(-corrected / max(range, 0.05), -1, 1)
     }
 }

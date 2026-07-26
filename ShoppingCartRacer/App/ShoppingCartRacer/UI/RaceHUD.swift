@@ -145,7 +145,7 @@ struct RaceHUD: View {
                         .font(.system(size: 92, weight: .black, design: .rounded))
                         .foregroundStyle(Theme.foreground)
                         .shadow(radius: 12)
-                    Text("Hold the throttle as the lights go out")
+                    Text(coordinator.rocketStartHint)
                         .font(Theme.body(12))
                         .foregroundStyle(Theme.muted)
                 case .go:

@@ -7,11 +7,16 @@ struct TouchControlsView: View {
     let settings: ControlSettings
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: 0) {
-            steeringControl
-                .frame(maxWidth: .infinity, alignment: .bottomLeading)
-            actionButtons
-                .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+        // The Spacer is what pushes the controls to the bottom: inside a ZStack a
+        // bare HStack would sit vertically centred, right across the track.
+        VStack(spacing: 0) {
+            Spacer(minLength: 0)
+            HStack(alignment: .bottom, spacing: 0) {
+                steeringControl
+                    .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                actionButtons
+                    .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+            }
         }
         .padding(.horizontal, 22)
         .padding(.bottom, 24)
@@ -47,17 +52,19 @@ struct TouchControlsView: View {
     private var actionButtons: some View {
         VStack(alignment: .trailing, spacing: 12) {
             HStack(spacing: 12) {
-                if let item = coordinator.hud?.heldItem {
-                    HoldButton(
-                        title: itemLabel(item),
-                        systemImage: itemIcon(item),
-                        diameter: 66,
-                        tint: Theme.accent
-                    ) { coordinator.setFiringItem($0) }
-                } else {
-                    // Keep the slot visible so the layout does not jump about.
-                    EmptyItemSlot()
-                }
+                // The item button always stays mounted, even with an empty slot.
+                // Swapping it out at the moment of firing would tear down the
+                // gesture mid-press, so the release would never be reported and
+                // the simulation would never see another rising edge — the player
+                // would be unable to use another item all race.
+                let item = coordinator.hud?.heldItem
+                HoldButton(
+                    title: item.map(itemLabel) ?? "ITEM",
+                    systemImage: item.map(itemIcon) ?? "questionmark",
+                    diameter: 66,
+                    tint: item == nil ? Theme.muted : Theme.accent,
+                    isDimmed: item == nil
+                ) { coordinator.setFiringItem($0) }
 
                 if !settings.autoAccelerate {
                     HoldButton(title: "GAS", systemImage: "chevron.up", diameter: 66, tint: Theme.good) {
@@ -154,6 +161,8 @@ struct HoldButton: View {
     let systemImage: String
     let diameter: CGFloat
     let tint: Color
+    /// Drawn faintly, for a button that currently does nothing.
+    var isDimmed = false
     let onPressChange: (Bool) -> Void
 
     @State private var isPressed = false
@@ -165,12 +174,12 @@ struct HoldButton: View {
             Text(title)
                 .font(Theme.body(diameter * 0.13))
         }
-        .foregroundStyle(isPressed ? .black : tint)
+        .foregroundStyle(isPressed ? .black : tint.opacity(isDimmed ? 0.5 : 1))
         .frame(width: diameter, height: diameter)
         .background(
-            Circle().fill(isPressed ? tint : Color(Palette.hudBackground, opacity: 0.7))
+            Circle().fill(isPressed ? tint : Color(Palette.hudBackground, opacity: isDimmed ? 0.4 : 0.7))
         )
-        .overlay(Circle().stroke(tint.opacity(0.7), lineWidth: 2))
+        .overlay(Circle().stroke(tint.opacity(isDimmed ? 0.3 : 0.7), lineWidth: 2))
         .scaleEffect(isPressed ? 0.94 : 1)
         .contentShape(Circle())
         .gesture(
@@ -185,20 +194,5 @@ struct HoldButton: View {
                     onPressChange(false)
                 }
         )
-    }
-}
-
-struct EmptyItemSlot: View {
-    var body: some View {
-        VStack(spacing: 2) {
-            Image(systemName: "questionmark")
-                .font(.system(size: 18, weight: .bold))
-            Text("ITEM")
-                .font(Theme.body(9))
-        }
-        .foregroundStyle(Theme.muted.opacity(0.5))
-        .frame(width: 66, height: 66)
-        .background(Circle().fill(Color(Palette.hudBackground, opacity: 0.4)))
-        .overlay(Circle().strokeBorder(Theme.muted.opacity(0.3), style: StrokeStyle(lineWidth: 2, dash: [4, 4])))
     }
 }

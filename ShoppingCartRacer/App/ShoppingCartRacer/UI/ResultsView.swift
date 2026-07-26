@@ -23,15 +23,16 @@ struct ResultsView: View {
                                 LabelledValue("Best lap", player.bestLapTime.map(TimeFormatter.lapTime) ?? "--")
                                 LabelledValue("Total", player.totalTime.map(TimeFormatter.lapTime) ?? "DNF")
                                 LabelledValue("Loose change", "\(player.tokens)")
-                                ForEach(Array(player.lapTimes.enumerated()), id: \.offset) { index, lap in
-                                    LabelledValue("Lap \(index + 1)", TimeFormatter.lapTime(lap))
+                                ForEach(player.lapTimes.indices, id: \.self) { index in
+                                    LabelledValue("Lap \(index + 1)", TimeFormatter.lapTime(player.lapTimes[index]))
                                 }
                             }
                         }
 
                         if !store.session.lastAchievements.isEmpty {
                             Panel(title: "New for the record book") {
-                                ForEach(Array(store.session.lastAchievements.enumerated()), id: \.offset) { _, item in
+                                ForEach(store.session.lastAchievements.indices, id: \.self) { index in
+                                    let item = store.session.lastAchievements[index]
                                     HStack(spacing: 8) {
                                         Image(systemName: icon(for: item))
                                             .foregroundStyle(Theme.accent)

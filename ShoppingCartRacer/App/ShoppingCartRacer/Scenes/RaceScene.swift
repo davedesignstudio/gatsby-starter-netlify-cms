@@ -115,7 +115,13 @@ final class RaceScene: SKScene {
 
         if let playerID = simulation.playerCartID {
             let raw = inputSource?() ?? RawControlState()
-            simulation.setInput(mapper.input(from: raw, settings: settings, delta: delta), forCart: playerID)
+            let input = mapper.input(
+                from: raw,
+                settings: settings,
+                delta: delta,
+                isCountingDown: simulation.phase.isCountingDown
+            )
+            simulation.setInput(input, forCart: playerID)
         }
 
         simulation.update(deltaTime: delta)

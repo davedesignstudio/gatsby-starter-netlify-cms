@@ -93,7 +93,7 @@ struct TrackSelectView: View {
                         Button("Race") { store.startRace() }
                             .buttonStyle(PrimaryButtonStyle())
                     }
-                    .frame(maxWidth: isWide ? .infinity : .infinity)
+                    .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)

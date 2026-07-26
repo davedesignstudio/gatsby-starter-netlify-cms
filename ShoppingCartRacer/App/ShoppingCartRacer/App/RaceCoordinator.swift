@@ -76,7 +76,7 @@ final class RaceCoordinator: ObservableObject {
         var controls = touchControls
 
         if settings.steeringStyle == .tilt {
-            controls.steer = ControlMapper.tiltSteer(roll: motion.roll(), settings: settings)
+            controls.steer = ControlMapper.tiltSteer(angle: motion.steeringAngle(), settings: settings)
         }
         if gamepad.isConnected {
             gamepad.apply(to: &controls)
@@ -109,6 +109,11 @@ final class RaceCoordinator: ObservableObject {
         scene.settings = newValue
     }
 
+    /// Which button earns a rocket start, given the current assists.
+    var rocketStartHint: String {
+        ControlMapper.rocketStartHint(settings: settings)
+    }
+
     // MARK: - Presentation
 
     /// Republishes the HUD at 30 Hz. Every frame would re-render the overlay
@@ -137,7 +142,13 @@ final class RaceCoordinator: ObservableObject {
         isPaused = paused
         scene.isPaused = paused
         if paused {
-            audio.updateEngine(speedFraction: 0, onRoughGround: false, boosting: false)
+            audio.silenceEngine()
         }
+    }
+
+    /// Called when the race view goes away, so the trolley does not carry on
+    /// rattling over the results screen.
+    func stopEngineSound() {
+        audio.silenceEngine()
     }
 }
