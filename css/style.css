@@ -4848,3 +4848,482 @@ body {
       float: right; }
     .centered-nav.contain-to-grid .top-bar .title-area .name h1 a {
       display: none; } }
+
+/* dphilhowerstudio.com layout */
+.site-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.site-brand-mark {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.site-brand-copy {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.site-brand-name {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.site-brand-tag {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+#footer .site-brand-mark {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.zoom-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 170px 0 110px;
+  background: #080b11;
+  color: #fff;
+}
+
+.zoom-hero__background {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(120deg, rgba(6, 10, 16, 0.94), rgba(6, 10, 16, 0.7) 55%, rgba(9, 13, 20, 0.84)), url(../images/Hero-Image-001_compressed.jpg);
+  background-size: cover;
+  background-position: center center;
+  transform: scale(1.04);
+}
+
+.zoom-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.zoom-kicker {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #edb713;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.zoom-kicker--light {
+  color: #ffd86d;
+}
+
+.zoom-hero h1 {
+  color: #fff;
+  font-size: 4.1rem;
+  line-height: 1.08;
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+
+.zoom-hero__lede {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.125rem;
+  line-height: 1.9;
+  margin-bottom: 34px;
+  max-width: 640px;
+}
+
+.zoom-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.zoom-hero__highlights {
+  margin: 0;
+}
+
+.zoom-hero__highlights li {
+  list-style: none;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.zoom-hero__highlights li:before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #edb713;
+}
+
+.zoom-panel {
+  background: rgba(18, 22, 31, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.zoom-panel__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.zoom-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.zoom-dot--red {
+  background: #ff7a59;
+}
+
+.zoom-dot--gold {
+  background: #f2c94c;
+}
+
+.zoom-dot--green {
+  background: #27ae60;
+}
+
+.zoom-panel__label {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+.zoom-panel__intro p {
+  color: #edb713;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.zoom-panel__intro h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.zoom-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.zoom-tile {
+  min-height: 188px;
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.zoom-tile i {
+  color: #edb713;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+
+.zoom-tile h3 {
+  color: #fff;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.zoom-tile p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.zoom-stats {
+  background: #080b11;
+  padding: 0 0 80px;
+}
+
+.zoom-stat {
+  min-height: 145px;
+  border-radius: 24px;
+  padding: 28px;
+  background: #10151e;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18);
+}
+
+.zoom-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.zoom-stat span {
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+}
+
+.zoom-section {
+  padding-top: 110px;
+}
+
+.zoom-section--muted {
+  background: #f4f5f7;
+}
+
+.zoom-section__title {
+  font-size: 2.8rem;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.zoom-section__intro {
+  color: #616670;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  max-width: 780px;
+}
+
+.zoom-section__intro--side {
+  padding-top: 36px;
+}
+
+.zoom-service-card {
+  height: 100%;
+  min-height: 260px;
+  padding: 30px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid #eceef2;
+  box-shadow: 0 18px 55px rgba(17, 23, 34, 0.07);
+}
+
+.zoom-service-card__number {
+  color: #edb713;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.zoom-service-card h3 {
+  margin-bottom: 16px;
+}
+
+.zoom-service-card p {
+  color: #616670;
+  line-height: 1.8;
+}
+
+.zoom-showcase-card {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 18px 55px rgba(17, 23, 34, 0.1);
+}
+
+.zoom-showcase-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.zoom-showcase-card__content {
+  padding: 26px;
+}
+
+.zoom-showcase-card__content span {
+  display: inline-block;
+  color: #edb713;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.zoom-showcase-card__content h3 {
+  margin-bottom: 14px;
+}
+
+.zoom-showcase-card__content p {
+  color: #616670;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.zoom-note {
+  margin-top: 30px;
+  padding: 28px 30px;
+  border-left: 4px solid #edb713;
+  border-radius: 0 20px 20px 0;
+  background: #f8f6ef;
+}
+
+.zoom-note p {
+  color: #4b5059;
+  margin: 0;
+}
+
+.zoom-process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.zoom-process-item {
+  padding: 26px 28px;
+  border-radius: 22px;
+  background: #111722;
+  color: #fff;
+}
+
+.zoom-process-item strong {
+  display: block;
+  color: #edb713;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.zoom-process-item p {
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.zoom-cta {
+  background: linear-gradient(135deg, #0d1118, #161d28);
+  color: #fff;
+  padding-top: 100px;
+}
+
+.zoom-cta h2 {
+  color: #fff;
+  font-size: 2.9rem;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.zoom-cta p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.9;
+}
+
+.zoom-cta__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+@media only screen and (max-width: 64em) {
+  .zoom-hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .zoom-panel__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .zoom-stat,
+  .zoom-service-card,
+  .zoom-showcase-card,
+  .zoom-process-item {
+    margin-bottom: 20px;
+  }
+
+  .zoom-section__intro--side {
+    padding-top: 0;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .site-brand-link {
+    gap: 10px;
+  }
+
+  .site-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+  }
+
+  .site-brand-name {
+    font-size: 0.88rem;
+  }
+
+  .site-brand-tag {
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+  }
+
+  .zoom-hero {
+    padding: 140px 0 90px;
+  }
+
+  .zoom-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .zoom-hero__lede,
+  .zoom-section__intro,
+  .zoom-tile p,
+  .zoom-service-card p,
+  .zoom-showcase-card__content p,
+  .zoom-process-item p,
+  .zoom-cta p {
+    font-size: 1rem;
+  }
+
+  .zoom-section__title,
+  .zoom-cta h2 {
+    font-size: 2.1rem;
+  }
+
+  .zoom-stat {
+    min-height: 0;
+  }
+}

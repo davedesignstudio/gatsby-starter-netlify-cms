@@ -1,412 +1,234 @@
 ---
 layout: default
 section_id: home
-slides:
-  - bg: images/@stock/slide-1.jpg
-    small_title:
-      klass: bottom-to-top
-      text: The perfect theme for
-    title:
-      klass: bottom-to-top
-      text: Many purposes
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-4.jpg
-    klass: centered-text
-    small_title:
-      klass: bottom-to-top
-      text: We make websites that are
-    title:
-      klass: bottom-to-top
-      text: Creative &amp; Powerful
-    buttons:
-      klass: bottom-to-top
-      items:
-        - klass: boxed
-          text: View Features
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-        - text: Purchase Now
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-  - bg: images/@stock/slide-5.jpg
-    small_title:
-      klass: bottom-to-top
-      text: This is a creative theme that you'll
-    title:
-      klass: bottom-to-top
-      text: definitely love...
-    buttons:
-      klass: bottom-to-top
-      items:
-        - text: Learn More
-          link_to: http://themeforest.net/user/honryou/portfolio?ref=honryou
-
-
-
-works:
-  - image: images/@stock/work-1.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-2.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-3.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-4.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-5.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-6.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-7.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-  - image: images/@stock/work-8.jpg
-    title: Beautiful Girl
-    link_to: portfolio-item.html
-    klass: graphi-design
-    desc: Design &amp; Development
-
-
-services:
-  - icon: trophy
-    title: Web Design
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: cogs
-    title: Web Development
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: pagelines
-    title: Branding
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-  - icon: lock
-    title: Security
-    desc: Acusamus laborum totam omnis inventore et error aut et eos aut. fuga mollitia vitae id enim omnis perspiciatis. modi maxime eos.
-
-milestones:
-  - icon: folder-open
-    from: 0
-    to: 69
-    title: Projects Completed
-  - icon: coffee
-    from: 0
-    to: 726
-    title: Cups of coffee offered
-  - icon: thumbs-up
-    from: 0
-    to: 59
-    title: Happy clients
-  - icon: file-text
-    from: 0
-    to: 21
-    title: Articles Published
-
+title: dphilhowerstudio.com | Graphic Design Studio
 ---
 
-
-<div class='mod modDefaultSlider'>
-  <div class='sequence' data-autostop='on' data-timeout='0'>
-    <a class='sequence-prev' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <a class='sequence-next' href='javascript:void(0);'>
-      <span></span>
-    </a>
-    <ul class='sequence-pagination'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign class = 'current' %}
-        {% else %}
-          {% assign class = '' %}
-        {% endif %}
-        <li class="{{class}}"></li>
-      {% endfor %}
-    </ul>
-    <ul class='sequence-canvas'>
-      {% for slide in page.slides %}
-        {% if forloop.first %}
-          {% assign style = 'static' %}
-        {% else %}
-          {% assign style = '' %}
-        {% endif %}
-
-        <li class='frame {{style}} {{ slide.klass }}'>
-          <div class='bg' style='background-image: url({{ slide.bg}});'></div>
-          <div class='small-title {{ slide.small_title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.small_title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='title {{ slide.title.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <h2>{{ slide.title.text }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class='buttons-wrapper {{ slide.buttons.klass }}'>
-            <div class='row'>
-              <div class='large-12 columns'>
-                <div class='two spacing'></div>
-                {% for button in slide.buttons.items %}
-                  <a class='button {{ button.klass }}' href='{{ button.link_to }}'>{{ button.text }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<div class="four spacing"></div>
-
-<div class="row">
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-flask' delay='0' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-paper-plane-o' delay='200' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-tablet' delay='400' shape_class='icon-text-circle' %}
-  </div>
-  <div class="medium-3 large-3 columns">
-    {% include icon-text.html title='Creative design' desc='Est aperiam ex sint maiores aliquam delectus minima rerum et natus rerum sit quae nostrum.' icon_class='fa fa-comments-o' delay='600' shape_class='icon-text-circle' %}
-  </div>
-</div>
-
-<div class="spacing"></div>
-
-<div class="full" style="background: #f5f5f5;">
-  <div class="row">
-    <div class="large-12 columns">
-      {% include section-header.html title="Our works" %}
-      <div class="spacing"></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
+<section class='zoom-hero' id='top'>
+  <div class='zoom-hero__background'></div>
+  <div class='row zoom-hero__content'>
+    <div class='large-7 columns'>
+      <span class='zoom-kicker'>Graphic design studio</span>
+      <h1>Presentation-ready branding, posters, print media, and websites for ambitious businesses.</h1>
+      <p class='zoom-hero__lede'>
+        dphilhowerstudio.com is a boutique creative concept built around clear storytelling, confident typography,
+        and layouts that feel polished in a browser, on a screen share, and in print.
       </p>
-      <div class="three spacing"></div>
-    </div>
-  </div>
-
-  <div class="mod modGallery">
-    <ul class="gallery small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-      {% for work in page.works %}
-        <li class="{{ work.klass }}">
-          <a href='{{ work.link_to }}'>
-            <img alt="" src="{{ work.image }}" />
-            <div class='overlay'>
-              <div class='thumb-info'>
-                <h3>{{ work.title }}</h3>
-                <p>{{ work.desc }}</p>
-              </div>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our services" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='three spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <img class="fadeinleft" alt="" src="images/@stock/responsive.png" />
-      <div class='three spacing'></div>
-    </div>
-    <div class='medium-6 columns'>
-      {% for service in page.services %}
-        <div class='fadein mod modIconText' data-delay='{{ 300 | times:forloop.index0 }}'>
-          <div class='icon-text-simple'>
-            <i class='fa fa-{{service.icon}}'></i>
-            <h3>{{service.title}}</h3>
-            <p>{{service.desc}}</p>
-          </div>
-          <div class='two spacing'></div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class='spacing'></div>
-</div>
-
-
-<div class='full parallax' style='background-image: url(images/@stock/milestone-bg.jpg); color: #fff;'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Parallax effect" color="#fff" %}
-      <div class='spacing'></div>
-      <p class='centered-text' style='color: #ccc;'>
-        Dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-  <div class='row'>
-    {% for milestone in page.milestones %}
-      <div class='medium-3 large-3 columns'>
-        <div class='mod modMilestone'>
-          <i class='fa fa-{{milestone.icon}}'></i>
-          <strong data-from='{{milestone.from}}' data-to='{{milestone.to}}'>&nbsp;</strong>
-          <span>{{milestone.title}}</span>
-          <div class='four spacing'></div>
-        </div>
+      <div class='zoom-hero__actions'>
+        <a class='button' href='#services'>Explore services</a>
+        <a class='button boxed' href='#contact'>Book a discovery call</a>
       </div>
-    {% endfor %}
-  </div>
-  <div class='two spacing'></div>
-</div>
-
-<div class='full'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our team" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
+      <ul class='zoom-hero__highlights'>
+        <li>Identity systems designed to stay sharp across every format</li>
+        <li>Editorial poster work with strong hierarchy and motion-forward composition</li>
+        <li>Print collateral and websites that carry one unified visual voice</li>
+      </ul>
     </div>
-  </div>
-  <div class='row'>
-    {% for member in site.data.members %}
-      <div class='small-6 medium-3 large-3 columns'>
-        <div class='mod modTeamMember'>
-          <div class='member'>
-            <img class="avatar" alt="" src="{{ member.avatar }}" />
-            <div class='overlay'>
-              <div class='intro'>
-                <h3>{{member.name}}</h3>
-                <p>{{member.position}}</p>
-                <ul class='socials'>
-                  {% for social in member.socials %}
-                    <li>
-                      <a href='{{social.link}}'>
-                        <i class='fa fa-{{social.icon}}'></i>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class='two spacing'></div>
+    <div class='large-5 columns'>
+      <div class='zoom-panel'>
+        <div class='zoom-panel__toolbar'>
+          <span class='zoom-dot zoom-dot--red'></span>
+          <span class='zoom-dot zoom-dot--gold'></span>
+          <span class='zoom-dot zoom-dot--green'></span>
+          <span class='zoom-panel__label'>Creative review room</span>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-
-<div class='full' style='background: #f5f5f5'>
-  <div class='row'>
-    <div class='large-12 columns'>
-      {% include section-header.html title="Our recent posts" %}
-      <div class='spacing'></div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat consectetuer sit amet magna adipiscing.
-      </p>
-      <div class='two spacing'></div>
-    </div>
-  </div>
-
-  <div class='row'>
-    {% for post in site.posts %}
-      {% if forloop.index > 3 %}
-        {% break %}
-      {% endif %}
-
-      <div class='large-4 medium-4 columns'>
-        <div class='mod modBlogPost'>
-          {% for image in post.images %}
-            {% unless forloop.first %}
-              {% break %}
-            {% endunless %}
-            <a href="{{post.url}}"><img alt="" src="{{image}}" /></a>
-          {% endfor %}
-          <div class='content'>
-            <p class='date'>{{post.date | date: "%B %d, %Y" }}</p>
-            <h4><a href="#">{{post.title}}</a></h4>
-            <p>{{post.excerpt}}</p>
-            <!--
-              <div class="tags">
-                {% for cat in post.categories %}
-                  <a href="#">{{cat | capitalize}}</a>
-                  {% unless forloop.last %}
-                    ,
-                  {% endunless %}
-                {% endfor %}
-              </div>
-            -->
+        <div class='zoom-panel__intro'>
+          <p>Zoom-style service layout</p>
+          <h2>Core design specialties</h2>
+        </div>
+        <div class='zoom-panel__grid'>
+          <div class='zoom-tile'>
+            <i class='fa fa-star-o'></i>
+            <h3>Logo Design</h3>
+            <p>Distinctive marks, color systems, and usage rules for a memorable brand foundation.</p>
+          </div>
+          <div class='zoom-tile'>
+            <i class='fa fa-picture-o'></i>
+            <h3>Poster Design</h3>
+            <p>Bold event, campaign, and editorial posters that lead with clarity and visual rhythm.</p>
+          </div>
+          <div class='zoom-tile'>
+            <i class='fa fa-print'></i>
+            <h3>Print Media</h3>
+            <p>Brochures, packaging, handouts, and signage built for tactile impact and clean production.</p>
+          </div>
+          <div class='zoom-tile'>
+            <i class='fa fa-desktop'></i>
+            <h3>Website Design</h3>
+            <p>Responsive web layouts that translate the brand system into confident digital experiences.</p>
           </div>
         </div>
       </div>
-
-    {% endfor %}
-
+    </div>
   </div>
+</section>
 
-
-  <div class='two spacing'></div>
+<section class='zoom-stats'>
   <div class='row'>
-    <div class='large-12 columns'>
-      <p class='centered-text'>
-        <a class='button' href='blog.html'>See more posts</a>
+    <div class='medium-3 columns'>
+      <div class='zoom-stat'>
+        <strong>4</strong>
+        <span>focused service areas</span>
+      </div>
+    </div>
+    <div class='medium-3 columns'>
+      <div class='zoom-stat'>
+        <strong>1</strong>
+        <span>cohesive brand voice across print and web</span>
+      </div>
+    </div>
+    <div class='medium-3 columns'>
+      <div class='zoom-stat'>
+        <strong>100%</strong>
+        <span>presentation-friendly visual storytelling</span>
+      </div>
+    </div>
+    <div class='medium-3 columns'>
+      <div class='zoom-stat'>
+        <strong>Remote</strong>
+        <span>collaboration-ready creative reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class='full zoom-section' id='services'>
+  <div class='row'>
+    <div class='large-8 columns'>
+      <span class='zoom-kicker'>Services</span>
+      <h2 class='zoom-section__title'>Built for launches, campaigns, and brand refreshes.</h2>
+      <p class='zoom-section__intro'>
+        The layout pairs a clean agency structure with a Zoom-inspired service grid so the studio can explain its offer
+        quickly in client calls, pitch decks, and homepage visits.
       </p>
     </div>
   </div>
-  <div class='two spacing'></div>
-
-</div>
-
-
-{% include our-customers.html %}
-
-
-<div class='full no-padding' style='background: #fff'>
-  <div class='two spacing'></div>
-  <div class='mod modCallToAction'>
-    <div class='row'>
-      <div class='medium-9 large-9 columns'>
-        <p>Like what you see here? Checkout this theme and start to build your site immediately.</p>
+  <div class='row'>
+    <div class='medium-6 large-3 columns'>
+      <div class='zoom-service-card'>
+        <div class='zoom-service-card__number'>01</div>
+        <h3>Logo Design</h3>
+        <p>Create marks, monograms, alternate lockups, and visual rules that anchor the brand.</p>
       </div>
-      <div class='medium-3 large-3 columns'>
-        <a class='button' href='http://themeforest.net/user/honryou/portfolio?ref=honryou'>Learn more</a>
+    </div>
+    <div class='medium-6 large-3 columns'>
+      <div class='zoom-service-card'>
+        <div class='zoom-service-card__number'>02</div>
+        <h3>Poster Design</h3>
+        <p>Shape promotional and editorial posters with strong contrast, scale, and motion cues.</p>
+      </div>
+    </div>
+    <div class='medium-6 large-3 columns'>
+      <div class='zoom-service-card'>
+        <div class='zoom-service-card__number'>03</div>
+        <h3>Print Media</h3>
+        <p>Extend the system into brochures, lookbooks, mailers, signage, and presentation leave-behinds.</p>
+      </div>
+    </div>
+    <div class='medium-6 large-3 columns'>
+      <div class='zoom-service-card'>
+        <div class='zoom-service-card__number'>04</div>
+        <h3>Website Design</h3>
+        <p>Design landing pages and full sites that turn the identity into an easy-to-navigate digital experience.</p>
       </div>
     </div>
   </div>
-  <div class='spacing'></div>
-</div>
+</section>
+
+<section class='full zoom-section zoom-section--muted' id='portfolio'>
+  <div class='row'>
+    <div class='large-7 columns'>
+      <span class='zoom-kicker'>Featured layout directions</span>
+      <h2 class='zoom-section__title'>A studio homepage that can sell the work before the call starts.</h2>
+    </div>
+    <div class='large-5 columns'>
+      <p class='zoom-section__intro zoom-section__intro--side'>
+        Each feature card uses large imagery, direct descriptions, and a concise deliverable focus to keep the page
+        visually rich without losing the business message.
+      </p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='medium-4 columns'>
+      <article class='zoom-showcase-card'>
+        <img alt='Brand identity concept' src='images/@stock/work-1.jpg' />
+        <div class='zoom-showcase-card__content'>
+          <span>Identity system</span>
+          <h3>Logo suite for a creative consultancy</h3>
+          <p>Wordmark, icon variations, palette, and typographic rules organized for easy handoff.</p>
+        </div>
+      </article>
+    </div>
+    <div class='medium-4 columns'>
+      <article class='zoom-showcase-card'>
+        <img alt='Poster design concept' src='images/@stock/work-4.jpg' />
+        <div class='zoom-showcase-card__content'>
+          <span>Campaign posters</span>
+          <h3>Editorial visuals with gallery-scale typography</h3>
+          <p>Poster systems that move seamlessly from digital promotion to print-ready artwork.</p>
+        </div>
+      </article>
+    </div>
+    <div class='medium-4 columns'>
+      <article class='zoom-showcase-card'>
+        <img alt='Website design concept' src='images/@stock/work-8.jpg' />
+        <div class='zoom-showcase-card__content'>
+          <span>Website design</span>
+          <h3>Responsive launch page with strong narrative flow</h3>
+          <p>Clear hero messaging, modular content blocks, and a focused call to action for inquiries.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class='full zoom-section zoom-section--split' id='process'>
+  <div class='row'>
+    <div class='large-6 columns'>
+      <span class='zoom-kicker'>Process</span>
+      <h2 class='zoom-section__title'>One visual system, adapted for every touchpoint.</h2>
+      <p class='zoom-section__intro'>
+        This layout positions the studio as both strategic and hands-on. The same core concept can stretch into
+        presentations, social promos, printed matter, and responsive websites without feeling fragmented.
+      </p>
+      <div class='zoom-note'>
+        <p>
+          Ideal for client conversations where the work needs to be understood quickly: on a homepage, in a shared
+          screen walkthrough, or inside a proposal deck.
+        </p>
+      </div>
+    </div>
+    <div class='large-6 columns'>
+      <div class='zoom-process-list'>
+        <div class='zoom-process-item'>
+          <strong>Discover</strong>
+          <p>Clarify the audience, message, references, and project format before design starts.</p>
+        </div>
+        <div class='zoom-process-item'>
+          <strong>Design</strong>
+          <p>Develop bold concepts for logos, posters, print assets, and web layouts with a shared visual language.</p>
+        </div>
+        <div class='zoom-process-item'>
+          <strong>Deliver</strong>
+          <p>Package final files and guidelines so the identity works across launch materials and future campaigns.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class='full zoom-cta' id='contact'>
+  <div class='row'>
+    <div class='large-8 columns'>
+      <span class='zoom-kicker zoom-kicker--light'>Contact</span>
+      <h2>Need a logo, poster, print campaign, or website that feels studio-crafted from the first glance?</h2>
+      <p>
+        Use this layout as the launch point for dphilhowerstudio.com and invite inquiries with a single, clear action.
+      </p>
+    </div>
+    <div class='large-4 columns zoom-cta__actions'>
+      <a class='button' href='mailto:hello@dphilhowerstudio.com'>hello@dphilhowerstudio.com</a>
+      <a class='button boxed' href='#top'>Back to top</a>
+    </div>
+  </div>
+</section>
