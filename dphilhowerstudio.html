@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D. Philhower Studio — Graphic Design (Gallery View)</title>
+  <meta name="description" content="dphilhowerstudio.com — a graphic design studio. Logo design, poster design, print media, and website design, presented in a Zoom-style gallery layout.">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #16181d;
+      --panel-2: #1f2229;
+      --tile: #23262e;
+      --line: #2c303a;
+      --text: #f4f6fb;
+      --muted: #9aa3b2;
+      --accent: #2d8cff;   /* Zoom blue */
+      --danger: #e02d4b;
+      --radius: 14px;
+      --gap: 14px;
+      --bar-h: 84px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Top meeting bar ---------- */
+    .app-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .topbar-left, .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .rec {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted); font-weight: 600;
+    }
+    .rec .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 0 0 rgba(224,45,75,.6);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(224,45,75,.55); }
+      70% { box-shadow: 0 0 0 10px rgba(224,45,75,0); }
+      100% { box-shadow: 0 0 0 0 rgba(224,45,75,0); }
+    }
+    .meeting-title { font-weight: 700; font-size: 15px; letter-spacing: .2px; }
+    .meeting-sub { color: var(--muted); font-size: 12px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--panel-2); border: 1px solid var(--line);
+      color: var(--text); font-size: 12.5px; font-weight: 600;
+      padding: 7px 12px; border-radius: 999px;
+    }
+    .pill svg { width: 15px; height: 15px; }
+    .clock { font-variant-numeric: tabular-nums; }
+
+    /* ---------- Stage / gallery ---------- */
+    .stage {
+      flex: 1;
+      padding: var(--gap);
+      padding-bottom: calc(var(--bar-h) + var(--gap));
+    }
+    .gallery {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(210px, 1fr);
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    .tile {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--tile);
+      border: 2px solid transparent;
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      animation: tileIn .5s both;
+    }
+    @keyframes tileIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+    .tile:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 14px 40px rgba(0,0,0,.45); }
+    .tile:focus-visible { outline: none; border-color: var(--accent); }
+
+    /* speaking ring for host tile */
+    .tile.speaking { border-color: #35d07f; box-shadow: 0 0 0 3px rgba(53,208,127,.25), 0 14px 40px rgba(0,0,0,.4); }
+
+    .tile .art {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      background-size: 240px 240px;
+    }
+    .tile .art .glyph {
+      font-size: 64px; font-weight: 800; opacity: .95;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
+      transition: transform .25s ease;
+    }
+    .tile:hover .art .glyph { transform: scale(1.08); }
+    .tile .scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 100%);
+    }
+
+    /* nametag */
+    .nametag {
+      position: absolute; left: 12px; bottom: 12px; z-index: 2;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+      padding: 7px 11px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 600;
+    }
+    .mic { width: 15px; height: 15px; color: #fff; opacity: .9; }
+    .mic.muted { color: var(--danger); }
+    .role-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      background: rgba(45,140,255,.92); color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+      padding: 5px 9px; border-radius: 6px;
+    }
+    .role-badge.host { background: rgba(53,208,127,.95); }
+    .tile .hint {
+      position: absolute; right: 12px; bottom: 12px; z-index: 2;
+      font-size: 11.5px; color: rgba(255,255,255,.85);
+      background: rgba(0,0,0,.45); padding: 5px 9px; border-radius: 6px;
+      opacity: 0; transform: translateY(6px); transition: .2s ease;
+    }
+    .tile:hover .hint { opacity: 1; transform: none; }
+
+    /* host / spotlight tile spans a bigger area */
+    .tile.host { grid-column: span 2; grid-row: span 2; }
+    .tile.host .studio {
+      position: relative; z-index: 2; text-align: center; padding: 24px;
+    }
+    .tile.host .studio .avatar {
+      width: 92px; height: 92px; border-radius: 24px; margin: 0 auto 16px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, #2d8cff, #7b5cff);
+      font-size: 40px; font-weight: 800; color: #fff;
+      box-shadow: 0 12px 40px rgba(45,140,255,.4);
+    }
+    .tile.host h2 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.4px; }
+    .tile.host .domain { color: #cfe0ff; font-weight: 600; font-size: 15px; }
+    .tile.host p { color: var(--muted); max-width: 420px; margin: 14px auto 0; line-height: 1.55; font-size: 14.5px; }
+
+    /* ---------- Bottom control bar (Zoom toolbar) ---------- */
+    .toolbar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      height: var(--bar-h);
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 0 16px;
+    }
+    .ctrl {
+      background: transparent; border: 0; color: var(--text);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font: inherit; font-size: 11.5px; font-weight: 600;
+      padding: 8px 12px; border-radius: 10px; cursor: pointer; min-width: 68px;
+      transition: background .15s ease, color .15s ease;
+    }
+    .ctrl:hover { background: var(--panel-2); }
+    .ctrl svg { width: 24px; height: 24px; }
+    .ctrl .sub { color: var(--muted); font-size: 10px; }
+    .ctrl.off .ico { color: var(--danger); }
+    .ctrl.leave {
+      background: var(--danger); color: #fff; min-width: 96px;
+      margin-left: 10px; flex-direction: row; gap: 8px; height: 46px; border-radius: 10px;
+    }
+    .ctrl.leave:hover { background: #c31f3c; }
+    .ctrl.leave svg { width: 18px; height: 18px; }
+    .toolbar-spacer { flex: 0 0 12px; }
+
+    /* ---------- Modal ---------- */
+    .overlay {
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(4,6,10,.72); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .overlay.open { display: flex; animation: fade .2s ease; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+    .modal {
+      width: min(680px, 100%); background: var(--panel);
+      border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+      animation: modalIn .22s cubic-bezier(.2,.8,.2,1);
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+    .modal-head {
+      position: relative; padding: 30px 28px; color: #fff;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .modal-head .m-glyph { font-size: 44px; font-weight: 800; }
+    .modal-head h3 { margin: 0; font-size: 24px; }
+    .modal-head p { margin: 4px 0 0; opacity: .9; font-size: 13.5px; }
+    .modal-body { padding: 24px 28px 8px; }
+    .modal-body ul { margin: 0 0 8px; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .modal-body li { display: flex; gap: 10px; align-items: flex-start; color: var(--text); font-size: 14.5px; }
+    .modal-body li svg { width: 18px; height: 18px; color: var(--accent); flex: none; margin-top: 1px; }
+    .modal-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 18px 28px 26px; flex-wrap: wrap;
+    }
+    .price { color: var(--muted); font-size: 13px; }
+    .price b { color: var(--text); font-size: 16px; }
+    .btn {
+      background: var(--accent); color: #fff; border: 0; border-radius: 10px;
+      padding: 12px 20px; font: inherit; font-weight: 700; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: background .15s ease, transform .1s ease;
+    }
+    .btn:hover { background: #1f7ae6; }
+    .btn:active { transform: scale(.98); }
+    .btn.ghost { background: var(--panel-2); border: 1px solid var(--line); }
+    .btn.ghost:hover { background: #2a2e37; }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(0,0,0,.28); border: 0; color: #fff; cursor: pointer;
+      font-size: 20px; line-height: 1; display: grid; place-items: center;
+    }
+    .modal-close:hover { background: rgba(0,0,0,.5); }
+
+    /* toast */
+    .toast {
+      position: fixed; left: 50%; bottom: calc(var(--bar-h) + 18px);
+      transform: translateX(-50%) translateY(20px);
+      background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+      padding: 12px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+      z-index: 70; opacity: 0; pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .tile.host { grid-column: span 2; grid-row: span 1; }
+      .tile.host h2 { font-size: 24px; }
+    }
+    @media (max-width: 560px) {
+      :root { --bar-h: 74px; }
+      .gallery { grid-template-columns: 1fr; grid-auto-rows: minmax(180px, 1fr); }
+      .tile.host { grid-column: span 1; }
+      .meeting-sub, .topbar-right .pill:not(.clock-pill) { display: none; }
+      .ctrl { min-width: 56px; padding: 6px 8px; }
+      .ctrl span:not(.sub) { font-size: 10.5px; }
+      .ctrl .sub { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ================= TOP BAR ================= -->
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <span class="rec"><span class="dot"></span> LIVE</span>
+      <div>
+        <div class="meeting-title">D. Philhower Studio</div>
+        <div class="meeting-sub">Studio gallery · dphilhowerstudio.com</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/></svg>
+        Gallery View
+      </span>
+      <span class="pill clock-pill"><span class="clock" id="clock">00:00</span></span>
+    </div>
+  </header>
+
+  <!-- ================= GALLERY ================= -->
+  <main class="stage">
+    <section class="gallery" id="gallery" aria-label="Services gallery"></section>
+  </main>
+
+  <!-- ================= BOTTOM TOOLBAR ================= -->
+  <nav class="toolbar" aria-label="Studio controls">
+    <button class="ctrl" id="btn-audio" type="button">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+      <span>Mute</span><span class="sub">Studio</span>
+    </button>
+    <button class="ctrl" id="btn-video" type="button">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg></span>
+      <span>Reel</span><span class="sub">Showreel</span>
+    </button>
+    <button class="ctrl" data-scroll type="button">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a5 5 0 0 0-4-5"/></svg></span>
+      <span>Services</span><span class="sub">4 online</span>
+    </button>
+    <button class="ctrl" id="btn-share" type="button">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+      <span>Portfolio</span><span class="sub">Share</span>
+    </button>
+    <button class="ctrl" id="btn-chat" type="button">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+      <span>Chat</span><span class="sub">Say hi</span>
+    </button>
+    <div class="toolbar-spacer"></div>
+    <button class="ctrl leave" id="btn-book" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H8l-4 4z"/></svg>
+      <span>Book a project</span>
+    </button>
+  </nav>
+
+  <!-- ================= MODAL ================= -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-head" id="modal-head">
+        <span class="m-glyph" id="modal-glyph"></span>
+        <div>
+          <h3 id="modal-title"></h3>
+          <p id="modal-tagline"></p>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul id="modal-list"></ul>
+      </div>
+      <div class="modal-foot">
+        <div class="price" id="modal-price"></div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn ghost" id="modal-portfolio" type="button">View samples</button>
+          <a class="btn" id="modal-cta" href="mailto:hello@dphilhowerstudio.com">Start this project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---------- Data: participants (studio + services) ----------
+    var TILES = [
+      {
+        id: "studio", host: true, glyph: "DP",
+        name: "D. Philhower Studio",
+        grad: ["#12203a", "#0b0d10"],
+        tagline: "Design studio · Host",
+      },
+      {
+        id: "logo", glyph: "◐", name: "Logo Design",
+        grad: ["#ff5f6d", "#ffc371"],
+        tagline: "Marks people remember",
+        price: "Brand marks from <b>$650</b>",
+        points: [
+          "Discovery, moodboards & concept exploration",
+          "Primary logo, secondary mark & responsive variants",
+          "Color, type & clear-space usage guidelines",
+          "Full vector delivery (SVG, EPS, PDF, PNG)"
+        ]
+      },
+      {
+        id: "poster", glyph: "▤", name: "Poster Design",
+        grad: ["#7b5cff", "#2d8cff"],
+        tagline: "Bold, eye-catching print",
+        price: "Poster projects from <b>$300</b>",
+        points: [
+          "Event, gig, promo & editorial posters",
+          "Custom layout, typography & illustration",
+          "Print-ready CMYK files with bleed & crop marks",
+          "Large-format & social-ready export sizes"
+        ]
+      },
+      {
+        id: "print", glyph: "▥", name: "Print Media",
+        grad: ["#11998e", "#38ef7d"],
+        tagline: "Business cards to brochures",
+        price: "Print collateral from <b>$250</b>",
+        points: [
+          "Business cards, flyers, brochures & packaging",
+          "Menus, stationery & trade-show materials",
+          "Prepress checks & printer-ready artwork",
+          "Print-partner coordination on request"
+        ]
+      },
+      {
+        id: "web", glyph: "◫", name: "Website Design",
+        grad: ["#f857a6", "#ff5858"],
+        tagline: "Sites that convert",
+        price: "Website design from <b>$1,200</b>",
+        points: [
+          "UX wireframes & responsive UI design",
+          "Landing pages, portfolios & business sites",
+          "Design systems handed off dev-ready",
+          "Build & launch support available"
+        ]
+      },
+      {
+        id: "contact", glyph: "✦", name: "Let's collaborate",
+        grad: ["#2d8cff", "#0b0d10"],
+        tagline: "Say hello",
+        contact: true,
+        price: "Reply within 1 business day",
+        points: [
+          "Tell us about your project & timeline",
+          "Free 20-minute discovery call",
+          "Transparent, fixed-price quotes",
+          "Email hello@dphilhowerstudio.com"
+        ]
+      }
+    ];
+
+    // ---------- Build gallery ----------
+    var gallery = document.getElementById("gallery");
+    function micIcon(muted){
+      return '<svg class="mic ' + (muted ? 'muted' : '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+        (muted
+          ? '<path d="M9 9v-1a3 3 0 0 1 6 0v4M5 11a7 7 0 0 0 10 5M12 18v3M4 4l16 16"/>'
+          : '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>') +
+        '</svg>';
+    }
+
+    TILES.forEach(function (t, i) {
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "tile" + (t.host ? " host speaking" : "");
+      el.style.animationDelay = (i * 60) + "ms";
+      el.setAttribute("data-id", t.id);
+
+      var artStyle = "background: radial-gradient(120% 120% at 30% 20%, " +
+        t.grad[0] + " 0%, " + t.grad[1] + " 100%);";
+
+      if (t.host) {
+        el.innerHTML =
+          '<div class="art" style="' + artStyle + '"></div>' +
+          '<div class="scrim"></div>' +
+          '<span class="role-badge host">Host</span>' +
+          '<div class="studio">' +
+            '<div class="avatar">DP</div>' +
+            '<h2>D. Philhower Studio</h2>' +
+            '<div class="domain">dphilhowerstudio.com</div>' +
+            '<p>A graphic design studio crafting logos, posters, print media & websites. ' +
+            'Pick a tile below to see what each service includes.</p>' +
+          '</div>' +
+          '<div class="nametag">' + micIcon(false) + ' Studio · unmuted</div>';
+      } else {
+        el.innerHTML =
+          '<div class="art" style="' + artStyle + '"><span class="glyph">' + t.glyph + '</span></div>' +
+          '<div class="scrim"></div>' +
+          (t.contact ? '' : '<span class="role-badge">Service</span>') +
+          '<div class="nametag">' + micIcon(true) + ' ' + t.name + '</div>' +
+          '<div class="hint">Click to open ▸</div>';
+      }
+
+      el.addEventListener("click", function () { openTile(t); });
+      gallery.appendChild(el);
+    });
+
+    // ---------- Modal ----------
+    var overlay = document.getElementById("overlay");
+    var mHead = document.getElementById("modal-head");
+    var mGlyph = document.getElementById("modal-glyph");
+    var mTitle = document.getElementById("modal-title");
+    var mTag = document.getElementById("modal-tagline");
+    var mList = document.getElementById("modal-list");
+    var mPrice = document.getElementById("modal-price");
+    var mCta = document.getElementById("modal-cta");
+    var mPortfolio = document.getElementById("modal-portfolio");
+
+    function checkSvg() {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+    }
+
+    function openTile(t) {
+      if (t.host) { flashToast("You're the host — pick a service tile to begin!"); return; }
+      mGlyph.textContent = t.glyph;
+      mTitle.textContent = t.name;
+      mTag.textContent = t.tagline;
+      mHead.style.background = "linear-gradient(135deg, " + t.grad[0] + ", " + t.grad[1] + ")";
+      mList.innerHTML = (t.points || []).map(function (p) {
+        return "<li>" + checkSvg() + "<span>" + p + "</span></li>";
+      }).join("");
+      mPrice.innerHTML = t.price || "";
+      var subject = encodeURIComponent(t.contact ? "New project inquiry" : (t.name + " — project inquiry"));
+      mCta.href = "mailto:hello@dphilhowerstudio.com?subject=" + subject;
+      mCta.textContent = t.contact ? "Send email" : "Start this project";
+      mPortfolio.style.display = t.contact ? "none" : "";
+      overlay.classList.add("open");
+      document.getElementById("modal-close").focus();
+    }
+    function closeModal() { overlay.classList.remove("open"); }
+
+    document.getElementById("modal-close").addEventListener("click", closeModal);
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+    mPortfolio.addEventListener("click", function () { flashToast("Full portfolio coming soon — email us for samples."); });
+
+    // ---------- Toolbar behaviour ----------
+    var toast = document.getElementById("toast"), toastTimer;
+    function flashToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2600);
+    }
+
+    function toggleCtrl(id, onMsg, offMsg) {
+      var b = document.getElementById(id);
+      b.addEventListener("click", function () {
+        b.classList.toggle("off");
+        flashToast(b.classList.contains("off") ? offMsg : onMsg);
+      });
+    }
+    toggleCtrl("btn-audio", "Studio unmuted.", "Studio muted.");
+    toggleCtrl("btn-video", "Showreel playing…", "Showreel stopped.");
+
+    document.getElementById("btn-share").addEventListener("click", function () {
+      flashToast("Portfolio shared — logos, posters, print & web.");
+    });
+    document.getElementById("btn-chat").addEventListener("click", function () {
+      flashToast("Chat: hello@dphilhowerstudio.com");
+    });
+    document.getElementById("btn-book").addEventListener("click", function () {
+      openTile(TILES[TILES.length - 1]);
+    });
+    document.querySelector("[data-scroll]").addEventListener("click", function () {
+      window.scrollTo({ top: document.querySelector(".gallery").offsetTop - 20, behavior: "smooth" });
+      flashToast("4 services online: Logo, Poster, Print, Web.");
+    });
+
+    // ---------- Meeting clock ----------
+    var start = Date.now();
+    setInterval(function () {
+      var s = Math.floor((Date.now() - start) / 1000);
+      var m = String(Math.floor(s / 60)).padStart(2, "0");
+      var sec = String(s % 60).padStart(2, "0");
+      document.getElementById("clock").textContent = m + ":" + sec;
+    }, 1000);
+  </script>
+</body>
+</html>
