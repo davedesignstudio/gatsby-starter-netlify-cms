@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/css/dphilhower-zoom.css' | prepend: site.baseurl }}">
+</head>
+<body class="zoom-body">
+  <nav class="zoom-nav" aria-label="Section navigation">
+    <a href="#home" class="zoom-nav__brand" aria-label="D Philhower Studio home">
+      <span class="zoom-nav__brand-mark">DP</span>
+      <span class="zoom-nav__brand-text">Studio</span>
+    </a>
+    <ul class="zoom-nav__dots">
+      <li><a href="#home" data-section="home" class="zoom-nav__dot is-active" aria-label="Home"></a></li>
+      <li><a href="#services" data-section="services" class="zoom-nav__dot" aria-label="Services"></a></li>
+      <li><a href="#about" data-section="about" class="zoom-nav__dot" aria-label="About"></a></li>
+      <li><a href="#work" data-section="work" class="zoom-nav__dot" aria-label="Work"></a></li>
+      <li><a href="#contact" data-section="contact" class="zoom-nav__dot" aria-label="Contact"></a></li>
+    </ul>
+  </nav>
+
+  <main class="zoom-container" id="zoom-container">
+    {{ content }}
+  </main>
+
+  <script src="{{ '/javascripts/dphilhower-zoom.js' | prepend: site.baseurl }}" defer></script>
+</body>
+</html>
