@@ -1,0 +1,18 @@
+{
+  "name": "Aisle Rush — Shopping Cart Racing",
+  "short_name": "Aisle Rush",
+  "description": "An after-hours shopping-cart racing game built for touch.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c1712",
+  "theme_color": "#173b2d",
+  "icons": [
+    {
+      "src": "/images/cart-racer-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
