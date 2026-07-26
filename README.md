@@ -1,4 +1,27 @@
-# Gatsby + Netlify CMS Starter
+# Aisle Allies
+
+An original iOS arcade racer built with SwiftUI and SpriteKit. Race improvised
+shopping carts through an after-hours grocery store while collecting supplies
+for a community pantry.
+
+The native project is in [`ios/AisleAllies`](ios/AisleAllies). Open
+`AisleAllies.xcodeproj` with Xcode 16+, select an iOS 16+ simulator, and run the
+shared `AisleAllies` scheme. It uses only Apple frameworks.
+
+Features include three-lap races against three AI carts, touch steering,
+rechargeable boosts, hazards, supply pickups, three cart styles, persistent
+best times, and unit-tested lap progression.
+
+```sh
+xcodebuild test \
+  -project ios/AisleAllies/AisleAllies.xcodeproj \
+  -scheme AisleAllies \
+  -destination 'platform=iOS Simulator,name=iPhone 16'
+```
+
+## Legacy website
+
+The repository's previous Gatsby/Jekyll website remains at the root.
 
 **Note:** This starter uses the [Gatsby v2 Beta](https://www.gatsbyjs.org/blog/2018-06-16-announcing-gatsby-v2-beta-launch/).
 
