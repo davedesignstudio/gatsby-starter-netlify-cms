@@ -143,6 +143,11 @@ run()
     process.exitCode = 1;
   })
   .finally(() => {
-    chrome.kill("SIGTERM");
-    fs.rmSync(profile, { recursive: true, force: true });
+    const cleanup = () => fs.rmSync(profile, { recursive: true, force: true });
+    if (chrome.exitCode === null) {
+      chrome.once("exit", cleanup);
+      chrome.kill("SIGTERM");
+    } else {
+      cleanup();
+    }
   });
