@@ -79,6 +79,10 @@ Clearance Canyon     len= 569.1m  bestLap= 25.8s  winner= 88.2s  spread= 27.3s
 Closing Time Parkway len= 701.5m  bestLap= 28.1s  winner= 91.3s  spread= 12.2s
 ```
 
+The app target is built by the macOS CI job (`.github/workflows/aisle-rush.yml`),
+which is the check that covers the SpriteKit and SwiftUI layers; the Linux job
+covers the simulation.
+
 ## How the racing works
 
 **Handling.** The cart turns its heading directly and the velocity is dragged
@@ -132,8 +136,16 @@ teleporting.
 | Drift | Big button, bottom right |
 | Use item | Tap to throw forward, drag down to throw backward, hold to trail |
 
-Holding the throttle as the countdown reaches two earns a rocket start. Holding
-it from three floods the wheels instead.
+Holding REV as the countdown reaches two earns a rocket start. Holding it from
+three floods the wheels instead. With auto-accelerate on, the REV button
+appears only during the countdown.
+
+Touches are handled by a UIKit multitouch layer (`Input/TouchControlLayer.swift`)
+rather than SwiftUI gestures. SwiftUI arbitrates one gesture at a time across
+sibling views, so a steering pad and a drift button built from `DragGesture`
+cannot be held at once — which would make mini-turbos impossible. The layout in
+`ControlLayout` is shared between that layer and the SwiftUI visuals so the two
+can never disagree about where a button is.
 
 ## A note on the theme
 
@@ -144,6 +156,10 @@ robot. Homelessness is not used as a punchline.
 
 ## Known gaps
 
+- The app has not been run on a device or simulator yet. The simulation is
+  covered by tests, and the app layer builds in CI, but the feel of the
+  handling on a touchscreen and the look of the procedural art both want a
+  pass on real hardware.
 - No app icon. There is no asset catalogue because the project deliberately
   contains no binary assets; add one before shipping anywhere.
 - No Game Center, leaderboards or ghost replays. Records are stored locally in
