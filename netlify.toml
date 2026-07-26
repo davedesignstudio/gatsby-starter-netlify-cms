@@ -1,6 +1,4 @@
 [build]
-  publish = "public"
-  command = "npm run build"
-[build.environment]
-  YARN_VERSION = "1.9.4"
-  YARN_FLAGS = "--no-ignore-optional"
+  # Static site — no build step required. Publish the repo root as-is.
+  publish = "."
+  command = ""
