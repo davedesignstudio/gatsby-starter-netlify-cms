@@ -1,14 +1,13 @@
 # Site settings
-title: Devoll
-email: your-email@domain.com
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+title: DPhilhower Studio
+email: hello@dphilhowerstudio.com
+description: >
+  DPhilhower Studio is a full-service graphic design boutique offering logo design,
+  poster design, print media, and website design for brands that mean business.
 baseurl: "" # the subpath of your site, e.g. /blog/
-# url: "http://yourdomain.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://dphilhowerstudio.com"
+twitter_username: dphilhowerstudio
+github_username:  dphilhowerstudio
 
 # Build settings
 markdown: kramdown

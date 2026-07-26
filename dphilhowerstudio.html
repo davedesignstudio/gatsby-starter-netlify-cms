@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DPhilhower Studio — Creative graphic design services including logo design, poster design, print media, and website design." />
+  <title>DPhilhower Studio | Graphic Design</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/dphilhowerstudio.css" />
+</head>
+<body>
+
+  <!-- ─── Navigation ─────────────────────────────────────────────────── -->
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-d">D</span><span class="logo-rest">philhower</span>
+        <span class="logo-studio">Studio</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about"    class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#work"     class="nav-link">Work</a></li>
+        <li><a href="#process"  class="nav-link">Process</a></li>
+        <li><a href="#contact"  class="nav-link nav-cta">Get in Touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── Progress Indicator ──────────────────────────────────────────── -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ─── Section Dots Navigation ─────────────────────────────────────── -->
+  <nav class="section-dots" id="section-dots" aria-label="Section navigation">
+    <button class="dot active" data-target="hero"     aria-label="Hero"></button>
+    <button class="dot"        data-target="about"    aria-label="About"></button>
+    <button class="dot"        data-target="services" aria-label="Services"></button>
+    <button class="dot"        data-target="work"     aria-label="Work"></button>
+    <button class="dot"        data-target="process"  aria-label="Process"></button>
+    <button class="dot"        data-target="contact"  aria-label="Contact"></button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 1 — HERO
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section" id="hero" data-section="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-orb hero-orb--1"></div>
+      <div class="hero-orb hero-orb--2"></div>
+      <div class="hero-orb hero-orb--3"></div>
+    </div>
+    <div class="zoom-content hero-content">
+      <p class="hero-eyebrow zoom-item" data-delay="0">Graphic Design Studio</p>
+      <h1 class="hero-headline zoom-item" data-delay="100">
+        Where Ideas<br />
+        <em>Come Alive.</em>
+      </h1>
+      <p class="hero-sub zoom-item" data-delay="200">
+        Crafting bold visual identities, striking print media,<br />
+        and immersive digital experiences for brands that mean business.
+      </p>
+      <div class="hero-actions zoom-item" data-delay="300">
+        <a href="#services" class="btn btn--primary">Explore Services</a>
+        <a href="#work"     class="btn btn--ghost">View Our Work</a>
+      </div>
+      <div class="hero-badge zoom-item" data-delay="400">
+        <span class="badge-ring">
+          <svg viewBox="0 0 100 100" class="badge-text-svg" aria-hidden="true">
+            <path id="circlePath" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" fill="none"/>
+            <text>
+              <textPath href="#circlePath">dphilhowerstudio.com · est. 2024 · </textPath>
+            </text>
+          </svg>
+          <span class="badge-icon">✦</span>
+        </span>
+      </div>
+    </div>
+    <a href="#about" class="scroll-hint" aria-label="Scroll to About">
+      <span class="scroll-hint__line"></span>
+      <span class="scroll-hint__label">Scroll</span>
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 2 — ABOUT
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section zoom-section--light" id="about" data-section="about">
+    <div class="zoom-content about-content">
+      <div class="about-text">
+        <p class="section-label zoom-item" data-delay="0">About the Studio</p>
+        <h2 class="section-heading zoom-item" data-delay="100">
+          Design that<br /><span class="highlight">speaks louder</span><br />than words.
+        </h2>
+        <p class="body-text zoom-item" data-delay="200">
+          DPhilhower Studio is a full-service graphic design boutique dedicated to
+          helping brands express themselves with clarity, creativity, and conviction.
+          We blend strategic thinking with artistic execution — from the smallest
+          logo mark to the most expansive print campaign.
+        </p>
+        <p class="body-text zoom-item" data-delay="300">
+          Every project is a collaboration. We listen, explore, craft, and refine
+          until the work doesn't just look great — it <em>works</em>.
+        </p>
+        <div class="about-stats zoom-item" data-delay="400">
+          <div class="stat">
+            <strong class="stat-num">200<span>+</span></strong>
+            <span class="stat-label">Projects Completed</span>
+          </div>
+          <div class="stat">
+            <strong class="stat-num">85<span>+</span></strong>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+          <div class="stat">
+            <strong class="stat-num">10<span>+</span></strong>
+            <span class="stat-label">Years Experience</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual zoom-item" data-delay="200">
+        <div class="about-card about-card--main">
+          <div class="about-card__inner">
+            <div class="card-shape card-shape--circle"></div>
+            <div class="card-shape card-shape--rect"></div>
+            <div class="card-shape card-shape--triangle"></div>
+            <p class="card-quote">"Great design is invisible — it simply works."</p>
+            <span class="card-attr">— Phil Philhower, Creative Director</span>
+          </div>
+        </div>
+        <div class="about-card about-card--accent">
+          <span class="accent-number">No.1</span>
+          <span class="accent-label">Creative Studio</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 3 — SERVICES
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section zoom-section--dark" id="services" data-section="services">
+    <div class="zoom-content services-content">
+      <div class="services-header">
+        <p class="section-label section-label--light zoom-item" data-delay="0">What We Do</p>
+        <h2 class="section-heading section-heading--light zoom-item" data-delay="100">
+          Our Services
+        </h2>
+        <p class="section-intro zoom-item" data-delay="200">
+          From concept to final file — we handle every stage of the design process.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Logo Design -->
+        <div class="service-card zoom-item" data-delay="0">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 44 L32 20 L44 44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M23 38 L41 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="service-num">01</span>
+          <h3 class="service-title">Logo Design</h3>
+          <p class="service-desc">
+            A logo is the cornerstone of your brand identity. We design marks that are
+            distinctive, versatile, and built to endure — from wordmarks and lettermarks
+            to emblems and abstract symbols.
+          </p>
+          <ul class="service-list">
+            <li>Brand identity systems</li>
+            <li>Wordmarks &amp; monograms</li>
+            <li>Icon &amp; symbol design</li>
+            <li>Style guide &amp; usage rules</li>
+          </ul>
+          <a href="#contact" class="service-link">Start a Project →</a>
+        </div>
+
+        <!-- Poster Design -->
+        <div class="service-card zoom-item" data-delay="100">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="8" width="40" height="48" rx="2" stroke="currentColor" stroke-width="2"/>
+              <rect x="20" y="18" width="24" height="14" rx="1" stroke="currentColor" stroke-width="2"/>
+              <line x1="20" y1="38" x2="44" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="20" y1="44" x2="36" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="service-num">02</span>
+          <h3 class="service-title">Poster Design</h3>
+          <p class="service-desc">
+            Bold, arresting posters that stop people in their tracks. We balance
+            typographic power with compelling imagery to create pieces that communicate
+            instantly and linger in memory.
+          </p>
+          <ul class="service-list">
+            <li>Event &amp; concert posters</li>
+            <li>Promotional campaigns</li>
+            <li>Art &amp; exhibition prints</li>
+            <li>Large-format display</li>
+          </ul>
+          <a href="#contact" class="service-link">Start a Project →</a>
+        </div>
+
+        <!-- Print Media -->
+        <div class="service-card zoom-item" data-delay="200">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="20" width="48" height="28" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M16 20 V12 H48 V20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="18" y="30" width="28" height="14" rx="1" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="30" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="service-num">03</span>
+          <h3 class="service-title">Print Media</h3>
+          <p class="service-desc">
+            Professional print collateral that extends your brand into the physical world.
+            We design for every touchpoint — from business cards to full brochure suites
+            — with meticulous attention to print production.
+          </p>
+          <ul class="service-list">
+            <li>Brochures &amp; catalogues</li>
+            <li>Business cards &amp; stationery</li>
+            <li>Flyers &amp; leaflets</li>
+            <li>Packaging &amp; labels</li>
+          </ul>
+          <a href="#contact" class="service-link">Start a Project →</a>
+        </div>
+
+        <!-- Website Design -->
+        <div class="service-card zoom-item" data-delay="300">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="12" width="52" height="36" rx="3" stroke="currentColor" stroke-width="2"/>
+              <line x1="6"  y1="22" x2="58" y2="22" stroke="currentColor" stroke-width="2"/>
+              <circle cx="14" cy="17" r="2" fill="currentColor"/>
+              <circle cx="21" cy="17" r="2" fill="currentColor"/>
+              <circle cx="28" cy="17" r="2" fill="currentColor"/>
+              <line x1="20" y1="52" x2="44" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="32" y1="48" x2="32" y2="52" stroke="currentColor" stroke-width="2"/>
+              <rect x="16" y="30" width="14" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="36" y1="30" x2="50" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="36" y1="35" x2="50" y2="35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="36" y1="40" x2="44" y2="40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="service-num">04</span>
+          <h3 class="service-title">Website Design</h3>
+          <p class="service-desc">
+            Pixel-perfect website designs that marry aesthetics with function. We create
+            intuitive user experiences and visually stunning interfaces — ready for
+            handoff to development or delivered as a complete site.
+          </p>
+          <ul class="service-list">
+            <li>UI/UX design &amp; wireframes</li>
+            <li>Landing pages &amp; full sites</li>
+            <li>E-commerce storefronts</li>
+            <li>Responsive &amp; mobile-first</li>
+          </ul>
+          <a href="#contact" class="service-link">Start a Project →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 4 — WORK / PORTFOLIO
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section zoom-section--light" id="work" data-section="work">
+    <div class="zoom-content work-content">
+      <div class="work-header">
+        <p class="section-label zoom-item" data-delay="0">Portfolio</p>
+        <h2 class="section-heading zoom-item" data-delay="100">Selected Work</h2>
+        <p class="section-intro section-intro--dark zoom-item" data-delay="200">
+          A curated selection of projects across logo design, poster design, print media,
+          and website design.
+        </p>
+      </div>
+
+      <div class="work-grid">
+
+        <div class="work-item work-item--wide zoom-item" data-delay="0">
+          <div class="work-thumb work-thumb--brand">
+            <div class="work-thumb-inner">
+              <div class="mock-logo">
+                <span class="mock-logo__mark">A</span>
+                <span class="mock-logo__name">Apex<br/>Collective</span>
+              </div>
+              <div class="mock-shapes">
+                <div class="ms ms--1"></div>
+                <div class="ms ms--2"></div>
+                <div class="ms ms--3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="work-info">
+            <span class="work-cat">Logo Design</span>
+            <h3 class="work-title">Apex Collective Brand Identity</h3>
+          </div>
+        </div>
+
+        <div class="work-item zoom-item" data-delay="100">
+          <div class="work-thumb work-thumb--poster">
+            <div class="work-thumb-inner">
+              <div class="mock-poster">
+                <div class="mock-poster__band"></div>
+                <p class="mock-poster__headline">Summer<br/>Sessions</p>
+                <p class="mock-poster__sub">Live Music · July 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="work-info">
+            <span class="work-cat">Poster Design</span>
+            <h3 class="work-title">Summer Sessions Music Festival</h3>
+          </div>
+        </div>
+
+        <div class="work-item zoom-item" data-delay="200">
+          <div class="work-thumb work-thumb--print">
+            <div class="work-thumb-inner">
+              <div class="mock-brochure">
+                <div class="mock-brochure__cover">
+                  <span>Annual<br/>Report</span>
+                  <span class="mock-brochure__year">2024</span>
+                </div>
+                <div class="mock-brochure__page"></div>
+              </div>
+            </div>
+          </div>
+          <div class="work-info">
+            <span class="work-cat">Print Media</span>
+            <h3 class="work-title">Nova Corp Annual Report</h3>
+          </div>
+        </div>
+
+        <div class="work-item zoom-item" data-delay="100">
+          <div class="work-thumb work-thumb--web">
+            <div class="work-thumb-inner">
+              <div class="mock-browser">
+                <div class="mock-browser__bar">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="mock-browser__body">
+                  <div class="mock-browser__hero"></div>
+                  <div class="mock-browser__lines">
+                    <div class="mbl mbl--1"></div>
+                    <div class="mbl mbl--2"></div>
+                    <div class="mbl mbl--3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="work-info">
+            <span class="work-cat">Website Design</span>
+            <h3 class="work-title">Luminary Agency Website</h3>
+          </div>
+        </div>
+
+        <div class="work-item work-item--wide zoom-item" data-delay="200">
+          <div class="work-thumb work-thumb--poster2">
+            <div class="work-thumb-inner">
+              <div class="mock-poster2">
+                <div class="mock-poster2__bg"></div>
+                <p class="mock-poster2__text">TYPE &amp;<br/>FORM</p>
+                <div class="mock-poster2__dots">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="work-info">
+            <span class="work-cat">Poster Design · Print Media</span>
+            <h3 class="work-title">Type &amp; Form Exhibition Series</h3>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="work-cta zoom-item" data-delay="300">
+        <a href="#contact" class="btn btn--primary">View Full Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 5 — PROCESS
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section zoom-section--accent" id="process" data-section="process">
+    <div class="zoom-content process-content">
+      <div class="process-header">
+        <p class="section-label section-label--light zoom-item" data-delay="0">How We Work</p>
+        <h2 class="section-heading section-heading--light zoom-item" data-delay="100">
+          The Creative Process
+        </h2>
+      </div>
+
+      <div class="process-steps">
+
+        <div class="process-step zoom-item" data-delay="0">
+          <div class="step-number">01</div>
+          <div class="step-body">
+            <h3 class="step-title">Discover</h3>
+            <p class="step-desc">
+              We start with a deep dive into your brand, audience, and goals.
+              A detailed brief ensures we're aligned before a single pixel is placed.
+            </p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+        </div>
+
+        <div class="process-step zoom-item" data-delay="100">
+          <div class="step-number">02</div>
+          <div class="step-body">
+            <h3 class="step-title">Explore</h3>
+            <p class="step-desc">
+              Mood boards, sketches, and concept directions are developed.
+              We explore multiple creative avenues to find the strongest path forward.
+            </p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+        </div>
+
+        <div class="process-step zoom-item" data-delay="200">
+          <div class="step-number">03</div>
+          <div class="step-body">
+            <h3 class="step-title">Design</h3>
+            <p class="step-desc">
+              The chosen direction is refined into polished design solutions.
+              We present clear rationale behind every creative decision.
+            </p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+        </div>
+
+        <div class="process-step zoom-item" data-delay="300">
+          <div class="step-number">04</div>
+          <div class="step-body">
+            <h3 class="step-title">Deliver</h3>
+            <p class="step-desc">
+              Final files are prepared for every medium — print-ready PDFs,
+              web-optimised exports, and comprehensive asset packages.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="process-quote zoom-item" data-delay="400">
+        <blockquote>
+          "We don't just make things look good — we make them work hard."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 6 — CONTACT / CTA
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="zoom-section zoom-section--dark" id="contact" data-section="contact">
+    <div class="zoom-content contact-content">
+      <div class="contact-left">
+        <p class="section-label section-label--light zoom-item" data-delay="0">Get in Touch</p>
+        <h2 class="section-heading section-heading--light zoom-item" data-delay="100">
+          Ready to create<br />something great?
+        </h2>
+        <p class="body-text body-text--light zoom-item" data-delay="200">
+          Whether you need a bold new logo, a striking poster, print collateral
+          that commands attention, or a website that converts — we'd love to hear
+          about your project.
+        </p>
+
+        <div class="contact-details zoom-item" data-delay="300">
+          <div class="contact-detail">
+            <span class="cd-icon" aria-hidden="true">✉</span>
+            <a href="mailto:hello@dphilhowerstudio.com" class="cd-link">hello@dphilhowerstudio.com</a>
+          </div>
+          <div class="contact-detail">
+            <span class="cd-icon" aria-hidden="true">◎</span>
+            <span>dphilhowerstudio.com</span>
+          </div>
+        </div>
+
+        <div class="contact-socials zoom-item" data-delay="350">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 11.5c1.4 0 2.5-.9 2.5-2.5S8.9 6.5 7.5 6.5H3v10h4.8c1.6 0 2.7-1.1 2.7-2.6 0-1.4-1-2.4-3-2.4zm-.3-3.5c.8 0 1.3.4 1.3 1s-.5 1-1.3 1H5v-2h2.2zm.5 6H5v-2.5h2.7c.9 0 1.4.4 1.4 1.2s-.6 1.3-1.4 1.3zm8.8-6h3v-1h-3v1zm1.5 1.5c-2.2 0-3.5 1.5-3.5 3.5s1.3 3.5 3.5 3.5c1.5 0 2.7-.8 3.2-2h-1.7c-.3.5-.8.8-1.5.8-1 0-1.7-.6-1.8-1.5h5.1c.1-.3.1-.5.1-.8 0-2-1.2-3.5-3.4-3.5zm-1.8 2.8c.2-.8.8-1.3 1.8-1.3.9 0 1.5.5 1.7 1.3h-3.5z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right zoom-item" data-delay="200">
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="cf-name">Your Name</label>
+            <input type="text"  id="cf-name"    name="name"    placeholder="Phil Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email"   name="email"   placeholder="phil@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-service">Service Needed</label>
+            <select id="cf-service" name="service">
+              <option value="">— Select a service —</option>
+              <option value="logo">Logo Design</option>
+              <option value="poster">Poster Design</option>
+              <option value="print">Print Media</option>
+              <option value="web">Website Design</option>
+              <option value="other">Other / Multiple</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Tell Us About Your Project</label>
+            <textarea id="cf-message" name="message" rows="5" placeholder="Briefly describe what you're looking for…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          <p class="form-note">We typically respond within 1 business day.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">DPhilhower<em>Studio</em></span>
+        <p class="footer-tagline">Graphic design that works as hard as you do.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Logo Design</a></li>
+          <li><a href="#services">Poster Design</a></li>
+          <li><a href="#services">Print Media</a></li>
+          <li><a href="#services">Website Design</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Portfolio</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><a href="mailto:hello@dphilhowerstudio.com">hello@dphilhowerstudio.com</a></p>
+        <p><a href="https://dphilhowerstudio.com" target="_blank" rel="noopener">dphilhowerstudio.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 DPhilhower Studio. All rights reserved.</p>
+      <p>Crafted with care &amp; creativity.</p>
+    </div>
+  </footer>
+
+  <script src="js/dphilhowerstudio.js"></script>
+</body>
+</html>

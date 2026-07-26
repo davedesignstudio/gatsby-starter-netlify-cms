@@ -1,23 +1,15 @@
 - name: Home
-  path: /index.html
+  path: /dphilhowerstudio.html
   section_id: home
 - name: About
-  path: about.html
+  path: dphilhowerstudio.html#about
   section_id: about
 - name: Services
-  path: services.html
+  path: dphilhowerstudio.html#services
   section_id: services
-- name: Portfolio
-  path: portfolio.html
-  section_id: portfolio
-  children:
-    - name: Portfolio
-      path: portfolio.html
-    - name: Portfolio item
-      path: portfolio-item.html
+- name: Work
+  path: dphilhowerstudio.html#work
+  section_id: work
 - name: Contact
-  path: contact.html
+  path: dphilhowerstudio.html#contact
   section_id: contact
-- name: Blog
-  path: blog/
-  section_id: blog
