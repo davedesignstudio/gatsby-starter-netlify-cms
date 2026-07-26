@@ -7,6 +7,9 @@
 - name: Services
   path: services.html
   section_id: services
+- name: Cart Racer
+  path: store-cart-racer.html
+  section_id: game
 - name: Portfolio
   path: portfolio.html
   section_id: portfolio

@@ -1,0 +1,91 @@
+---
+layout: default
+title: Cart Racer
+section_id: game
+---
+
+<link rel="stylesheet" href="css/store-cart-racer.css">
+
+<section class="cart-game-hero">
+  <div class="cart-game-hero__overlay">
+    <div class="row">
+      <div class="large-12 columns">
+        <p class="cart-game-kicker">Mobile arcade prototype</p>
+        <h1>Aisle Cart Rally</h1>
+        <p class="cart-game-lede">
+          Drift a scrappy shopping cart through a closing store, grab coupons and shelter supply packs,
+          dodge spills, and beat the rival carts to checkout.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="cart-game-page" data-cart-game>
+  <div class="row">
+    <div class="large-8 columns">
+      <section class="cart-game-shell" aria-label="Aisle Cart Rally game">
+        <div class="cart-game-hud" aria-live="polite">
+          <div>
+            <span class="cart-game-hud__label">Score</span>
+            <strong data-score>0</strong>
+          </div>
+          <div>
+            <span class="cart-game-hud__label">Supplies</span>
+            <strong><span data-supplies>0</span>/8</strong>
+          </div>
+          <div>
+            <span class="cart-game-hud__label">Boost</span>
+            <strong data-boost>Ready</strong>
+          </div>
+          <div>
+            <span class="cart-game-hud__label">Best</span>
+            <strong data-best>0</strong>
+          </div>
+        </div>
+
+        <div class="cart-game-canvas-wrap">
+          <canvas id="cart-racer-canvas" width="768" height="1024" aria-label="Top down cart racing game canvas"></canvas>
+          <div class="cart-game-overlay is-visible" data-overlay>
+            <div class="cart-game-panel">
+              <p class="cart-game-kicker">Aisle 9 is open</p>
+              <h2 data-overlay-title>Ready to roll?</h2>
+              <p data-overlay-copy>
+                Steer through the grocery aisles, collect supply packs, and use coupons for short boosts.
+              </p>
+              <button class="cart-game-button" type="button" data-start>Start race</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-game-controls" aria-label="Touch controls">
+          <button type="button" data-control="left" aria-label="Steer left">Left</button>
+          <button type="button" data-control="boost" aria-label="Use boost">Boost</button>
+          <button type="button" data-control="right" aria-label="Steer right">Right</button>
+        </div>
+      </section>
+    </div>
+
+    <aside class="large-4 columns">
+      <div class="cart-game-card">
+        <h2>How to play</h2>
+        <ul>
+          <li>On iPhone or iPad, hold the left and right buttons or drag across the track to steer.</li>
+          <li>On keyboard, use arrow keys or A/D. Press Space for a coupon boost.</li>
+          <li>Collect supply packs for the shelter run and coupons for extra speed.</li>
+          <li>Avoid cereal spills, wet-floor signs, checkout cones, and rival cart bumps.</li>
+        </ul>
+      </div>
+
+      <div class="cart-game-card cart-game-card--accent">
+        <h2>Prototype notes</h2>
+        <p>
+          This is a lightweight HTML5 game designed for iOS Safari: no app install, no dependencies,
+          and no external assets. It can later be wrapped in a native iOS shell if needed.
+        </p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script src="js/store-cart-racer.js"></script>
