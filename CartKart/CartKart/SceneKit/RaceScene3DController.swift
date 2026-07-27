@@ -142,7 +142,7 @@ final class RaceScene3DController: ObservableObject {
     }
 
     private func addShelfProducts(on shelf: CGRect, seed: String) {
-        let kinds = GroceryLootKind.allCases
+        let shelfKinds: [CartBelongingKind] = [.waterBottle, .snackBag, .recycleCan, .recycleBottle, .wipesPack, .cardboardSheet]
         var hash = seed.unicodeScalars.reduce(0) { $0 + Int($1.value) }
         let slots: [SCNVector3] = [
             SCNVector3(shelf.minX + shelf.width * 0.25, 20, -(shelf.minY + shelf.height * 0.35)),
@@ -151,8 +151,8 @@ final class RaceScene3DController: ObservableObject {
         ]
         for (index, slot) in slots.enumerated() {
             hash = (hash &* 17 &+ index) % 10_000
-            let kind = kinds[hash % kinds.count]
-            let product = Item3DModels.makeGroceryLoot(kind, scale: 0.35)
+            let kind = shelfKinds[hash % shelfKinds.count]
+            let product = Item3DModels.makeCartBelonging(kind, scale: 0.35)
             product.position = slot
             product.eulerAngles = SCNVector3(0, Float(hash % 628) / 100, 0)
             scene.rootNode.addChildNode(product)

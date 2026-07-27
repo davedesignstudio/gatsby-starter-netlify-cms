@@ -37,7 +37,7 @@ Game Center authentication + matchmaking with live position sync between players
 ### 3D Enhancements
 Procedural SceneKit assets (no external model files):
 
-**Shopping cart** — wire-frame basket filled with grocery loot (cereal, soup, chips, milk, bananas, cans, bread, wine), chassis, handles, wheels, rider, dust/spark particles. Held power-ups appear as 3D models in the cart with a glow.
+**Shopping cart** — wire-frame basket packed with realistic belongings across 8 categories: bedding (blankets, sleeping bags, pillows), clothing (jackets, spare shoes), weather protection (tarps, plastic sheeting, umbrellas), bags/containers, recyclables (cans/bottles), water/food, hygiene items, and cardboard (sheets/signs). Exterior attachments include draped tarps and hanging bags.
 
 **Power-up 3D models** — banana peel, coupon tag, milk carton, can pyramid
 

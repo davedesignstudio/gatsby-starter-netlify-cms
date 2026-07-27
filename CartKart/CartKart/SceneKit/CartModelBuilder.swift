@@ -33,9 +33,12 @@ enum CartModelBuilder {
         handleR.position = SCNVector3(12, 18, -10)
         root.addChildNode(handleR)
 
-        let loot = Item3DModels.makeBasketLoot(seed: characterSeed, count: 6)
+        let loot = Item3DModels.makeBasketLoot(seed: characterSeed, count: 8)
         loot.position = SCNVector3(0, 14, -12)
         root.addChildNode(loot)
+
+        let exterior = Item3DModels.makeExteriorAttachments(seed: characterSeed)
+        root.addChildNode(exterior)
 
         let heldSlot = SCNNode()
         heldSlot.name = "heldItem"

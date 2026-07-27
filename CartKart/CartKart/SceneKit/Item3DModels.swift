@@ -1,26 +1,70 @@
 import SceneKit
 import SpriteKit
 
-enum GroceryLootKind: CaseIterable {
-    case cereal
-    case soup
-    case chips
-    case milk
-    case banana
-    case can
-    case bread
-    case wine
+enum CartBelongingCategory: CaseIterable {
+    case bedding
+    case clothing
+    case weatherProtection
+    case bagsContainers
+    case recyclables
+    case waterFood
+    case hygiene
+    case cardboard
+}
+
+enum CartBelongingKind: CaseIterable {
+    case blanket
+    case sleepingBag
+    case pillow
+    case jacket
+    case spareShoes
+    case tarp
+    case plasticSheeting
+    case umbrella
+    case duffelBag
+    case plasticBin
+    case recycleCan
+    case recycleBottle
+    case waterBottle
+    case snackBag
+    case wipesPack
+    case toiletryBag
+    case cardboardSheet
+    case cardboardSign
+
+    var category: CartBelongingCategory {
+        switch self {
+        case .blanket, .sleepingBag, .pillow: return .bedding
+        case .jacket, .spareShoes: return .clothing
+        case .tarp, .plasticSheeting, .umbrella: return .weatherProtection
+        case .duffelBag, .plasticBin: return .bagsContainers
+        case .recycleCan, .recycleBottle: return .recyclables
+        case .waterBottle, .snackBag: return .waterFood
+        case .wipesPack, .toiletryBag: return .hygiene
+        case .cardboardSheet, .cardboardSign: return .cardboard
+        }
+    }
 
     var primaryColor: UIColor {
         switch self {
-        case .cereal: return UIColor(red: 0.95, green: 0.72, blue: 0.2, alpha: 1)
-        case .soup: return UIColor(red: 0.85, green: 0.25, blue: 0.2, alpha: 1)
-        case .chips: return UIColor(red: 0.2, green: 0.55, blue: 0.9, alpha: 1)
-        case .milk: return UIColor(white: 0.95, alpha: 1)
-        case .banana: return UIColor(red: 1.0, green: 0.88, blue: 0.2, alpha: 1)
-        case .can: return UIColor(red: 0.8, green: 0.3, blue: 0.2, alpha: 1)
-        case .bread: return UIColor(red: 0.82, green: 0.62, blue: 0.35, alpha: 1)
-        case .wine: return UIColor(red: 0.45, green: 0.1, blue: 0.2, alpha: 1)
+        case .blanket: return UIColor(red: 0.35, green: 0.45, blue: 0.62, alpha: 1)
+        case .sleepingBag: return UIColor(red: 0.2, green: 0.35, blue: 0.28, alpha: 1)
+        case .pillow: return UIColor(red: 0.75, green: 0.72, blue: 0.65, alpha: 1)
+        case .jacket: return UIColor(red: 0.45, green: 0.32, blue: 0.22, alpha: 1)
+        case .spareShoes: return UIColor(red: 0.25, green: 0.2, blue: 0.18, alpha: 1)
+        case .tarp: return UIColor(red: 0.15, green: 0.42, blue: 0.28, alpha: 1)
+        case .plasticSheeting: return UIColor(white: 0.92, alpha: 0.55)
+        case .umbrella: return UIColor(red: 0.15, green: 0.15, blue: 0.18, alpha: 1)
+        case .duffelBag: return UIColor(red: 0.55, green: 0.35, blue: 0.15, alpha: 1)
+        case .plasticBin: return UIColor(red: 0.2, green: 0.55, blue: 0.75, alpha: 1)
+        case .recycleCan: return UIColor(red: 0.78, green: 0.22, blue: 0.15, alpha: 1)
+        case .recycleBottle: return UIColor(red: 0.25, green: 0.65, blue: 0.35, alpha: 0.7)
+        case .waterBottle: return UIColor(red: 0.4, green: 0.75, blue: 0.95, alpha: 0.85)
+        case .snackBag: return UIColor(red: 0.9, green: 0.75, blue: 0.2, alpha: 1)
+        case .wipesPack: return UIColor(red: 0.85, green: 0.9, blue: 0.95, alpha: 1)
+        case .toiletryBag: return UIColor(red: 0.6, green: 0.75, blue: 0.85, alpha: 1)
+        case .cardboardSheet: return UIColor(red: 0.72, green: 0.58, blue: 0.38, alpha: 1)
+        case .cardboardSign: return UIColor(red: 0.68, green: 0.52, blue: 0.32, alpha: 1)
         }
     }
 }
@@ -207,79 +251,302 @@ enum Item3DModels {
         return root
     }
 
-    // MARK: - Grocery loot for cart basket
+    // MARK: - Cart belongings (realistic homeless cart contents)
 
-    static func makeGroceryLoot(_ kind: GroceryLootKind, scale: Float = 1) -> SCNNode {
+    static func makeCartBelonging(_ kind: CartBelongingKind, scale: Float = 1) -> SCNNode {
         let root = SCNNode()
-        root.name = "loot_\(kind)"
+        root.name = "belonging_\(kind)"
 
         switch kind {
-        case .cereal, .soup, .chips, .bread:
-            let box = SCNBox(width: 7, height: 9, length: 4, chamferRadius: 0.6)
-            box.firstMaterial?.diffuse.contents = kind.primaryColor
-            let boxNode = SCNNode(geometry: box)
-            boxNode.position = SCNVector3(0, 4.5, 0)
-            root.addChildNode(boxNode)
+        case .blanket:
+            let fold = SCNBox(width: 9, height: 2.5, length: 7, chamferRadius: 0.8)
+            fold.materials = [fabricMaterial(kind.primaryColor)]
+            let node = SCNNode(geometry: fold)
+            node.position = SCNVector3(0, 1.2, 0)
+            root.addChildNode(node)
 
-            let label = SCNBox(width: 5.5, height: 3, length: 0.2, chamferRadius: 0.2)
-            label.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.85)
-            let labelNode = SCNNode(geometry: label)
-            labelNode.position = SCNVector3(0, 5, 2.1)
-            root.addChildNode(labelNode)
+        case .sleepingBag:
+            let roll = SCNCylinder(radius: 2.8, height: 11)
+            roll.materials = [fabricMaterial(kind.primaryColor)]
+            let node = SCNNode(geometry: roll)
+            node.eulerAngles = SCNVector3(0, 0, Float.pi / 2)
+            node.position = SCNVector3(0, 2.8, 0)
+            root.addChildNode(node)
+            let strap = SCNBox(width: 11.5, height: 0.4, length: 0.8, chamferRadius: 0.1)
+            strap.firstMaterial?.diffuse.contents = UIColor.darkGray
+            let strapNode = SCNNode(geometry: strap)
+            strapNode.position = SCNVector3(0, 2.8, 0)
+            root.addChildNode(strapNode)
 
-        case .milk:
-            let milk = makeMilkCarton()
-            milk.scale = SCNVector3(0.45, 0.45, 0.45)
-            root.addChildNode(milk)
+        case .pillow:
+            let pillow = SCNBox(width: 7, height: 3, length: 5, chamferRadius: 1.2)
+            pillow.materials = [fabricMaterial(kind.primaryColor)]
+            let node = SCNNode(geometry: pillow)
+            node.position = SCNVector3(0, 1.5, 0)
+            root.addChildNode(node)
 
-        case .banana:
-            let banana = makeBananaPeel()
-            banana.scale = SCNVector3(0.55, 0.55, 0.55)
-            root.addChildNode(banana)
+        case .jacket:
+            let body = SCNBox(width: 8, height: 1.5, length: 6, chamferRadius: 0.5)
+            body.materials = [fabricMaterial(kind.primaryColor)]
+            let bodyNode = SCNNode(geometry: body)
+            bodyNode.position = SCNVector3(0, 1.2, 0)
+            root.addChildNode(bodyNode)
+            let sleeve = SCNBox(width: 3, height: 1, length: 5, chamferRadius: 0.4)
+            sleeve.materials = [fabricMaterial(kind.primaryColor.darker(by: 0.05))]
+            let sleeveNode = SCNNode(geometry: sleeve)
+            sleeveNode.position = SCNVector3(4.5, 1, 0)
+            root.addChildNode(sleeveNode)
 
-        case .can:
-            root.addChildNode(makeCan(radius: 1.8, height: 4.5, color: kind.primaryColor))
+        case .spareShoes:
+            for x in [-2.2, 2.2] as [Float] {
+                let shoe = SCNBox(width: 3.2, height: 1.8, length: 5.5, chamferRadius: 0.5)
+                shoe.materials = [fabricMaterial(kind.primaryColor)]
+                let shoeNode = SCNNode(geometry: shoe)
+                shoeNode.position = SCNVector3(x, 0.9, 0)
+                root.addChildNode(shoeNode)
+            }
 
-        case .wine:
-            let bottle = SCNCylinder(radius: 1.6, height: 10)
-            bottle.firstMaterial?.diffuse.contents = kind.primaryColor
-            bottle.firstMaterial?.metalness.contents = 0.4
+        case .tarp:
+            let tarp = SCNBox(width: 12, height: 0.25, length: 9, chamferRadius: 0.2)
+            tarp.materials = [plasticMaterial(kind.primaryColor, alpha: 0.9)]
+            let node = SCNNode(geometry: tarp)
+            node.position = SCNVector3(0, 0.2, 0)
+            node.eulerAngles = SCNVector3(0.15, 0.3, 0)
+            root.addChildNode(node)
+
+        case .plasticSheeting:
+            let sheet = SCNBox(width: 10, height: 0.12, length: 8, chamferRadius: 0.1)
+            sheet.materials = [plasticMaterial(kind.primaryColor, alpha: 0.45)]
+            let node = SCNNode(geometry: sheet)
+            node.eulerAngles = SCNVector3(0.1, -0.2, 0.05)
+            root.addChildNode(node)
+
+        case .umbrella:
+            let shaft = SCNCylinder(radius: 0.35, height: 14)
+            shaft.firstMaterial?.diffuse.contents = UIColor.darkGray
+            shaft.firstMaterial?.metalness.contents = 0.8
+            let shaftNode = SCNNode(geometry: shaft)
+            shaftNode.position = SCNVector3(0, 7, 0)
+            root.addChildNode(shaftNode)
+            let canopy = SCNCone(topRadius: 0, bottomRadius: 5, height: 2.5)
+            canopy.firstMaterial?.diffuse.contents = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
+            let canopyNode = SCNNode(geometry: canopy)
+            canopyNode.position = SCNVector3(0, 13.5, 0)
+            root.addChildNode(canopyNode)
+
+        case .duffelBag:
+            let bag = SCNCapsule(capRadius: 3.5, height: 9)
+            bag.materials = [fabricMaterial(kind.primaryColor)]
+            let bagNode = SCNNode(geometry: bag)
+            bagNode.position = SCNVector3(0, 3.5, 0)
+            root.addChildNode(bagNode)
+            let strap = SCNTorus(ringRadius: 2.2, pipeRadius: 0.25)
+            strap.firstMaterial?.diffuse.contents = UIColor.darkGray
+            let strapNode = SCNNode(geometry: strap)
+            strapNode.position = SCNVector3(0, 6.5, 0)
+            strapNode.eulerAngles = SCNVector3(Float.pi / 2, 0, 0)
+            root.addChildNode(strapNode)
+
+        case .plasticBin:
+            let bin = SCNBox(width: 8, height: 5, length: 6, chamferRadius: 0.6)
+            bin.materials = [plasticMaterial(kind.primaryColor, alpha: 0.85)]
+            let binNode = SCNNode(geometry: bin)
+            binNode.position = SCNVector3(0, 2.5, 0)
+            root.addChildNode(binNode)
+            let lid = SCNBox(width: 8.4, height: 0.5, length: 6.4, chamferRadius: 0.3)
+            lid.materials = [plasticMaterial(kind.primaryColor.darker(by: 0.08), alpha: 0.9)]
+            let lidNode = SCNNode(geometry: lid)
+            lidNode.position = SCNVector3(0, 5.2, 0)
+            root.addChildNode(lidNode)
+
+        case .recycleCan:
+            root.addChildNode(makeCan(radius: 1.6, height: 4.2, color: kind.primaryColor))
+
+        case .recycleBottle:
+            let bottle = SCNCylinder(radius: 1.4, height: 7)
+            bottle.materials = [plasticMaterial(kind.primaryColor, alpha: 0.75)]
             let bottleNode = SCNNode(geometry: bottle)
-            bottleNode.position = SCNVector3(0, 5, 0)
+            bottleNode.position = SCNVector3(0, 3.5, 0)
+            root.addChildNode(bottleNode)
+            let cap = SCNCylinder(radius: 1.5, height: 0.8)
+            cap.firstMaterial?.diffuse.contents = UIColor.white
+            let capNode = SCNNode(geometry: cap)
+            capNode.position = SCNVector3(0, 7.2, 0)
+            root.addChildNode(capNode)
+
+        case .waterBottle:
+            let bottle = SCNCylinder(radius: 1.3, height: 6.5)
+            bottle.materials = [plasticMaterial(kind.primaryColor, alpha: 0.8)]
+            let bottleNode = SCNNode(geometry: bottle)
+            bottleNode.position = SCNVector3(0, 3.2, 0)
             root.addChildNode(bottleNode)
 
-            let neck = SCNCylinder(radius: 0.7, height: 3)
-            neck.firstMaterial?.diffuse.contents = kind.primaryColor.darker(by: 0.1)
-            let neckNode = SCNNode(geometry: neck)
-            neckNode.position = SCNVector3(0, 11.5, 0)
-            root.addChildNode(neckNode)
+        case .snackBag:
+            let bag = SCNBox(width: 5, height: 7, length: 2.5, chamferRadius: 0.5)
+            bag.materials = [fabricMaterial(kind.primaryColor)]
+            let bagNode = SCNNode(geometry: bag)
+            bagNode.position = SCNVector3(0, 3.5, 0)
+            root.addChildNode(bagNode)
+            let crimp = SCNBox(width: 5.2, height: 0.8, length: 2.7, chamferRadius: 0.2)
+            crimp.firstMaterial?.diffuse.contents = kind.primaryColor.darker(by: 0.12)
+            let crimpNode = SCNNode(geometry: crimp)
+            crimpNode.position = SCNVector3(0, 7.2, 0)
+            root.addChildNode(crimpNode)
+
+        case .wipesPack:
+            let pack = SCNBox(width: 5.5, height: 1.2, length: 3.5, chamferRadius: 0.4)
+            pack.materials = [plasticMaterial(kind.primaryColor, alpha: 0.95)]
+            let packNode = SCNNode(geometry: pack)
+            packNode.position = SCNVector3(0, 0.6, 0)
+            root.addChildNode(packNode)
+            let lid = SCNBox(width: 4.5, height: 0.3, length: 2.8, chamferRadius: 0.2)
+            lid.firstMaterial?.diffuse.contents = UIColor(red: 0.3, green: 0.55, blue: 0.85, alpha: 1)
+            let lidNode = SCNNode(geometry: lid)
+            lidNode.position = SCNVector3(0, 1.2, 0)
+            root.addChildNode(lidNode)
+
+        case .toiletryBag:
+            let pouch = SCNBox(width: 5, height: 3, length: 2, chamferRadius: 0.8)
+            pouch.materials = [plasticMaterial(kind.primaryColor, alpha: 0.9)]
+            let pouchNode = SCNNode(geometry: pouch)
+            pouchNode.position = SCNVector3(0, 1.5, 0)
+            root.addChildNode(pouchNode)
+            let zip = SCNBox(width: 4.2, height: 0.2, length: 0.3, chamferRadius: 0.05)
+            zip.firstMaterial?.diffuse.contents = UIColor.darkGray
+            let zipNode = SCNNode(geometry: zip)
+            zipNode.position = SCNVector3(0, 2.8, 0)
+            root.addChildNode(zipNode)
+
+        case .cardboardSheet:
+            let sheet = SCNBox(width: 10, height: 0.35, length: 8, chamferRadius: 0.15)
+            sheet.materials = [cardboardMaterial(kind.primaryColor)]
+            let node = SCNNode(geometry: sheet)
+            node.eulerAngles = SCNVector3(0.05, 0.15, 0)
+            root.addChildNode(node)
+
+        case .cardboardSign:
+            let board = SCNBox(width: 7, height: 5, length: 0.35, chamferRadius: 0.15)
+            board.materials = [cardboardMaterial(kind.primaryColor)]
+            let boardNode = SCNNode(geometry: board)
+            boardNode.position = SCNVector3(0, 2.5, 0)
+            root.addChildNode(boardNode)
+            let post = SCNCylinder(radius: 0.25, height: 5)
+            post.firstMaterial?.diffuse.contents = UIColor(red: 0.55, green: 0.42, blue: 0.28, alpha: 1)
+            let postNode = SCNNode(geometry: post)
+            postNode.position = SCNVector3(-2.8, 2.5, 0)
+            postNode.eulerAngles = SCNVector3(0, 0, Float.pi / 2)
+            root.addChildNode(postNode)
         }
 
         root.scale = SCNVector3(scale, scale, scale)
         return root
     }
 
-    static func makeBasketLoot(seed: String, count: Int = 5) -> SCNNode {
+    static func makeBasketLoot(seed: String, count: Int = 8) -> SCNNode {
         let root = SCNNode()
         root.name = "basketLoot"
-        let kinds = GroceryLootKind.allCases
         var hash = seed.unicodeScalars.reduce(0) { $0 + Int($1.value) }
 
+        // Ensure at least one item from each category when count allows
+        var selected: [CartBelongingKind] = []
+        for category in CartBelongingCategory.allCases {
+            let options = CartBelongingKind.allCases.filter { $0.category == category }
+            hash = (hash &* 37 &+ category.hashValue) % 10_000
+            if !options.isEmpty {
+                let pick = options[hash % options.count]
+                selected.append(pick)
+            }
+        }
+        while selected.count < count {
+            hash = (hash &* 31 &+ selected.count) % 10_000
+            let kind = CartBelongingKind.allCases[hash % CartBelongingKind.allCases.count]
+            selected.append(kind)
+        }
+
         let positions: [SCNVector3] = [
-            SCNVector3(-6, 2, -2), SCNVector3(5, 2, -1), SCNVector3(-2, 2, 3),
-            SCNVector3(6, 5, 1), SCNVector3(-5, 5, 2), SCNVector3(0, 6, -1),
-            SCNVector3(3, 7, -2),
+            SCNVector3(-7, 1.5, -2), SCNVector3(6, 1.5, -1), SCNVector3(-3, 1.5, 3),
+            SCNVector3(7, 4, 1), SCNVector3(-6, 4.5, 2), SCNVector3(0, 5.5, -1),
+            SCNVector3(4, 6.5, -2), SCNVector3(-2, 7, 0), SCNVector3(5, 8, 1),
+            SCNVector3(-5, 8.5, -1),
         ]
 
         for index in 0..<min(count, positions.count) {
             hash = (hash &* 31 &+ index) % 10_000
-            let kind = kinds[hash % kinds.count]
-            let item = makeGroceryLoot(kind, scale: 0.85 + Float(hash % 20) / 100)
+            let kind = selected[index]
+            let item = makeCartBelonging(kind, scale: 0.8 + Float(hash % 18) / 100)
             item.position = positions[index]
-            item.eulerAngles = SCNVector3(0, Float(hash % 628) / 100, 0)
+            item.eulerAngles = SCNVector3(
+                Float(hash % 40) / 200,
+                Float(hash % 628) / 100,
+                Float(hash % 30) / 200
+            )
             root.addChildNode(item)
         }
         return root
+    }
+
+    static func makeExteriorAttachments(seed: String) -> SCNNode {
+        let root = SCNNode()
+        root.name = "exteriorLoot"
+        var hash = seed.unicodeScalars.reduce(0) { $0 + Int($1.value) }
+
+        // Tarp draped over cart side
+        let tarp = SCNBox(width: 14, height: 0.2, length: 20, chamferRadius: 0.2)
+        tarp.materials = [plasticMaterial(UIColor(red: 0.12, green: 0.38, blue: 0.25, alpha: 1), alpha: 0.85)]
+        let tarpNode = SCNNode(geometry: tarp)
+        tarpNode.position = SCNVector3(14, 12, -8)
+        tarpNode.eulerAngles = SCNVector3(0.1, 0, -0.35)
+        root.addChildNode(tarpNode)
+
+        hash = (hash &* 17) % 10_000
+        if hash % 2 == 0 {
+            let umbrella = makeCartBelonging(.umbrella, scale: 0.7)
+            umbrella.position = SCNVector3(-14, 10, -6)
+            umbrella.eulerAngles = SCNVector3(0.2, 0.4, -0.15)
+            root.addChildNode(umbrella)
+        } else {
+            let cardboard = makeCartBelonging(.cardboardSheet, scale: 0.75)
+            cardboard.position = SCNVector3(-13, 11, -10)
+            cardboard.eulerAngles = SCNVector3(0, 0.5, 0.1)
+            root.addChildNode(cardboard)
+        }
+
+        let bag = makeCartBelonging(.duffelBag, scale: 0.65)
+        bag.position = SCNVector3(0, 6, 16)
+        root.addChildNode(bag)
+
+        return root
+    }
+
+    private static func fabricMaterial(_ color: UIColor) -> SCNMaterial {
+        let material = SCNMaterial()
+        material.diffuse.contents = color
+        material.roughness.contents = 0.85
+        material.metalness.contents = 0.02
+        return material
+    }
+
+    private static func plasticMaterial(_ color: UIColor, alpha: CGFloat = 1) -> SCNMaterial {
+        let material = SCNMaterial()
+        material.diffuse.contents = color.withAlphaComponent(alpha)
+        material.roughness.contents = 0.35
+        material.metalness.contents = 0.1
+        material.transparency = alpha < 1 ? 1 - alpha : 0
+        material.isDoubleSided = alpha < 0.9
+        return material
+    }
+
+    private static func cardboardMaterial(_ color: UIColor) -> SCNMaterial {
+        let material = SCNMaterial()
+        material.diffuse.contents = color
+        material.roughness.contents = 0.95
+        material.metalness.contents = 0
+        return material
+    }
+
+    // Legacy alias for shelf props
+    static func makeGroceryLoot(_ kind: CartBelongingKind, scale: Float = 1) -> SCNNode {
+        makeCartBelonging(kind, scale: scale)
     }
 }
 
