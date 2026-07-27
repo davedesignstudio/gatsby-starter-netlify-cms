@@ -27,14 +27,27 @@ python3 -m http.server 8080 --directory CartKart/web
 | Shift | Drift |
 | E | Use item |
 
+## Android / mobile
+
+Cart Kart is optimized for Android phones and tablets:
+
+- **Add to Home Screen** — open in Chrome, tap menu → "Install app" (PWA manifest included)
+- **Landscape racing** — portrait shows a rotate hint; races lock to landscape when supported
+- **Touch controls** — larger joystick and buttons with multi-touch support (hold GO + DRIFT)
+- **Haptic feedback** — vibration on collisions, boosts, and finish line
+- **Screen wake lock** — keeps the screen on during races
+- **Safe areas** — respects notches and navigation bars
+- **Performance** — capped pixel ratio on Android for smoother frame rates
+
 ### Touch (mobile)
-- **Left joystick** — steer
+- **Left joystick** — steer (push up to accelerate, down to brake)
 - **GO** — accelerate
 - **DRIFT** — slide around corners
 - **ITEM** — use power-up
+- **Tap menu rows** — change settings
 
 ### Menu
-Click option rows to cycle settings, then **START RACE**.
+Click or tap option rows to cycle settings, then **START RACE**.
 
 ## Features
 
@@ -44,22 +57,27 @@ Click option rows to cycle settings, then **START RACE**.
 - 3-lap races with AI opponents
 - Power-ups: banana peel, coupon boost, spilled milk, can pyramid
 - Procedural Web Audio sound effects
-- Responsive canvas (desktop + mobile)
+- Responsive canvas (desktop + mobile + Android PWA)
 
 ## Tech
 
 - HTML5 Canvas
 - Vanilla ES modules (no build step)
 - Web Audio API
+- PWA manifest for Android install
+- Screen Wake Lock + Vibration APIs
 
 ## Files
 
 ```
 web/
 ├── index.html
+├── manifest.json
+├── icons/
 ├── css/style.css
 └── js/
     ├── main.js       Entry point
+    ├── platform.js   Mobile/Android detection & utilities
     ├── game.js       State machine (menu/race/results)
     ├── data.js       Tracks, characters, cups
     ├── racer.js      Cart physics

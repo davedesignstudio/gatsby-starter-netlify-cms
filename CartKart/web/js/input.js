@@ -2,10 +2,12 @@ export class Input {
   constructor(canvas) {
     this.canvas = canvas;
     this.keys = new Set();
-    this.joystick = { active: false, x: 0, y: 0, id: null, ox: 0, oy: 0 };
+    this.joystick = { active: false, x: 0, y: 0, id: null, ox: 0, oy: 0, max: 52 };
     this.buttons = { go: false, drift: false, item: false };
+    this.buttonTouches = { go: null, drift: null, item: null };
     this.itemTap = false;
     this.touchRects = {};
+    this.menuTap = null;
 
     window.addEventListener('keydown', (e) => {
       this.keys.add(e.code);
@@ -16,13 +18,16 @@ export class Input {
     canvas.addEventListener('touchstart', (e) => this.onTouch(e, true), { passive: false });
     canvas.addEventListener('touchmove', (e) => this.onTouch(e, false), { passive: false });
     canvas.addEventListener('touchend', (e) => this.onTouchEnd(e), { passive: false });
+    canvas.addEventListener('touchcancel', (e) => this.onTouchEnd(e), { passive: false });
     canvas.addEventListener('mousedown', (e) => this.onMouse(e, true));
     canvas.addEventListener('mousemove', (e) => this.onMouse(e, false));
     window.addEventListener('mouseup', () => this.clearMouse());
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
   }
 
   setTouchRects(rects) {
     this.touchRects = rects;
+    if (rects.joystick?.max) this.joystick.max = rects.joystick.max;
   }
 
   canvasPoint(e, touch) {
@@ -49,20 +54,36 @@ export class Input {
         this.joystick.ox = this.touchRects.joystick.cx;
         this.joystick.oy = this.touchRects.joystick.cy;
       }
-      if (this.inRect(p, this.touchRects.go)) this.buttons.go = start;
-      if (this.inRect(p, this.touchRects.drift)) this.buttons.drift = start;
-      if (this.inRect(p, this.touchRects.item) && start) {
+      if (start && this.inRect(p, this.touchRects.go)) {
+        this.buttons.go = true;
+        this.buttonTouches.go = t.identifier;
+      }
+      if (start && this.inRect(p, this.touchRects.drift)) {
+        this.buttons.drift = true;
+        this.buttonTouches.drift = t.identifier;
+      }
+      if (start && this.inRect(p, this.touchRects.item)) {
         this.buttons.item = true;
+        this.buttonTouches.item = t.identifier;
         this.itemTap = true;
+      }
+      if (start) {
+        const menuHit = this.consumeMenuTap(p.x, p.y);
+        if (menuHit) this.menuTap = menuHit;
       }
       if (this.joystick.id === t.identifier && this.joystick.active) {
         const dx = p.x - this.joystick.ox;
         const dy = p.y - this.joystick.oy;
         const len = Math.hypot(dx, dy) || 1;
-        const max = 52;
+        const max = this.joystick.max;
         const scale = Math.min(1, max / len);
-        this.joystick.x = (dx * scale) / max;
-        this.joystick.y = (-dy * scale) / max;
+        const dead = 0.12;
+        let jx = (dx * scale) / max;
+        let jy = (-dy * scale) / max;
+        if (Math.abs(jx) < dead) jx = 0;
+        if (Math.abs(jy) < dead) jy = 0;
+        this.joystick.x = jx;
+        this.joystick.y = jy;
       }
     }
   }
@@ -75,9 +96,18 @@ export class Input {
         this.joystick.y = 0;
         this.joystick.id = null;
       }
-      this.buttons.go = false;
-      this.buttons.drift = false;
-      this.buttons.item = false;
+      if (t.identifier === this.buttonTouches.go) {
+        this.buttons.go = false;
+        this.buttonTouches.go = null;
+      }
+      if (t.identifier === this.buttonTouches.drift) {
+        this.buttons.drift = false;
+        this.buttonTouches.drift = null;
+      }
+      if (t.identifier === this.buttonTouches.item) {
+        this.buttons.item = false;
+        this.buttonTouches.item = null;
+      }
     }
   }
 
@@ -90,6 +120,19 @@ export class Input {
     this.onTouchEnd({ changedTouches: [{ identifier: 0 }] });
   }
 
+  consumeMenuTap(x, y) {
+    for (const [name, rect] of Object.entries(this.touchRects)) {
+      if (name.startsWith('menu_') && this.inRect({ x, y }, rect)) return name.replace('menu_', '');
+    }
+    return null;
+  }
+
+  takeMenuTap() {
+    const tap = this.menuTap;
+    this.menuTap = null;
+    return tap;
+  }
+
   getPlayerInput() {
     const left = this.keys.has('ArrowLeft') || this.keys.has('KeyA');
     const right = this.keys.has('ArrowRight') || this.keys.has('KeyD');
@@ -99,19 +142,12 @@ export class Input {
     let steer = (right ? 1 : 0) - (left ? 1 : 0);
     if (this.joystick.active) steer = this.joystick.x;
 
-    const accel = up || this.keys.has('Space') || this.buttons.go || this.joystick.y > 0.35;
-    const brake = down || this.joystick.y < -0.35;
+    const accel = up || this.keys.has('Space') || this.buttons.go || this.joystick.y > 0.3;
+    const brake = down || this.joystick.y < -0.3;
     const drift = this.keys.has('ShiftLeft') || this.keys.has('ShiftRight') || this.buttons.drift;
     const useItem = this.keys.has('KeyE') || this.itemTap;
     this.itemTap = false;
 
     return { steer, accel, brake, drift, useItem };
-  }
-
-  consumeMenuTap(x, y) {
-    for (const [name, rect] of Object.entries(this.touchRects)) {
-      if (name.startsWith('menu_') && this.inRect({ x, y }, rect)) return name.replace('menu_', '');
-    }
-    return null;
   }
 }

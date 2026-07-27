@@ -139,46 +139,63 @@ export function drawRacer(ctx, racer, cam) {
 }
 
 export function drawHUD(ctx, w, h, state) {
+  const mobile = state.mobile;
+  const hudH = mobile ? 48 : 56;
+  const pad = mobile ? 12 : 16;
+
   ctx.fillStyle = 'rgba(0,0,0,0.35)';
-  ctx.fillRect(0, 0, w, 56);
+  ctx.fillRect(0, 0, w, hudH);
   ctx.fillStyle = '#fff';
-  ctx.font = '600 16px Avenir, system-ui, sans-serif';
+  ctx.font = `600 ${mobile ? 14 : 16}px Avenir, system-ui, sans-serif`;
   ctx.textAlign = 'left';
-  ctx.fillText(`Lap ${Math.min(state.player.lap + 1, 3)}/3`, 16, 34);
+  ctx.fillText(`Lap ${Math.min(state.player.lap + 1, 3)}/3`, pad, mobile ? 28 : 34);
   ctx.textAlign = 'center';
-  ctx.fillText(formatTime(state.raceTime), w / 2, 34);
+  ctx.fillText(formatTime(state.raceTime), w / 2, mobile ? 28 : 34);
   ctx.textAlign = 'right';
-  ctx.font = '700 22px Avenir, system-ui, sans-serif';
-  ctx.fillText(ordinal(state.player.position), w - 16, 36);
-  ctx.font = '500 13px Avenir, system-ui, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(state.player.item ? `Item: ${state.player.item.icon} ${state.player.item.name}` : 'Item: None', w / 2, 52);
+  ctx.font = `700 ${mobile ? 18 : 22}px Avenir, system-ui, sans-serif`;
+  ctx.fillText(ordinal(state.player.position), w - pad, mobile ? 30 : 36);
+  if (!mobile) {
+    ctx.font = '500 13px Avenir, system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(state.player.item ? `Item: ${state.player.item.icon} ${state.player.item.name}` : 'Item: None', w / 2, 52);
+  }
 
   if (state.countdown > 0) {
     ctx.fillStyle = 'rgba(0,0,0,0.45)';
     ctx.fillRect(0, 0, w, h);
     ctx.fillStyle = state.countdown === 'GO!' ? '#4ade80' : '#ffd033';
-    ctx.font = '800 96px Avenir, system-ui, sans-serif';
+    ctx.font = `800 ${mobile ? 72 : 96}px Avenir, system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(String(state.countdown), w / 2, h / 2);
   }
 }
 
-export function drawTouchControls(ctx, w, h, input) {
-  const joy = { x: 80, y: h - 100, r: 52 };
-  const go = { x: w - 70, y: h - 100, r: 38 };
-  const drift = { x: w - 150, y: h - 55, r: 34 };
-  const item = { x: w - 70, y: h - 175, r: 34 };
+export function drawTouchControls(ctx, w, h, input, mobile = false) {
+  const scale = mobile ? Math.min(1.25, Math.max(1, w / 640)) : 1;
+  const bottom = mobile ? Math.max(72, h * 0.14) : 100;
+  const side = mobile ? Math.max(64, w * 0.1) : 80;
+  const joyR = Math.round(52 * scale);
+  const goR = Math.round(42 * scale);
+  const driftR = Math.round(38 * scale);
+  const itemR = Math.round(38 * scale);
+
+  const joy = { x: side, y: h - bottom, r: joyR };
+  const go = { x: w - side, y: h - bottom, r: goR };
+  const drift = { x: w - side - goR * 1.7, y: h - bottom * 0.55, r: driftR };
+  const item = { x: w - side, y: h - bottom - goR * 1.85, r: itemR };
 
   input.setTouchRects({
-    joystick: { ...joy, cx: joy.x, cy: joy.y, w: joy.r * 2, h: joy.r * 2, x: joy.x - joy.r, y: joy.y - joy.r },
-    go: { x: go.x - go.r, y: go.y - go.r, w: go.r * 2, h: go.r * 2 },
-    drift: { x: drift.x - drift.r, y: drift.y - drift.r, w: drift.r * 2, h: drift.r * 2 },
-    item: { x: item.x - item.r, y: item.y - item.r, w: item.r * 2, h: item.r * 2 },
+    joystick: {
+      cx: joy.x, cy: joy.y, max: joyR,
+      x: joy.x - joyR, y: joy.y - joyR, w: joyR * 2, h: joyR * 2,
+    },
+    go: { x: go.x - goR, y: go.y - goR, w: goR * 2, h: goR * 2 },
+    drift: { x: drift.x - driftR, y: drift.y - driftR, w: driftR * 2, h: driftR * 2 },
+    item: { x: item.x - itemR, y: item.y - itemR, w: itemR * 2, h: itemR * 2 },
   });
 
-  drawButton(ctx, joy.x, joy.y, joy.r, 'rgba(255,255,255,0.12)', input.joystick.active ? input.joystick.x * 24 : 0, input.joystick.active ? -input.joystick.y * 24 : 0);
+  drawButton(ctx, joy.x, joy.y, joy.r, 'rgba(255,255,255,0.12)', input.joystick.active ? input.joystick.x * joyR * 0.45 : 0, input.joystick.active ? -input.joystick.y * joyR * 0.45 : 0);
   drawButton(ctx, go.x, go.y, go.r, 'rgba(51,204,89,0.35)', 0, 0, 'GO', input.buttons.go);
   drawButton(ctx, drift.x, drift.y, drift.r, 'rgba(242,140,26,0.35)', 0, 0, 'DRIFT', input.buttons.drift);
   drawButton(ctx, item.x, item.y, item.r, 'rgba(140,89,242,0.35)', 0, 0, 'ITEM', input.buttons.item);

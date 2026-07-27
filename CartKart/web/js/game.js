@@ -11,6 +11,9 @@ import { updateAI } from './ai.js';
 import {
   drawTrack, drawItemBoxes, drawHazards, drawRacer, drawHUD, drawTouchControls, formatTime,
 } from './renderer.js';
+import {
+  isMobile, getPixelRatio, WakeLock, lockLandscape, unlockOrientation, vibrate,
+} from './platform.js';
 
 export class Game {
   constructor(canvas) {
@@ -18,9 +21,14 @@ export class Game {
     this.ctx = canvas.getContext('2d');
     this.input = new Input(canvas);
     this.audio = new AudioManager();
+    this.wakeLock = new WakeLock();
+    this.mobile = isMobile;
+    this.paused = false;
     this.state = 'menu';
     this.resize();
     window.addEventListener('resize', () => this.resize());
+    window.addEventListener('orientationchange', () => this.resize());
+    document.addEventListener('visibilitychange', () => this.onVisibilityChange());
 
     this.settings = {
       trackIndex: 0,
@@ -38,8 +46,22 @@ export class Game {
     this.canvas.addEventListener('click', (e) => this.onMenuClick(e));
   }
 
+  onVisibilityChange() {
+    if (document.hidden) {
+      this.paused = true;
+      this.audio.stopMusic();
+      this.wakeLock.release();
+    } else if (this.state === 'menu' || this.state === 'results' || this.state === 'cupresults') {
+      this.paused = false;
+      this.audio.startMusic();
+    } else if (this.state === 'race') {
+      this.paused = false;
+      this.wakeLock.request();
+    }
+  }
+
   resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = getPixelRatio();
     const w = window.innerWidth;
     const h = window.innerHeight;
     this.canvas.width = w * dpr;
@@ -57,8 +79,20 @@ export class Game {
   }
 
   loop(now) {
-    const dt = Math.min((now - this.last) / 1000, 0.05);
+    if (this.paused) {
+      this.last = now;
+      requestAnimationFrame((t) => this.loop(t));
+      return;
+    }
+
+    const dt = Math.min((now - this.last) / 1000, this.mobile ? 0.04 : 0.05);
     this.last = now;
+
+    const menuTap = this.input.takeMenuTap();
+    if (menuTap && (this.state === 'menu' || this.state === 'results' || this.state === 'cupresults')) {
+      this.audio.play('menu');
+      this.handleMenuAction(menuTap);
+    }
 
     if (this.state === 'menu') this.updateMenu();
     else if (this.state === 'race') this.updateRace(dt);
@@ -70,6 +104,7 @@ export class Game {
   }
 
   onMenuClick(e) {
+    if (this.mobile) return;
     if (this.state !== 'menu' && this.state !== 'results' && this.state !== 'cupresults') return;
     const r = this.canvas.getBoundingClientRect();
     const x = (e.clientX - r.left) * (this.w / r.width);
@@ -86,7 +121,14 @@ export class Game {
       this.startRace();
       return;
     }
-    if (action === 'menu') { this.state = 'menu'; this.cupSession = null; this.audio.startMusic(); return; }
+    if (action === 'menu') {
+      this.state = 'menu';
+      this.cupSession = null;
+      this.audio.startMusic();
+      this.wakeLock.release();
+      unlockOrientation();
+      return;
+    }
     if (action === 'retry') {
       if (this.cupSession && !this.cupSession.done) { this.startRace(getTrack(this.cupSession.nextTrackId())); return; }
       this.startRace();
@@ -149,6 +191,8 @@ export class Game {
     this.state = 'race';
     this.audio.stopMusic();
     this.audio.play('countdown');
+    this.wakeLock.request();
+    if (this.mobile) lockLandscape();
   }
 
   updateRace(dt) {
@@ -174,7 +218,10 @@ export class Game {
     const used = applyInput(player, inp);
     if (used) {
       const fx = deployItem(used, player, race.racers, race.hazards);
-      if (fx === 'boost') this.audio.play('boost');
+      if (fx === 'boost') {
+        this.audio.play('boost');
+        vibrate(20);
+      }
     }
 
     for (const racer of race.racers) {
@@ -183,7 +230,10 @@ export class Game {
         if (aiItem) deployItem(aiItem, racer, race.racers, race.hazards);
       }
       const hit = updateRacer(racer, dt, race.track);
-      if (hit === 'collision' && racer.isPlayer) this.audio.play('collision');
+      if (hit === 'collision' && racer.isPlayer) {
+        this.audio.play('collision');
+        vibrate(35);
+      }
 
       const lapEvt = checkCheckpoint(racer, race.track);
       if (lapEvt === 'lap' && racer.isPlayer) this.audio.play('lap');
@@ -193,7 +243,10 @@ export class Game {
         racer.finishTime = race.time;
         racer.speed = 0;
         race.finished.push(racer);
-        if (racer.isPlayer) this.audio.play('finish');
+        if (racer.isPlayer) {
+          this.audio.play('finish');
+          vibrate([30, 40, 30]);
+        }
       }
     }
 
@@ -213,6 +266,8 @@ export class Game {
       this.results = { order: race.finished, time: race.time };
       this.state = this.cupSession?.done ? 'cupresults' : 'results';
       this.audio.startMusic();
+      this.wakeLock.release();
+      unlockOrientation();
     }
   }
 
@@ -302,6 +357,9 @@ export class Game {
     ctx.font = '28px serif';
     ctx.fillText(ch.emoji, this.w / 2 + 50, this.h * 0.34 - 20);
 
+    const mobile = this.mobile;
+    const rowW = mobile ? Math.min(340, this.w - 40) : 310;
+    const rowH = mobile ? 44 : 38;
     const rows = [
       ['gamemode', `Mode: ${this.settings.gameMode === 'cup' ? 'Cup Mode' : 'Quick Race'}`],
       ['character', `Rider: ${ch.emoji} ${ch.name}`],
@@ -312,9 +370,10 @@ export class Game {
     ];
 
     this.menuRects = {};
-    let y = this.h * 0.42;
+    let y = this.h * (mobile ? 0.4 : 0.42);
     rows.forEach(([id, text]) => {
-      const rect = { x: this.w / 2 - 155, y: y - 18, w: 310, h: 38 };
+      const rect = { x: this.w / 2 - rowW / 2, y: y - rowH / 2 + 2, w: rowW, h: rowH };
+      this.menuRects[`menu_${id}`] = rect;
       this.menuRects[id] = rect;
       roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 10);
       ctx.fillStyle = 'rgba(255,255,255,0.08)';
@@ -325,10 +384,11 @@ export class Game {
       ctx.font = '500 14px Avenir, system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(text, this.w / 2, y + 5);
-      y += 46;
+      y += rowH + 8;
     });
 
-    const startRect = { x: this.w / 2 - 140, y: y + 10, w: 280, h: 50 };
+    const startRect = { x: this.w / 2 - rowW / 2, y: y + 10, w: rowW, h: mobile ? 54 : 50 };
+    this.menuRects.menu_start = startRect;
     this.menuRects.start = startRect;
     roundRect(ctx, startRect.x, startRect.y, startRect.w, startRect.h, 14);
     ctx.fillStyle = '#2e9ef2';
@@ -338,9 +398,15 @@ export class Game {
     ctx.fillText('START RACE', this.w / 2, y + 40);
 
     ctx.fillStyle = 'rgba(255,255,255,0.45)';
-    ctx.font = '12px Avenir, system-ui, sans-serif';
-    ctx.fillText('Keyboard: WASD/Arrows • Space=GO • Shift=DRIFT • E=Item', this.w / 2, this.h - 24);
-    ctx.fillText('6 tracks • 5 characters • cup mode • touch controls', this.w / 2, this.h - 8);
+    ctx.font = `${mobile ? 11 : 12}px Avenir, system-ui, sans-serif`;
+    if (mobile) {
+      ctx.fillText('Tap rows to change settings • Landscape recommended', this.w / 2, this.h - 24);
+      ctx.fillText('Joystick + GO / DRIFT / ITEM during races', this.w / 2, this.h - 8);
+    } else {
+      ctx.fillText('Keyboard: WASD/Arrows • Space=GO • Shift=DRIFT • E=Item', this.w / 2, this.h - 24);
+      ctx.fillText('6 tracks • 5 characters • cup mode • touch controls', this.w / 2, this.h - 8);
+    }
+    this.input.setTouchRects(this.menuRects);
   }
 
   renderRace(ctx) {
@@ -356,8 +422,9 @@ export class Game {
       player: race.humans[0],
       raceTime: race.time,
       countdown: race.started ? 0 : (race.countdown === 'GO!' ? 'GO!' : race.countdown),
+      mobile: this.mobile,
     });
-    drawTouchControls(ctx, this.w, this.h, this.input);
+    if (this.mobile) drawTouchControls(ctx, this.w, this.h, this.input, true);
   }
 
   renderResults(ctx) {
@@ -392,9 +459,13 @@ export class Game {
       ctx.fillText(`Cup pts — ${pts}`, this.w / 2, this.h - 120);
     }
 
+    const btnW = this.mobile ? Math.min(280, this.w - 48) : 240;
+    const btnH = this.mobile ? 50 : 46;
     this.menuRects = {};
-    this.menuRects.menu = { x: this.w / 2 - 120, y: this.h - 170, w: 240, h: 46 };
-    this.menuRects.retry = { x: this.w / 2 - 120, y: this.h - 110, w: 240, h: 46 };
+    this.menuRects.menu = { x: this.w / 2 - btnW / 2, y: this.h - 170, w: btnW, h: btnH };
+    this.menuRects.retry = { x: this.w / 2 - btnW / 2, y: this.h - 110, w: btnW, h: btnH };
+    this.menuRects.menu_menu = this.menuRects.menu;
+    this.menuRects.menu_retry = this.menuRects.retry;
     [['menu', 'MAIN MENU'], ['retry', this.cupSession && !this.cupSession.done ? 'NEXT RACE' : 'RACE AGAIN']].forEach(([id, label]) => {
       const rect = this.menuRects[id];
       roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 12);
@@ -405,6 +476,7 @@ export class Game {
       ctx.textAlign = 'center';
       ctx.fillText(label, this.w / 2, rect.y + 29);
     });
+    this.input.setTouchRects(this.menuRects);
   }
 
   renderCupResults(ctx) {
@@ -433,7 +505,10 @@ export class Game {
       ctx.fillText(`${s.points} pts`, this.w / 2 + 150, y + 4);
     });
 
-    this.menuRects = { menu: { x: this.w / 2 - 120, y: this.h - 90, w: 240, h: 46 } };
+    const btnW = this.mobile ? Math.min(280, this.w - 48) : 240;
+    const btnH = this.mobile ? 50 : 46;
+    this.menuRects = { menu: { x: this.w / 2 - btnW / 2, y: this.h - 90, w: btnW, h: btnH } };
+    this.menuRects.menu_menu = this.menuRects.menu;
     const rect = this.menuRects.menu;
     roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 12);
     ctx.fillStyle = 'rgba(255,255,255,0.12)';
@@ -442,6 +517,7 @@ export class Game {
     ctx.font = '700 16px Avenir, system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('MAIN MENU', this.w / 2, rect.y + 29);
+    this.input.setTouchRects(this.menuRects);
   }
 }
 
