@@ -292,7 +292,7 @@ enum Item3DModels {
             bodyNode.position = SCNVector3(0, 1.2, 0)
             root.addChildNode(bodyNode)
             let sleeve = SCNBox(width: 3, height: 1, length: 5, chamferRadius: 0.4)
-            sleeve.materials = [fabricMaterial(kind.primaryColor.darker(by: 0.05))]
+            sleeve.materials = [fabricMaterial(darken(kind.primaryColor, by: 0.05))]
             let sleeveNode = SCNNode(geometry: sleeve)
             sleeveNode.position = SCNVector3(4.5, 1, 0)
             root.addChildNode(sleeveNode)
@@ -354,7 +354,7 @@ enum Item3DModels {
             binNode.position = SCNVector3(0, 2.5, 0)
             root.addChildNode(binNode)
             let lid = SCNBox(width: 8.4, height: 0.5, length: 6.4, chamferRadius: 0.3)
-            lid.materials = [plasticMaterial(kind.primaryColor.darker(by: 0.08), alpha: 0.9)]
+            lid.materials = [plasticMaterial(darken(kind.primaryColor, by: 0.08), alpha: 0.9)]
             let lidNode = SCNNode(geometry: lid)
             lidNode.position = SCNVector3(0, 5.2, 0)
             root.addChildNode(lidNode)
@@ -388,7 +388,7 @@ enum Item3DModels {
             bagNode.position = SCNVector3(0, 3.5, 0)
             root.addChildNode(bagNode)
             let crimp = SCNBox(width: 5.2, height: 0.8, length: 2.7, chamferRadius: 0.2)
-            crimp.firstMaterial?.diffuse.contents = kind.primaryColor.darker(by: 0.12)
+            crimp.firstMaterial?.diffuse.contents = darken(kind.primaryColor, by: 0.12)
             let crimpNode = SCNNode(geometry: crimp)
             crimpNode.position = SCNVector3(0, 7.2, 0)
             root.addChildNode(crimpNode)
@@ -544,16 +544,14 @@ enum Item3DModels {
         return material
     }
 
+    private static func darken(_ color: UIColor, by amount: CGFloat) -> UIColor {
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        color.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return UIColor(red: max(r - amount, 0), green: max(g - amount, 0), blue: max(b - amount, 0), alpha: a)
+    }
+
     // Legacy alias for shelf props
     static func makeGroceryLoot(_ kind: CartBelongingKind, scale: Float = 1) -> SCNNode {
         makeCartBelonging(kind, scale: scale)
-    }
-}
-
-private extension UIColor {
-    func darker(by amount: CGFloat) -> UIColor {
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-        return UIColor(red: max(r - amount, 0), green: max(g - amount, 0), blue: max(b - amount, 0), alpha: a)
     }
 }
