@@ -203,7 +203,7 @@ enum CartModelBuilder {
         for child in node.childNodes {
             guard let name = child.name, let system = child.particleSystems?.first else { continue }
             if name == "dust" {
-                system.birthRate = speed > 80 ? Float(speed / 40) : 0
+                system.birthRate = speed > 80 ? speed / 40 : 0
             }
             if name == "sparks" {
                 system.birthRate = drifting && speed > 100 ? 30 : 0
