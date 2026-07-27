@@ -35,7 +35,15 @@ Bundled WAV assets: cart squeaks, collisions, boosts, countdown, race theme loop
 Game Center authentication + matchmaking with live position sync between players.
 
 ### 3D Enhancements
-Detailed cart models (chassis, basket, handle, wheels), dust/spark particles, dynamic track lighting, and spotlights on the midnight track.
+Procedural SceneKit assets (no external model files):
+
+**Shopping cart** — wire-frame basket filled with grocery loot (cereal, soup, chips, milk, bananas, cans, bread, wine), chassis, handles, wheels, rider, dust/spark particles. Held power-ups appear as 3D models in the cart with a glow.
+
+**Power-up 3D models** — banana peel, coupon tag, milk carton, can pyramid
+
+**Track props** — 3D product boxes on shelves, spinning `?` item crates, deployed hazards (banana peel, milk puddle, can stack)
+
+Dynamic track lighting and spotlights on the midnight track.
 
 ## Requirements
 - Xcode 15+, iOS 16+, iPhone (portrait)
@@ -66,7 +74,7 @@ Detailed cart models (chassis, basket, handle, wheels), dust/spark particles, dy
 CartKart/
 ├── App/           SwiftUI entry + mode switching
 ├── Scenes/        Menu, race, results, cup results
-├── SceneKit/      3D renderer, cart models, lighting
+├── SceneKit/      3D renderer, Item3DModels, cart models, lighting
 ├── Entities/      Cart physics + visuals
 ├── Models/        Tracks, characters, cups, settings
 ├── Systems/       Input, AI, audio, Game Center

@@ -34,10 +34,23 @@ final class RaceScene3DController: ObservableObject {
     private var raceStarted = false
     private var finishOrder: [CartRacer] = []
     private var multiplayer = false
+    private var itemBoxes: [ItemBox3D] = []
+    private var hazards: [Hazard3D] = []
+    private var pulseTime: TimeInterval = 0
+
+    private struct ItemBox3D {
+        let position: CGPoint
+        var node: SCNNode
+        var active: Bool
+    }
+
+    private struct Hazard3D {
+        let node: SCNNode
+        let kind: String
+    }
 
     init() {
         setupCamera()
-        setupLighting()
     }
 
     var overlaySKScene: SKScene { overlayScene }
@@ -63,6 +76,9 @@ final class RaceScene3DController: ObservableObject {
         aiControllers.removeAll()
         humanPlayers.removeAll()
         finishOrder.removeAll()
+        itemBoxes.removeAll()
+        hazards.removeAll()
+        pulseTime = 0
         raceTime = 0
         countdown = 3
         raceStarted = false
@@ -103,15 +119,14 @@ final class RaceScene3DController: ObservableObject {
 
             let label = track.shelfLabels[index % track.shelfLabels.count]
             addShelfLabel(label, at: shelf)
+            addShelfProducts(on: shelf, seed: label)
         }
 
         for point in track.itemBoxPositions {
-            let crate = SCNBox(width: 20, height: 20, length: 20, chamferRadius: 2)
-            crate.firstMaterial?.diffuse.contents = UIColor(red: 0.95, green: 0.55, blue: 0.1, alpha: 1)
-            let node = SCNNode(geometry: crate)
-            node.position = SCNVector3(point.x, 12, -point.y)
-            node.name = "itemBox"
+            let node = Item3DModels.makeItemBox()
+            node.position = SCNVector3(point.x, 0, -point.y)
             scene.rootNode.addChildNode(node)
+            itemBoxes.append(ItemBox3D(position: point, node: node, active: true))
         }
     }
 
@@ -124,6 +139,24 @@ final class RaceScene3DController: ObservableObject {
         node.position = SCNVector3(rect.midX - 30, 14, -rect.midY)
         node.eulerAngles = SCNVector3(-.pi / 2, 0, 0)
         scene.rootNode.addChildNode(node)
+    }
+
+    private func addShelfProducts(on shelf: CGRect, seed: String) {
+        let kinds = GroceryLootKind.allCases
+        var hash = seed.unicodeScalars.reduce(0) { $0 + Int($1.value) }
+        let slots: [SCNVector3] = [
+            SCNVector3(shelf.minX + shelf.width * 0.25, 20, -(shelf.minY + shelf.height * 0.35)),
+            SCNVector3(shelf.midX, 20, -shelf.midY),
+            SCNVector3(shelf.maxX - shelf.width * 0.25, 20, -(shelf.maxY - shelf.height * 0.35)),
+        ]
+        for (index, slot) in slots.enumerated() {
+            hash = (hash &* 17 &+ index) % 10_000
+            let kind = kinds[hash % kinds.count]
+            let product = Item3DModels.makeGroceryLoot(kind, scale: 0.35)
+            product.position = slot
+            product.eulerAngles = SCNVector3(0, Float(hash % 628) / 100, 0)
+            scene.rootNode.addChildNode(product)
+        }
     }
 
     private func buildRacers() {
@@ -151,7 +184,8 @@ final class RaceScene3DController: ObservableObject {
 
             let node = CartModelBuilder.makeDetailedCart(
                 bodyColor: CartModelBuilder.uiColor(from: character.bodyColor),
-                cartColor: CartModelBuilder.uiColor(from: character.cartColor)
+                cartColor: CartModelBuilder.uiColor(from: character.cartColor),
+                characterSeed: character.id
             )
             scene.rootNode.addChildNode(node)
             racerNodes.append(node)
@@ -208,6 +242,7 @@ final class RaceScene3DController: ObservableObject {
     }
 
     private func update(delta: TimeInterval) {
+        pulseTime += delta
         if raceStarted {
             raceTime += delta
             updateHumanInput()
@@ -216,6 +251,8 @@ final class RaceScene3DController: ObservableObject {
                     deployItem(item, from: controller.racer)
                 }
             }
+            checkItemPickups()
+            checkHazardCollisions()
         }
 
         for (index, racer) in racers.enumerated() {
@@ -251,6 +288,52 @@ final class RaceScene3DController: ObservableObject {
         node.position = SCNVector3(racer.position.x, 0, -racer.position.y)
         node.eulerAngles = SCNVector3(0, -racer.zRotation + .pi / 2, 0)
         CartModelBuilder.updateParticles(on: node, speed: racer.speed, drifting: racer.driftFactor > 0.1)
+        CartModelBuilder.updateHeldItem(on: node, item: racer.heldPowerUp)
+    }
+
+    private func checkItemPickups() {
+        for racer in racers where !racer.finished {
+            for index in itemBoxes.indices where itemBoxes[index].active {
+                let box = itemBoxes[index]
+                let distance = hypot(racer.position.x - box.position.x, racer.position.y - box.position.y)
+                if distance < 55 {
+                    racer.collectPowerUp(PowerUpType.random())
+                    itemBoxes[index].active = false
+                    box.node.isHidden = true
+                    SoundManager.shared.play(.itemPickup)
+                    CartModelBuilder.updateHeldItem(on: racerNodes[racers.firstIndex(where: { $0 === racer }) ?? 0], item: racer.heldPowerUp)
+
+                    let respawnIndex = index
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
+                        guard let self, respawnIndex < self.itemBoxes.count else { return }
+                        self.itemBoxes[respawnIndex].active = true
+                        self.itemBoxes[respawnIndex].node.isHidden = false
+                    }
+                }
+            }
+        }
+    }
+
+    private func checkHazardCollisions() {
+        for racer in racers where !racer.finished && racer.spinTimer <= 0 {
+            for index in hazards.indices.reversed() {
+                let hazard = hazards[index]
+                let hx = hazard.node.position.x
+                let hz = hazard.node.position.z
+                let distance = hypot(racer.position.x - CGFloat(hx), racer.position.y + CGFloat(hz))
+                let radius: CGFloat = hazard.kind == "milk" ? 70 : 45
+                if distance < radius {
+                    if hazard.kind == "banana" || hazard.kind == "milk" {
+                        racer.applySpin()
+                    } else if hazard.kind == "cans" {
+                        racer.applySpin(duration: 0.8)
+                    }
+                    SoundManager.shared.play(.spin)
+                    hazard.node.removeFromParentNode()
+                    hazards.remove(at: index)
+                }
+            }
+        }
     }
 
     private func keepOnTrack(_ racer: CartRacer) {
@@ -344,17 +427,37 @@ final class RaceScene3DController: ObservableObject {
     }
 
     private func deployItem(_ item: PowerUpType, from racer: CartRacer) {
+        CartModelBuilder.updateHeldItem(
+            on: racerNodes[racers.firstIndex(where: { $0 === racer }) ?? 0],
+            item: nil
+        )
+
         switch item {
         case .couponBoost:
             racer.applyBoost()
             SoundManager.shared.play(.boost)
-        case .bananaPeel, .spilledMilk, .canPyramid:
+        case .bananaPeel:
+            spawnHazard(Item3DModels.makeBananaHazard(), kind: "banana", behind: racer, offset: 40)
+            SoundManager.shared.play(.spin)
+        case .spilledMilk:
+            spawnHazard(Item3DModels.makeMilkPuddle(), kind: "milk", behind: racer, offset: 50)
+            SoundManager.shared.play(.spin)
+        case .canPyramid:
+            spawnHazard(Item3DModels.makeCanHazard(), kind: "cans", behind: racer, offset: 50)
             SoundManager.shared.play(.spin)
             for other in racers where other !== racer {
                 let distance = hypot(other.position.x - racer.position.x, other.position.y - racer.position.y)
-                if distance < 100 { other.applySpin() }
+                if distance < 120 { other.applySpin(duration: 0.8) }
             }
         }
+    }
+
+    private func spawnHazard(_ node: SCNNode, kind: String, behind racer: CartRacer, offset: CGFloat) {
+        let x = racer.position.x - cos(racer.zRotation) * offset
+        let z = -(racer.position.y - sin(racer.zRotation) * offset)
+        node.position = SCNVector3(x, 0, z)
+        scene.rootNode.addChildNode(node)
+        hazards.append(Hazard3D(node: node, kind: kind))
     }
 
     func handleTouches(_ touches: Set<UITouch>, phase: UITouch.Phase) {

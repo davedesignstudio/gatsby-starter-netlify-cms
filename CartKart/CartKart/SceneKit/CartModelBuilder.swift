@@ -2,8 +2,14 @@ import SceneKit
 import SpriteKit
 
 enum CartModelBuilder {
-    static func makeDetailedCart(bodyColor: UIColor, cartColor: UIColor, emitParticles: Bool = true) -> SCNNode {
+    static func makeDetailedCart(
+        bodyColor: UIColor,
+        cartColor: UIColor,
+        characterSeed: String = "will",
+        emitParticles: Bool = true
+    ) -> SCNNode {
         let root = SCNNode()
+        root.name = "cartRacer"
 
         let chassis = SCNBox(width: 30, height: 6, length: 38, chamferRadius: 2)
         chassis.firstMaterial?.diffuse.contents = cartColor
@@ -13,11 +19,7 @@ enum CartModelBuilder {
         chassisNode.position = SCNVector3(0, 8, 0)
         root.addChildNode(chassisNode)
 
-        let basket = SCNBox(width: 28, height: 14, length: 4, chamferRadius: 1)
-        basket.firstMaterial?.diffuse.contents = cartColor.withAlphaComponent(0.9)
-        let basketNode = SCNNode(geometry: basket)
-        basketNode.position = SCNVector3(0, 16, -14)
-        root.addChildNode(basketNode)
+        addBasketWalls(to: root, cartColor: cartColor)
 
         let handle = SCNTube(innerRadius: 0.8, outerRadius: 1.2, height: 32)
         handle.firstMaterial?.diffuse.contents = UIColor.lightGray
@@ -30,6 +32,15 @@ enum CartModelBuilder {
         let handleR = handleL.clone()
         handleR.position = SCNVector3(12, 18, -10)
         root.addChildNode(handleR)
+
+        let loot = Item3DModels.makeBasketLoot(seed: characterSeed, count: 6)
+        loot.position = SCNVector3(0, 14, -12)
+        root.addChildNode(loot)
+
+        let heldSlot = SCNNode()
+        heldSlot.name = "heldItem"
+        heldSlot.position = SCNVector3(0, 24, -10)
+        root.addChildNode(heldSlot)
 
         let torso = SCNCapsule(capRadius: 7, height: 16)
         torso.firstMaterial?.diffuse.contents = bodyColor
@@ -83,6 +94,64 @@ enum CartModelBuilder {
         }
 
         return root
+    }
+
+    static func updateHeldItem(on cartNode: SCNNode, item: PowerUpType?) {
+        guard let slot = cartNode.childNode(withName: "heldItem", recursively: false) else { return }
+        slot.childNodes.forEach { $0.removeFromParentNode() }
+        guard let item else { return }
+
+        let model = Item3DModels.makePowerUp(item, scale: 0.55)
+        model.eulerAngles = SCNVector3(-0.2, Float.pi / 4, 0)
+        slot.addChildNode(model)
+
+        let glow = SCNLight()
+        glow.type = .omni
+        glow.intensity = 120
+        glow.color = CartModelBuilder.uiColor(from: item.color)
+        let glowNode = SCNNode()
+        glowNode.light = glow
+        glowNode.position = SCNVector3(0, 2, 0)
+        slot.addChildNode(glowNode)
+    }
+
+    private static func addBasketWalls(to root: SCNNode, cartColor: UIColor) {
+        let wallH: CGFloat = 14
+        let wallT: CGFloat = 1.2
+
+        func wallMaterial() -> SCNMaterial {
+            let material = SCNMaterial()
+            material.diffuse.contents = cartColor.withAlphaComponent(0.85)
+            material.metalness.contents = 0.5
+            material.roughness.contents = 0.4
+            return material
+        }
+
+        let back = SCNBox(width: 28, height: wallH, length: wallT, chamferRadius: 0.5)
+        back.materials = [wallMaterial()]
+        let backNode = SCNNode(geometry: back)
+        backNode.position = SCNVector3(0, 15, -16)
+        root.addChildNode(backNode)
+
+        let left = SCNBox(width: wallT, height: wallH, length: 26, chamferRadius: 0.5)
+        left.materials = [wallMaterial()]
+        let leftNode = SCNNode(geometry: left)
+        leftNode.position = SCNVector3(-13.4, 15, -12)
+        root.addChildNode(leftNode)
+
+        let right = leftNode.clone()
+        right.position = SCNVector3(13.4, 15, -12)
+        root.addChildNode(right)
+
+        let frontL = SCNBox(width: 10, height: wallH, length: wallT, chamferRadius: 0.5)
+        frontL.materials = [wallMaterial()]
+        let frontLNode = SCNNode(geometry: frontL)
+        frontLNode.position = SCNVector3(-9, 15, -8)
+        root.addChildNode(frontLNode)
+
+        let frontR = frontLNode.clone()
+        frontR.position = SCNVector3(9, 15, -8)
+        root.addChildNode(frontR)
     }
 
     static func setupTrackLighting(in scene: SCNScene, track: TrackDefinition) {
