@@ -137,7 +137,7 @@ final class RaceScene3DController: ObservableObject {
         let node = SCNNode(geometry: label)
         node.scale = SCNVector3(0.35, 0.35, 0.35)
         node.position = SCNVector3(rect.midX - 30, 14, -rect.midY)
-        node.eulerAngles = SCNVector3(-.pi / 2, 0, 0)
+        node.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
         scene.rootNode.addChildNode(node)
     }
 

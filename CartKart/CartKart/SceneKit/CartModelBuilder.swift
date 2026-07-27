@@ -81,8 +81,10 @@ enum CartModelBuilder {
             dust.spreadingAngle = 25
             dust.particleVelocity = 2
             dust.particleVelocityVariation = 1
-            dust.name = "dust"
-            root.addParticleSystem(dust)
+            let dustNode = SCNNode()
+            dustNode.name = "dust"
+            dustNode.addParticleSystem(dust)
+            root.addChildNode(dustNode)
 
             let sparks = SCNParticleSystem()
             sparks.birthRate = 0
@@ -92,8 +94,10 @@ enum CartModelBuilder {
             sparks.emissionDuration = 0
             sparks.spreadingAngle = 40
             sparks.particleVelocity = 4
-            sparks.name = "sparks"
-            root.addParticleSystem(sparks)
+            let sparksNode = SCNNode()
+            sparksNode.name = "sparks"
+            sparksNode.addParticleSystem(sparks)
+            root.addChildNode(sparksNode)
         }
 
         return root
@@ -196,11 +200,12 @@ enum CartModelBuilder {
     }
 
     static func updateParticles(on node: SCNNode, speed: CGFloat, drifting: Bool) {
-        for system in node.particleSystems ?? [] {
-            if system.name == "dust" {
+        for child in node.childNodes {
+            guard let name = child.name, let system = child.particleSystems?.first else { continue }
+            if name == "dust" {
                 system.birthRate = speed > 80 ? Float(speed / 40) : 0
             }
-            if system.name == "sparks" {
+            if name == "sparks" {
                 system.birthRate = drifting && speed > 100 ? 30 : 0
             }
         }
