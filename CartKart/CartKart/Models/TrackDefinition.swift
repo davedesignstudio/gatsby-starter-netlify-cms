@@ -358,6 +358,10 @@ extension TrackDefinition {
     )
 
     static let all: [TrackDefinition] = [.grocery, .frozen, .produce, .bakery, .liquor, .midnight]
+
+    static func == (lhs: TrackDefinition, rhs: TrackDefinition) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 // Backward-compatible alias used by existing code paths.

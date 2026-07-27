@@ -7,7 +7,7 @@ final class CartRacer: SKNode {
     let bodyColor: SKColor
     let cartColor: SKColor
 
-    var speed: CGFloat = 0
+    var driveSpeed: CGFloat = 0
     var maxSpeed: CGFloat = 320
     var acceleration: CGFloat = 520
     var turnRate: CGFloat = 3.8
@@ -161,18 +161,18 @@ final class CartRacer: SKNode {
         let steerMultiplier = slipTimer > 0 ? 1.8 : 1.0
 
         if accelerate {
-            speed = min(speed + acceleration * 0.016, effectiveMax)
+            driveSpeed = min(driveSpeed + acceleration * 0.016, effectiveMax)
         } else if brake {
-            speed = max(speed - acceleration * 1.4 * 0.016, -effectiveMax * 0.35)
+            driveSpeed = max(driveSpeed - acceleration * 1.4 * 0.016, -effectiveMax * 0.35)
         } else {
-            speed *= 0.985
+            driveSpeed *= 0.985
         }
 
-        if abs(speed) > 20 {
-            zRotation += steer * turnRate * steerMultiplier * CGFloat(speed / effectiveMax) * 0.016
+        if abs(driveSpeed) > 20 {
+            zRotation += steer * turnRate * steerMultiplier * CGFloat(driveSpeed / effectiveMax) * 0.016
         }
 
-        driftFactor = drift && abs(speed) > 120 ? 0.35 : 0
+        driftFactor = drift && abs(driveSpeed) > 120 ? 0.35 : 0
 
         var usedItem: PowerUpType?
         if useItem, let item = heldPowerUp {
@@ -187,7 +187,7 @@ final class CartRacer: SKNode {
         if spinTimer > 0 {
             spinTimer -= delta
             zRotation += CGFloat(delta) * 12
-            speed *= 0.92
+            driveSpeed *= 0.92
         }
 
         if boostTimer > 0 { boostTimer -= delta }
@@ -196,8 +196,8 @@ final class CartRacer: SKNode {
         let forward = CGVector(dx: cos(zRotation), dy: sin(zRotation))
         let sideways = CGVector(dx: -sin(zRotation), dy: cos(zRotation))
 
-        let forwardSpeed = speed
-        let sideSpeed = speed * driftFactor * 0.5
+        let forwardSpeed = driveSpeed
+        let sideSpeed = driveSpeed * driftFactor * 0.5
 
         velocity = CGVector(
             dx: forward.dx * forwardSpeed + sideways.dx * sideSpeed,
@@ -207,11 +207,11 @@ final class CartRacer: SKNode {
         position.x += velocity.dx * CGFloat(delta)
         position.y += velocity.dy * CGFloat(delta)
 
-        let wobble = sin(CFAbsoluteTimeGetCurrent() * 14) * CGFloat(min(abs(speed) / maxSpeed, 1)) * 0.04
+        let wobble = sin(CFAbsoluteTimeGetCurrent() * 14) * CGFloat(min(abs(driveSpeed) / maxSpeed, 1)) * 0.04
         cartNode.zRotation = wobble
 
         for wheel in wheels {
-            wheel.zRotation += speed * CGFloat(delta) * 0.05
+            wheel.zRotation += driveSpeed * CGFloat(delta) * 0.05
         }
     }
 
@@ -225,7 +225,7 @@ final class CartRacer: SKNode {
 
     func applySpin(duration: TimeInterval = 1.0) {
         spinTimer = max(spinTimer, duration)
-        speed *= 0.4
+        driveSpeed *= 0.4
     }
 
     func collectPowerUp(_ type: PowerUpType) {

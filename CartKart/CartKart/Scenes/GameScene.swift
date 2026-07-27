@@ -276,7 +276,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         racer.position = CGPoint(x: state.x, y: state.y)
         racer.zRotation = state.rotation
-        racer.speed = state.speed
+        racer.driveSpeed = state.speed
         racer.lap = state.lap
         racer.checkpointIndex = state.checkpoint
     }
@@ -289,7 +289,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             x: player.position.x,
             y: player.position.y,
             rotation: player.zRotation,
-            speed: player.speed,
+            speed: player.driveSpeed,
             lap: player.lap,
             checkpoint: player.checkpointIndex
         )
@@ -464,7 +464,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private func keepOnTrack(_ racer: CartRacer) {
         if !track.isOnTrack(racer.position) {
             racer.position = track.nearestTrackPoint(from: racer.position)
-            racer.speed *= 0.6
+            racer.driveSpeed *= 0.6
             if racer.isPlayer {
                 SoundManager.shared.play(.collision)
             }
@@ -493,7 +493,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     private func finishRacer(_ racer: CartRacer) {
         racer.finished = true
         racer.finishTime = raceTime
-        racer.speed = 0
+        racer.driveSpeed = 0
         finishOrder.append(racer)
 
         if racer.isPlayer {
@@ -626,7 +626,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
             SoundManager.shared.play(.spin)
         } else if hazard.name == "cans" {
             racer.applySpin(duration: 0.6)
-            racer.speed *= 0.7
+            racer.driveSpeed *= 0.7
             SoundManager.shared.play(.collision)
         }
 

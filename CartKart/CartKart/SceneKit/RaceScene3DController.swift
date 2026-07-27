@@ -287,7 +287,7 @@ final class RaceScene3DController: ObservableObject {
         let node = racerNodes[index]
         node.position = SCNVector3(racer.position.x, 0, -racer.position.y)
         node.eulerAngles = SCNVector3(0, -racer.zRotation + .pi / 2, 0)
-        CartModelBuilder.updateParticles(on: node, speed: racer.speed, drifting: racer.driftFactor > 0.1)
+        CartModelBuilder.updateParticles(on: node, speed: racer.driveSpeed, drifting: racer.driftFactor > 0.1)
         CartModelBuilder.updateHeldItem(on: node, item: racer.heldPowerUp)
     }
 
@@ -339,7 +339,7 @@ final class RaceScene3DController: ObservableObject {
     private func keepOnTrack(_ racer: CartRacer) {
         if !track.isOnTrack(racer.position) {
             racer.position = track.nearestTrackPoint(from: racer.position)
-            racer.speed *= 0.6
+            racer.driveSpeed *= 0.6
             SoundManager.shared.play(.collision)
         }
     }
@@ -365,7 +365,7 @@ final class RaceScene3DController: ObservableObject {
     private func finishRacer(_ racer: CartRacer) {
         racer.finished = true
         racer.finishTime = raceTime
-        racer.speed = 0
+        racer.driveSpeed = 0
         finishOrder.append(racer)
         SoundManager.shared.play(.raceFinish)
 

@@ -212,7 +212,7 @@ final class InputManager {
     func brake(for slot: Int) -> Bool { playerInputs[slot].brake }
     func drift(for slot: Int) -> Bool { playerInputs[slot].drift }
 
-    mutating func consumeItemTap(for slot: Int) -> Bool {
+    func consumeItemTap(for slot: Int) -> Bool {
         playerInputs[slot].consumeItemTap()
     }
 

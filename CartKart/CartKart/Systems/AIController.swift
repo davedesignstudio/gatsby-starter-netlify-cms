@@ -37,7 +37,7 @@ final class AIController {
 
         let steer = max(-1, min(1, angleDiff * 1.6 + steerBias))
         let accelerate = abs(angleDiff) < 1.2
-        let drift = abs(angleDiff) > 0.7 && racer.speed > 140
+        let drift = abs(angleDiff) > 0.7 && racer.driveSpeed > 140
 
         lastSteer = steer
         lastAccelerate = accelerate
