@@ -247,7 +247,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 
         for offset in stride(from: -50, through: 50, by: 20) {
             let checker = SKShapeNode(rectOf: CGSize(width: 10, height: 8))
-            checker.fillColor = offset.truncatingRemainder(dividingBy: 40) == 0 ? .black : .white
+            checker.fillColor = offset % 40 == 0 ? .black : .white
             checker.strokeColor = .clear
             checker.position = CGPoint(x: offset, y: 0)
             line.addChild(checker)
@@ -559,11 +559,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         let masks = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
-        if masks.contains(PhysicsCategory.itemBox) {
+        if (masks & PhysicsCategory.itemBox) != 0 {
             handleItemBoxContact(contact)
         }
 
-        if masks.contains(PhysicsCategory.hazard) {
+        if (masks & PhysicsCategory.hazard) != 0 {
             handleHazardContact(contact)
         }
     }

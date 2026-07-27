@@ -153,7 +153,7 @@ struct PlayerInputState {
         return itemTapPending
     }
 
-    var steer: CGFloat { joystick.vector.x }
+    var steer: CGFloat { joystick.vector.dx }
     var accelerate: Bool { accelerateButton.isPressed || joystick.vector.dy > 0.35 }
     var brake: Bool { joystick.vector.dy < -0.35 }
     var drift: Bool { driftButton.isPressed }
