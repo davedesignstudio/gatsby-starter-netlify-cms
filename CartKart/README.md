@@ -56,6 +56,14 @@ Dynamic track lighting and spotlights on the midnight track.
 3. Select iPhone simulator or device, press Run (⌘R)
 4. On the menu, configure mode, characters, cup/track, players, and graphics
 
+### Build from terminal (macOS)
+```bash
+cd CartKart
+./scripts/build-ios.sh
+```
+
+GitHub Actions runs the same simulator build on every push to `CartKart/`.
+
 ## Menu Options
 | Row | Cycles through |
 |-----|----------------|
