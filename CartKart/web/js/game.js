@@ -62,12 +62,11 @@ export class Game {
 
   resize() {
     const dpr = getPixelRatio();
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    this.canvas.width = w * dpr;
-    this.canvas.height = h * dpr;
-    this.canvas.style.width = `${w}px`;
-    this.canvas.style.height = `${h}px`;
+    const w = this.canvas.clientWidth || window.innerWidth;
+    const h = this.canvas.clientHeight || window.innerHeight;
+    if (w < 1 || h < 1) return;
+    this.canvas.width = Math.round(w * dpr);
+    this.canvas.height = Math.round(h * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.w = w;
     this.h = h;
@@ -104,7 +103,6 @@ export class Game {
   }
 
   onMenuClick(e) {
-    if (this.mobile) return;
     if (this.state !== 'menu' && this.state !== 'results' && this.state !== 'cupresults') return;
     const r = this.canvas.getBoundingClientRect();
     const x = (e.clientX - r.left) * (this.w / r.width);
@@ -112,7 +110,7 @@ export class Game {
     const hit = Object.entries(this.menuRects).find(([, rect]) => x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h);
     if (!hit) return;
     this.audio.play('menu');
-    this.handleMenuAction(hit[0]);
+    this.handleMenuAction(normalizeMenuAction(hit[0]));
   }
 
   handleMenuAction(action) {
@@ -373,7 +371,6 @@ export class Game {
     let y = this.h * (mobile ? 0.4 : 0.42);
     rows.forEach(([id, text]) => {
       const rect = { x: this.w / 2 - rowW / 2, y: y - rowH / 2 + 2, w: rowW, h: rowH };
-      this.menuRects[`menu_${id}`] = rect;
       this.menuRects[id] = rect;
       roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 10);
       ctx.fillStyle = 'rgba(255,255,255,0.08)';
@@ -388,7 +385,6 @@ export class Game {
     });
 
     const startRect = { x: this.w / 2 - rowW / 2, y: y + 10, w: rowW, h: mobile ? 54 : 50 };
-    this.menuRects.menu_start = startRect;
     this.menuRects.start = startRect;
     roundRect(ctx, startRect.x, startRect.y, startRect.w, startRect.h, 14);
     ctx.fillStyle = '#2e9ef2';
@@ -406,7 +402,7 @@ export class Game {
       ctx.fillText('Keyboard: WASD/Arrows • Space=GO • Shift=DRIFT • E=Item', this.w / 2, this.h - 24);
       ctx.fillText('6 tracks • 5 characters • cup mode • touch controls', this.w / 2, this.h - 8);
     }
-    this.input.setTouchRects(this.menuRects);
+    this.input.setTouchRects(toTouchMenuRects(this.menuRects));
   }
 
   renderRace(ctx) {
@@ -464,8 +460,6 @@ export class Game {
     this.menuRects = {};
     this.menuRects.menu = { x: this.w / 2 - btnW / 2, y: this.h - 170, w: btnW, h: btnH };
     this.menuRects.retry = { x: this.w / 2 - btnW / 2, y: this.h - 110, w: btnW, h: btnH };
-    this.menuRects.menu_menu = this.menuRects.menu;
-    this.menuRects.menu_retry = this.menuRects.retry;
     [['menu', 'MAIN MENU'], ['retry', this.cupSession && !this.cupSession.done ? 'NEXT RACE' : 'RACE AGAIN']].forEach(([id, label]) => {
       const rect = this.menuRects[id];
       roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 12);
@@ -476,7 +470,7 @@ export class Game {
       ctx.textAlign = 'center';
       ctx.fillText(label, this.w / 2, rect.y + 29);
     });
-    this.input.setTouchRects(this.menuRects);
+    this.input.setTouchRects(toTouchMenuRects(this.menuRects));
   }
 
   renderCupResults(ctx) {
@@ -508,7 +502,6 @@ export class Game {
     const btnW = this.mobile ? Math.min(280, this.w - 48) : 240;
     const btnH = this.mobile ? 50 : 46;
     this.menuRects = { menu: { x: this.w / 2 - btnW / 2, y: this.h - 90, w: btnW, h: btnH } };
-    this.menuRects.menu_menu = this.menuRects.menu;
     const rect = this.menuRects.menu;
     roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 12);
     ctx.fillStyle = 'rgba(255,255,255,0.12)';
@@ -517,7 +510,7 @@ export class Game {
     ctx.font = '700 16px Avenir, system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('MAIN MENU', this.w / 2, rect.y + 29);
-    this.input.setTouchRects(this.menuRects);
+    this.input.setTouchRects(toTouchMenuRects(this.menuRects));
   }
 }
 
@@ -529,4 +522,16 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.arcTo(x, y + h, x, y, r);
   ctx.arcTo(x, y, x + w, y, r);
   ctx.closePath();
+}
+
+function normalizeMenuAction(action) {
+  return action.startsWith('menu_') ? action.slice(5) : action;
+}
+
+function toTouchMenuRects(menuRects) {
+  const touch = {};
+  for (const [key, rect] of Object.entries(menuRects)) {
+    touch[`menu_${key}`] = rect;
+  }
+  return touch;
 }

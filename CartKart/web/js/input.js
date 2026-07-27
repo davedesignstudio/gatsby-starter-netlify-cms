@@ -8,6 +8,7 @@ export class Input {
     this.itemTap = false;
     this.touchRects = {};
     this.menuTap = null;
+    this.pendingMenuPoint = null;
 
     window.addEventListener('keydown', (e) => {
       this.keys.add(e.code);
@@ -32,11 +33,11 @@ export class Input {
 
   canvasPoint(e, touch) {
     const r = this.canvas.getBoundingClientRect();
-    const sx = this.canvas.width / r.width;
-    const sy = this.canvas.height / r.height;
+    const scaleX = r.width > 0 ? this.canvas.clientWidth / r.width : 1;
+    const scaleY = r.height > 0 ? this.canvas.clientHeight / r.height : 1;
     return {
-      x: (touch.clientX - r.left) * sx,
-      y: (touch.clientY - r.top) * sy,
+      x: (touch.clientX - r.left) * scaleX,
+      y: (touch.clientY - r.top) * scaleY,
     };
   }
 
@@ -70,6 +71,7 @@ export class Input {
       if (start) {
         const menuHit = this.consumeMenuTap(p.x, p.y);
         if (menuHit) this.menuTap = menuHit;
+        else this.pendingMenuPoint = p;
       }
       if (this.joystick.id === t.identifier && this.joystick.active) {
         const dx = p.x - this.joystick.ox;
@@ -90,6 +92,14 @@ export class Input {
 
   onTouchEnd(e) {
     for (const t of e.changedTouches) {
+      if (t.clientX != null && t.clientY != null && this.pendingMenuPoint) {
+        const p = this.canvasPoint(e, t);
+        const menuHit = this.consumeMenuTap(p.x, p.y);
+        if (menuHit) this.menuTap = menuHit;
+        this.pendingMenuPoint = null;
+      } else if (this.pendingMenuPoint && t.identifier === 0) {
+        this.pendingMenuPoint = null;
+      }
       if (t.identifier === this.joystick.id) {
         this.joystick.active = false;
         this.joystick.x = 0;
@@ -122,7 +132,9 @@ export class Input {
 
   consumeMenuTap(x, y) {
     for (const [name, rect] of Object.entries(this.touchRects)) {
-      if (name.startsWith('menu_') && this.inRect({ x, y }, rect)) return name.replace('menu_', '');
+      if (name.startsWith('menu_') && this.inRect({ x, y }, rect)) {
+        return name.slice(5);
+      }
     }
     return null;
   }

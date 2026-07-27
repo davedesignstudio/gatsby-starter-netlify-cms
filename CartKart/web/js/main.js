@@ -16,18 +16,11 @@ document.body.addEventListener('click', unlockAudio, { once: true });
 
 if (isMobile) {
   const hint = document.getElementById('rotate-hint');
-  const dismiss = document.getElementById('rotate-dismiss');
-  const dismissed = sessionStorage.getItem('cartkart-rotate-dismissed') === '1';
 
   function updateRotateHint() {
     const portrait = window.innerHeight > window.innerWidth;
-    if (hint) hint.hidden = !portrait || dismissed;
+    if (hint) hint.hidden = !portrait;
   }
-
-  dismiss?.addEventListener('click', () => {
-    sessionStorage.setItem('cartkart-rotate-dismissed', '1');
-    if (hint) hint.hidden = true;
-  });
 
   window.addEventListener('resize', updateRotateHint);
   window.addEventListener('orientationchange', updateRotateHint);
